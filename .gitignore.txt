@@ -1,2 +1,2 @@
-data/processed/*
-data/raw_files/*
+data/processed/
+data/raw_files/
