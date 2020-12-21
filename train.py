@@ -6,11 +6,14 @@ import os.path as osp
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2' 
 import tensorflow as tf
 
-file_path = osp.dirname(osp.realpath(__file__))
+gpu_devices = tf.config.list_physical_devices('gpu') 
+if len(gpu_devices) > 0:
+    tf.config.experimental.set_memory_growth(gpu_devices[0], True)
 
 from tensorflow.keras.optimizers import Adam
 from tensorflow.keras.losses import MeanSquaredError
 
+file_path = osp.dirname(osp.realpath(__file__))
 
 ################################################
 # Setup Deafult Variabls                       # 
@@ -129,15 +132,39 @@ for batch in loader_train:
     target = target.reshape(-1, 1)
     out    = train_step(inputs, target)
     loss  += out
+    current_batch += 1 
+    print(f"completed: \t {current_batch} \t / {loader_train.steps_per_epoch} \t current_loss: {out}", end ='\r' )
     if current_batch == loader_train.steps_per_epoch:
-        print('Loss: {}'.format(loss / loader_train.steps_per_epoch))
+        print('\n Loss: {}'.format(loss / loader_train.steps_per_epoch))
         loss = 0
         current_batch = 0
 
+print("Fitting done")
+
+################################################
+# Test Model                                   # 
+################################################
+
+print("Testing model")
+
+loss = 0
+current_batch = 0 
+for batch in loader_test:
+    inputs, target = batch
+    target = target.reshape(-1, 1)
+    out    = train_step(inputs, target)
+    loss  += out
+    current_batch += 1
+    # current_batch += 1 
+    print(f"completed: \t {current_batch} \t / {loader_test.steps_per_epoch} \t current_loss: {out}", end ='\r' )
 
 
+print(f"Done, test loss:{lost / loader_test.steps_per_epoch}")
 
+save_path = osp.join(file_path, "models", Model[:-3])
+model.save(save_path)
 
+print("Model saved")
 
 
 
