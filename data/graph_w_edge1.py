@@ -148,7 +148,7 @@ if __name__ == "__main__":
         print("Folder created for raw files, please add some before continuing")
         sys.exit()
 
-    if os.path.isdir(osp.join(path), "processed", "graph_w_edge1"):
+    if os.path.isdir(osp.join(path, "processed", "graph_w_edge1")):
         shutil.rmtree(osp.join(path, "processed", "graph_w_edge1"))
     if len(sys.argv) == 2:
         n_data = int(sys.argv[1])

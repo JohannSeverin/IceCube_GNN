@@ -93,7 +93,7 @@ idx_tr, idx_test  = np.split(idxs, [split])
 dataset_train, dataset_test = data[idx_tr], data[idx_test]
 
 loader_train  = DisjointLoader(dataset_train, epochs = epochs, batch_size = batch_size)
-loader_test   = DisjointLoader(dataset_test)
+loader_test   = DisjointLoader(dataset_test, batch_size = batch_size, epochs = 1)
 
 
 
@@ -126,6 +126,7 @@ def train_step(inputs, target):
 print("Fitting model")
 current_batch = 0
 loss          = 0
+current_epoch = 0
 
 for batch in loader_train:
     inputs, target = batch
@@ -133,9 +134,10 @@ for batch in loader_train:
     out    = train_step(inputs, target)
     loss  += out
     current_batch += 1 
-    print(f"completed: \t {current_batch} \t / {loader_train.steps_per_epoch} \t current_loss: {out}", end ='\r' )
+    print(f"Completed: \t {current_batch} \t / {loader_train.steps_per_epoch} \t current_loss: {out}", end ='\r' )
     if current_batch == loader_train.steps_per_epoch:
-        print('\n Loss: {}'.format(loss / loader_train.steps_per_epoch))
+        current_epoch += 1
+        print(f"\n Loss after epoch {current_epoch} of {epochs}: {loss / loader_train.steps_per_epoch}")
         loss = 0
         current_batch = 0
 
@@ -152,16 +154,17 @@ current_batch = 0
 for batch in loader_test:
     inputs, target = batch
     target = target.reshape(-1, 1)
-    out    = train_step(inputs, target)
+    predictions = model(inputs)
+    out    = loss_func(predictions, target)
     loss  += out
     current_batch += 1
-    # current_batch += 1 
     print(f"completed: \t {current_batch} \t / {loader_test.steps_per_epoch} \t current_loss: {out}", end ='\r' )
 
-
-print(f"Done, test loss:{lost / loader_test.steps_per_epoch}")
+    
+print(f" \n Done, test loss:{loss / loader_test.steps_per_epoch}")
 
 save_path = osp.join(file_path, "models", Model[:-3])
+os.mkdir(save_path)
 model.save(save_path)
 
 print("Model saved")
