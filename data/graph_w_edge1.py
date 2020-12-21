@@ -139,8 +139,17 @@ def calculate_edge_attributes(x, n_neighbors):
 
 if __name__ == "__main__":
     print("Removing current data folder")
-    if os.path.isdir(osp.join(osp.dirname(osp.realpath(__file__)), "processed", "graph_w_edge1")):
-        shutil.rmtree(osp.join(osp.dirname(osp.realpath(__file__)), "processed", "graph_w_edge1"))
+    
+    path = osp.dirname(osp.realpath(__file__))
+    if not "processed" in os.listdir(path):
+        os.mkdir(osp.join(path, "processed"))
+    if not "raw_files" in os.listdir(path):
+        os.mkdir(osp.join(path, "processed"))
+        print("Folder created for raw files, please add some before continuing")
+        sys.exit()
+
+    if os.path.isdir(osp.join(path), "processed", "graph_w_edge1"):
+        shutil.rmtree(osp.join(path, "processed", "graph_w_edge1"))
     if len(sys.argv) == 2:
         n_data = int(sys.argv[1])
         print(f"Preparing dataset with {n_data} graphs")
