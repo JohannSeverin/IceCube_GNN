@@ -12,6 +12,7 @@ if len(gpu_devices) > 0:
 
 from tensorflow.keras.optimizers import Adam
 from tensorflow.keras.losses import MeanSquaredError
+from tensorflow.keras.models import load_model
 
 file_path = osp.dirname(osp.realpath(__file__))
 
@@ -36,6 +37,7 @@ parser.add_argument("--epochs", action = "store", type = int, default = epochs)
 parser.add_argument("--batch_size", action = "store", type = int, default = batch_size)
 parser.add_argument("--learning_rate", action = "store", type = float, default = learning_rate)
 parser.add_argument("--seed", action = "store", default = 42)
+parser.add_argument("--name", action = "store", default = None, type = str)
 input = parser.parse_args(sys.argv[1:])
 
 
@@ -57,8 +59,15 @@ if Data[-3:] != ".py":
     Data += ".py"
 
 # Check if the model is valid
-if Model not in os.listdir(osp.join(file_path, "models")):
+if Model[:-3] in os.listdir(osp.join(file_path, "models", "saved_models")):
+    model = load_model(osp.join(file_path, "models", "saved_models", Model[:-3]))
+    print("Loaded existing model")
+    loaded_model = True
+elif Model not in os.listdir(osp.join(file_path, "models")):
     sys.exit(f"Model file {Model} not found in models/")
+else:
+    model = None
+    loaded_model = False
 
 if Data not in os.listdir(osp.join(file_path, "data")):
     sys.exit(f"Data file {Data} not found in data/")
@@ -71,8 +80,10 @@ if Data not in os.listdir(osp.join(file_path, "data")):
 sys.path.append(osp.join(file_path, "data"))
 data = getattr(importlib.import_module(Data[:-3]), Data[:-3])()
 
-sys.path.append(osp.join(file_path, "models"))
-model = getattr(importlib.import_module(Model[:-3]), "model")()
+if not loaded_model:
+    sys.path.append(osp.join(file_path, "models"))
+    model = getattr(importlib.import_module(Model[:-3]), "model")()
+    print("Loaded class")
 
 
 
@@ -163,10 +174,16 @@ for batch in loader_test:
     
 print(f" \n Done, test loss:{loss / loader_test.steps_per_epoch}")
 
-save_path = osp.join(file_path, "models", Model[:-3])
-os.mkdir(save_path)
-model.save(save_path)
 
+if parser.name:
+    save_path = osp.join(file_path, "models", "saved_models", parser.name)
+else:
+    save_path = osp.join(file_path, "models", "saved_models", Model[:-3])
+
+if not os.path.exists(save_path):
+    os.mkdir(save_path)
+
+model.save(save_path)
 print("Model saved")
 
 
