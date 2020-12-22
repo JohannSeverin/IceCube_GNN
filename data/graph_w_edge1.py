@@ -56,7 +56,7 @@ class graph_w_edge1(Dataset):
                     limit = self.n_data - downloaded
                 else:
                     limit = distinct[self.n_data - downloaded]
-                if not seq:
+                if not type(seq) == None:
                     seq     = read_sql(f"select * from sequential where event_no < {limit};", con)
                     sca     = read_sql(f"select * from scalar where event_no < {limit};", con)
                 else:

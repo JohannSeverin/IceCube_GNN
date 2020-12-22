@@ -1,4 +1,4 @@
-import os, sys, argparse, importlib
+import os, sys, argparse, importlib, time
 
 import numpy as np
 import os.path as osp
@@ -8,6 +8,7 @@ import tensorflow as tf
 
 gpu_devices = tf.config.list_physical_devices('gpu') 
 if len(gpu_devices) > 0:
+    print("GPU detected")
     tf.config.experimental.set_memory_growth(gpu_devices[0], True)
 
 from tensorflow.keras.optimizers import Adam
@@ -86,7 +87,7 @@ if not loaded_model:
     print("Loaded class")
 
 
-
+model.compile()
 print("Model and data found succesfully")
 
 ################################################
@@ -138,6 +139,7 @@ print("Fitting model")
 current_batch = 0
 loss          = 0
 current_epoch = 0
+epoch_start   = time.time()
 
 for batch in loader_train:
     inputs, target = batch
@@ -145,10 +147,11 @@ for batch in loader_train:
     out    = train_step(inputs, target)
     loss  += out
     current_batch += 1 
-    print(f"Completed: \t {current_batch} \t / {loader_train.steps_per_epoch} \t current_loss: {out}", end ='\r' )
+    # print(f"Completed: \t {current_batch} \t / {loader_train.steps_per_epoch} \t current_loss: {out}", end ='\r' )
     if current_batch == loader_train.steps_per_epoch:
         current_epoch += 1
-        print(f"\n Loss after epoch {current_epoch} of {epochs}: {loss / loader_train.steps_per_epoch}")
+        print(f"Loss after epoch {current_epoch} of {epochs}: {loss / loader_train.steps_per_epoch} \t in {time.time() - epoch_start:.1f} seconds")
+        epoch_start = time.time()
         loss = 0
         current_batch = 0
 
@@ -172,11 +175,11 @@ for batch in loader_test:
     print(f"completed: \t {current_batch} \t / {loader_test.steps_per_epoch} \t current_loss: {out}", end ='\r' )
 
     
-print(f" \n Done, test loss:{loss / loader_test.steps_per_epoch}")
+print(f" \n Done, test loss:{loss / loader_test.steps_per_epoch:.3f}")
 
 
-if parser.name:
-    save_path = osp.join(file_path, "models", "saved_models", parser.name)
+if input.name:
+    save_path = osp.join(file_path, "models", "saved_models", input.name)
 else:
     save_path = osp.join(file_path, "models", "saved_models", Model[:-3])
 

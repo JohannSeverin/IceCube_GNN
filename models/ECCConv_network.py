@@ -9,6 +9,7 @@ from spektral.layers import ECCConv
 from spektral.layers.pooling.global_pool import GlobalSumPool 
 
 from tensorflow.keras import Model, Input
+from tensorflow.keras.layers import Dense
 
 
 
@@ -28,9 +29,11 @@ class model(Model):
 
         # Define layers of the model
         self.ECC1  = ECCConv(16, [hidden_states] * 2, n_out = hidden_states, activation = "relu")
-        self.ECC2  = ECCConv(32, [hidden_states] * 2, n_out = hidden_states, activation = "relu")
+        self.GCN   = ECCConv(32, n_out = hidden_states, activation = "relu")
         self.GCN   = GCNConv(32, activation = "relu")
         self.Pool  = GlobalSumPool()
+        self.d1    = Dense(16)
+        self.d2    = Dense(1)
 
     def call(self, inputs):
         x, a, e, i = inputs
@@ -38,6 +41,8 @@ class model(Model):
         x = self.ECC2([x, a, e])
         x = self.GCN([x, a])
         x = self.Pool([x, i])
+        x = self.d1(x)
+        x = self.d2(x)
         return x
 
         
