@@ -147,10 +147,11 @@ for batch in loader_train:
     out    = train_step(inputs, target)
     loss  += out
     current_batch += 1 
-    # print(f"Completed: \t {current_batch} \t / {loader_train.steps_per_epoch} \t current_loss: {out}", end ='\r' )
+    print(f"Completed: \t {current_batch} \t / {loader_train.steps_per_epoch} \t current_loss: {out:.4f}", end ='\r' )
+    sys.stdout.flush()
     if current_batch == loader_train.steps_per_epoch:
         current_epoch += 1
-        print(f"Loss after epoch {current_epoch} of {epochs}: {loss / loader_train.steps_per_epoch} \t in {time.time() - epoch_start:.1f} seconds")
+        print(f"Loss after epoch {current_epoch} of {epochs}: {loss / loader_train.steps_per_epoch:.4f} \t in {time.time() - epoch_start:.1f} seconds")
         epoch_start = time.time()
         loss = 0
         current_batch = 0
@@ -172,7 +173,7 @@ for batch in loader_test:
     out    = loss_func(predictions, target)
     loss  += out
     current_batch += 1
-    print(f"completed: \t {current_batch} \t / {loader_test.steps_per_epoch} \t current_loss: {out}", end ='\r' )
+    print(f"completed: \t {current_batch} \t / {loader_test.steps_per_epoch} \t current_loss: {out}", end ='' )
 
     
 print(f" \n Done, test loss:{loss / loader_test.steps_per_epoch:.3f}")
