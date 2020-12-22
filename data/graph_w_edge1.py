@@ -101,21 +101,20 @@ class graph_w_edge1(Dataset):
 
         print("Saving file")
         start_time = time.time()
-        with open(osp.join(self.path, "graph_w_edge1.dat"), 'wb') as file:
-            pickle.dump(graph_list, file)
+        graph_list =np.array(graph_list, dtype = object)
+        for i in tqdm(range(0, len(graph_list), 10000)):
+            save_now = graph_list[i:i+10000]
+            np.savez(osp.join(self.path, f"graphs{i}"), save_now)
         print(f"Data saved in {time.time() - start_time:.1f} seconds")
         print(f"Total time to create dataset: {time.time() - download_start:.1f} seconds")
 
     def read(self):
-        file_path = osp.join(self.path, "graph_w_edge1.dat")
-        with open(file_path, 'rb') as file:
-            graph_list = pickle.load(file)
-        
         print("Loading data to memory")
         output = []
-        for tup in graph_list:
-            x, a, e, y = tup
-            output.append(Graph(x, a, e, y))
+        for file in tqdm(os.listdir(self.path)):
+            graphs = np.load(osp.join(self.path, file), allow_pickle = True)
+            for g in graphs["arr_0"]:
+                output.append(Graph(*g))
         return output
         
 
