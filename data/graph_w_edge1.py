@@ -1,6 +1,6 @@
 import numpy as np
 import os, sqlite3, pickle, sys, gzip, shutil, time
-from tqdm import tqdm
+from tqdm.notebook import tqdm
 import os.path as osp
 
 from pandas import read_sql, concat
@@ -52,10 +52,10 @@ class graph_w_edge1(Dataset):
             with sqlite3.connect(osp.join(db_folder, file)) as con:
                 print(f"Reading {file}")
                 distinct = read_sql(f"select distinct event_no from sequential", con).event_no
-                if len(distinct) > self.n_data - downloaded:
-                    limit = self.n_data - downloaded
+                if len(distinct) <= self.n_data - downloaded:
+                    limit = distinct.max()
                 else:
-                    limit = distinct[self.n_data - downloaded]
+                    limit = distinct.sort_values()[self.n_data - downloaded]
                 if type(seq) == None:
                     seq     = read_sql(f"select * from sequential where event_no < {limit};", con)
                     sca     = read_sql(f"select * from scalar where event_no < {limit};", con)
@@ -64,7 +64,7 @@ class graph_w_edge1(Dataset):
                     sca     = concat([sca, read_sql(f"select * from scalar where event_no < {limit};", con)])
             downloaded = len(seq.event_no.unique())
             if downloaded >= self.n_data:
-                print(f"Succesfully loaded data for {n_data} graphs")
+                print(f"Succesfully loaded data for {downloaded} graphs")
                 break
             if file == db_list[-1]:
                 print(f"All raw  data loaded: {downloaded} graphs")
@@ -97,7 +97,7 @@ class graph_w_edge1(Dataset):
             a, e = calculate_edge_attributes(x, n_neighbors = self.n_neighbors)
 
             graph_list.append((x, a, e, y))
-            if (i % 10000 == 0 and i > 0) or i == len(ids):
+            if (i % 10000 == 0 and i > 0) or i == len(ids) - 1:
               graph_list =np.array(graph_list, dtype = object)
               np.savez(osp.join(self.path, f"graphs{len(os.listdir(self.path))}"), graph_list)
               graph_list = []

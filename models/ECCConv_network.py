@@ -10,6 +10,7 @@ from spektral.layers.pooling.global_pool import GlobalSumPool
 
 from tensorflow.keras import Model, Input
 from tensorflow.keras.layers import Dense
+from tensorflow.keras.activation import LeakyRelU
 
 
 
@@ -35,7 +36,7 @@ class model(Model):
         x = self.GCN1([x, a])
         x = self.GCN2([x, a])
         x = self.Pool([x, i])
-        x = self.d1(x)
+        x = LeakyReLU(self.d1(x), alpha = 0.15)
         x = self.d2(x)
         return x
 
