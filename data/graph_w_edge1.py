@@ -52,16 +52,16 @@ class graph_w_edge1(Dataset):
             with sqlite3.connect(osp.join(db_folder, file)) as con:
                 print(f"Reading {file}")
                 distinct = read_sql(f"select distinct event_no from sequential", con).event_no
-                if len(distinct) < self.n_data - downloaded:
+                if len(distinct) > self.n_data - downloaded:
                     limit = self.n_data - downloaded
                 else:
                     limit = distinct[self.n_data - downloaded]
-                if not type(seq) == None:
+                if type(seq) == None:
                     seq     = read_sql(f"select * from sequential where event_no < {limit};", con)
                     sca     = read_sql(f"select * from scalar where event_no < {limit};", con)
                 else:
-                    seq     = concat(seq, read_sql(f"select * from sequential where event_no < {limit};", con))
-                    sca     = concat(sca, read_sql(f"select * from scalar where event_no < {limit};", con))
+                    seq     = concat([seq, read_sql(f"select * from sequential where event_no < {limit};", con)])
+                    sca     = concat([sca, read_sql(f"select * from scalar where event_no < {limit};", con)])
             downloaded = len(seq.event_no.unique())
             if downloaded >= self.n_data:
                 print(f"Succesfully loaded data for {n_data} graphs")
@@ -89,29 +89,33 @@ class graph_w_edge1(Dataset):
         ids, start, count = np.unique(idx_nodes, return_index = True, return_counts = True)
 
         graph_list = []
-
-        for id, s, c in tqdm(zip(ids, start, count), total = len(ids)):
+        # Just add a range for the y array, shou
+        for i, id, s, c in tqdm(zip(range(len(ids)), ids, start, count), total = len(ids)):
             x = nodes_arr[s: s + c + 1 , :]
-            y = targ_arr[idx_targ == id]
+            y = targ_arr[i]
 
             a, e = calculate_edge_attributes(x, n_neighbors = self.n_neighbors)
 
             graph_list.append((x, a, e, y))
+            if (i % 10000 == 0 and i > 0) or i == len(ids):
+              graph_list =np.array(graph_list, dtype = object)
+              np.savez(osp.join(self.path, f"graphs{len(os.listdir(self.path))}"), graph_list)
+              graph_list = []
 
 
-        print("Saving file")
-        start_time = time.time()
-        graph_list =np.array(graph_list, dtype = object)
-        for i in tqdm(range(0, len(graph_list), 10000)):
-            save_now = graph_list[i:i+10000]
-            np.savez(osp.join(self.path, f"graphs{i}"), save_now)
-        print(f"Data saved in {time.time() - start_time:.1f} seconds")
+        # print("Saving file")
+        # start_time = time.time()
+        # graph_list =np.array(graph_list, dtype = object)
+        # for i in tqdm(range(0, len(graph_list), 10000)):
+        #     save_now = graph_list[i:i+10000]
+        #     np.savez(osp.join(self.path, f"graphs{i}"), save_now)
+        # print(f"Data saved in {time.time() - start_time:.1f} seconds")
         print(f"Total time to create dataset: {time.time() - download_start:.1f} seconds")
 
     def read(self):
         print("Loading data to memory")
         output = []
-        for file in tqdm(os.listdir(self.path)):
+        for file in tqdm(os.listdir(self.path), position = 0, leave = True):
             graphs = np.load(osp.join(self.path, file), allow_pickle = True)
             for g in graphs["arr_0"]:
                 output.append(Graph(*g))
