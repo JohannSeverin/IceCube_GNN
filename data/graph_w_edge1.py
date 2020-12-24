@@ -1,6 +1,6 @@
 import numpy as np
 import os, sqlite3, pickle, sys, gzip, shutil, time
-from tqdm.notebook import tqdm
+from tqdm import tqdm
 import os.path as osp
 
 from pandas import read_sql, concat

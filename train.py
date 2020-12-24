@@ -1,7 +1,5 @@
 import os, sys, argparse, importlib, time
 
-from tqdm.notebook import tqdm
-
 import numpy as np
 import os.path as osp
 
@@ -41,6 +39,7 @@ parser.add_argument("--batch_size", action = "store", type = int, default = batc
 parser.add_argument("--learning_rate", action = "store", type = float, default = learning_rate)
 parser.add_argument("--seed", action = "store", default = 42)
 parser.add_argument("--name", action = "store", default = None, type = str)
+parser.add_argument("--notebook", action = "store", default = False, type = bool)
 input = parser.parse_args(sys.argv[1:])
 
 
@@ -55,6 +54,12 @@ batch_size    = input.batch_size
 epochs        = input.epochs
 train_size    = input.train_size
 seed          = input.seed
+
+if input.notebook:
+    print("Notebook style loading bars")
+    from tqdm.notebook import tqdm
+else:
+    from tqdm import tqdm
 
 if Model[-3:] != ".py":
     Model += ".py"
