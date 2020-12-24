@@ -1,5 +1,7 @@
 import os, sys, argparse, importlib, time
 
+from tqdm.notebook import tqdm
+
 import numpy as np
 import os.path as osp
 
@@ -135,11 +137,12 @@ def train_step(inputs, target):
     opt.apply_gradients(zip(gradients, model.trainable_variables))
     return loss
 
-print("Fitting model")
+print("Fitting model \n")
 current_batch = 0
 loss          = 0
 current_epoch = 0
 epoch_start   = time.time()
+pbar          = tqdm(total = loader_train.steps_per_epoch, position = 0, leave = True)
 
 for batch in loader_train:
     inputs, target = batch
@@ -147,11 +150,15 @@ for batch in loader_train:
     out    = train_step(inputs, target)
     loss  += out
     current_batch += 1 
-    print(f"Completed: \t {current_batch} \t / {loader_train.steps_per_epoch} \t current_loss: {out:.4f}", end ='\r' )
+    pbar.update(1)
+    pbar.set_description(f"Last loss: {out:.4f}")
+    # print(f"Completed: \t {current_batch} \t / {loader_train.steps_per_epoch} \t current_loss: {out:.4f}", end ='\r' )
     sys.stdout.flush()
     if current_batch == loader_train.steps_per_epoch:
         current_epoch += 1
         print(f"Loss after epoch {current_epoch} of {epochs}: {loss / loader_train.steps_per_epoch:.4f} \t in {time.time() - epoch_start:.1f} seconds")
+        pbar          = tqdm(total = loader_train.steps_per_epoch, position = 0, leave = True)
+        
         epoch_start = time.time()
         loss = 0
         current_batch = 0
@@ -173,7 +180,7 @@ for batch in loader_test:
     out    = loss_func(predictions, target)
     loss  += out
     current_batch += 1
-    print(f"completed: \t {current_batch} \t / {loader_test.steps_per_epoch} \t current_loss: {out}", end ='' )
+    # print(f"completed: \t {current_batch} \t / {loader_test.steps_per_epoch} \t current_loss: {out}", end ='\r' )
 
     
 print(f" \n Done, test loss:{loss / loader_test.steps_per_epoch:.3f}")
