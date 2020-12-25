@@ -97,6 +97,14 @@ if not loaded_model:
 model.compile()
 print("Model and data found succesfully")
 
+# Setup save path
+if input.name:
+    save_path = osp.join(file_path, "models", "saved_models", input.name)
+else:
+    save_path = osp.join(file_path, "models", "saved_models", Model[:-3])
+
+if not os.path.exists(save_path):
+    os.mkdir(save_path)
 ################################################
 # Split Data                                   # 
 ################################################
@@ -135,7 +143,7 @@ loss_func     = MeanSquaredError()
 @tf.function(input_signature = loader_train.tf_signature(), experimental_relax_shapes = True)
 def train_step(inputs, target):
     with tf.GradientTape() as tape:
-        predictions = model(inputs)
+        predictions = model(inputs, training = True)
         loss        = loss_func(predictions, target)
         loss       += sum(model.losses)
     gradients = tape.gradient(loss, model.trainable_variables)
@@ -156,18 +164,23 @@ for batch in loader_train:
     loss  += out
     current_batch += 1 
     pbar.update(1)
-    pbar.set_description(f"Last loss: {out:.4f}")
+    pbar.set_description(f"Last loss: {loss/current_batch:.4f}")
     # print(f"Completed: \t {current_batch} \t / {loader_train.steps_per_epoch} \t current_loss: {out:.4f}", end ='\r' )
     sys.stdout.flush()
     if current_batch == loader_train.steps_per_epoch:
         current_epoch += 1
         print(f"Loss after epoch {current_epoch} of {epochs}: {loss / loader_train.steps_per_epoch:.4f} \t in {time.time() - epoch_start:.1f} seconds")
-        pbar          = tqdm(total = loader_train.steps_per_epoch, position = 0, leave = True)
         
         epoch_start = time.time()
         loss = 0
         current_batch = 0
+        # current_epoch += 1
+        
+        model.save(save_path)
 
+        if current_epoch != epochs:
+           pbar = tqdm(total = loader_train.steps_per_epoch, position = 0, leave = True)
+        
 print("Fitting done")
 
 ################################################
@@ -190,14 +203,6 @@ for batch in loader_test:
     
 print(f" \n Done, test loss:{loss / loader_test.steps_per_epoch:.3f}")
 
-
-if input.name:
-    save_path = osp.join(file_path, "models", "saved_models", input.name)
-else:
-    save_path = osp.join(file_path, "models", "saved_models", Model[:-3])
-
-if not os.path.exists(save_path):
-    os.mkdir(save_path)
 
 model.save(save_path)
 print("Model saved")
