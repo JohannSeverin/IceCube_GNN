@@ -84,7 +84,7 @@ class graph_w_edge1(Dataset):
         targ_arr  = np.array(sca.loc[:, targets])
 
         nodes_arr  = RobustScaler().fit_transform(nodes_arr)
-        targ_arr  = RobustScaler().fit_transform(targ_arr)
+        # targ_arr  = RobustScaler().fit_transform(targ_arr)
 
         # Find cuts for node_arr
         ids, start, count = np.unique(idx_nodes, return_index = True, return_counts = True)

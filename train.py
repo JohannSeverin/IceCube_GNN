@@ -5,6 +5,7 @@ import os.path as osp
 
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2' 
 import tensorflow as tf
+import tensorflow_probability as tfp
 
 gpu_devices = tf.config.list_physical_devices('gpu') 
 if len(gpu_devices) > 0:
@@ -12,8 +13,9 @@ if len(gpu_devices) > 0:
     tf.config.experimental.set_memory_growth(gpu_devices[0], True)
 
 from tensorflow.keras.optimizers import Adam
-from tensorflow.keras.losses import MeanSquaredError
+from tensorflow.keras.losses import MeanAbsoluteError
 from tensorflow.keras.models import load_model
+
 
 file_path = osp.dirname(osp.realpath(__file__))
 
@@ -131,7 +133,7 @@ loader_test   = DisjointLoader(dataset_test, batch_size = batch_size, epochs = 1
 # ! Can be generalized more !
 
 opt           = Adam(learning_rate = learning_rate)
-loss_func     = MeanSquaredError()
+loss_func     = MeanAbsoluteError()
 
 
 
@@ -148,7 +150,8 @@ def train_step(inputs, target):
         loss       += sum(model.losses)
     gradients = tape.gradient(loss, model.trainable_variables)
     opt.apply_gradients(zip(gradients, model.trainable_variables))
-    return loss
+    margin = tf.cast(predictions, tf.float32) - tf.cast(target, tf.float32)
+    return loss, margin
 
 print("Fitting model \n")
 current_batch = 0
@@ -156,15 +159,19 @@ loss          = 0
 current_epoch = 0
 epoch_start   = time.time()
 pbar          = tqdm(total = loader_train.steps_per_epoch, position = 0, leave = True)
+zs            = []
 
 for batch in loader_train:
     inputs, target = batch
     target = target.reshape(-1, 1)
-    out    = train_step(inputs, target)
+    out, margin  = train_step(inputs, target)
+    zs.append(margin)
+    quantiles  = tfp.stats.percentile(tf.concat(zs, axis = 0), [25, 75])
+    w          = (quantiles[1] - quantiles[0])/1.349
     loss  += out
     current_batch += 1 
     pbar.update(1)
-    pbar.set_description(f"Last loss: {loss/current_batch:.4f}")
+    pbar.set_description(f"Last loss: {loss/current_batch:.4f}; w: {w:.4f}")
     # print(f"Completed: \t {current_batch} \t / {loader_train.steps_per_epoch} \t current_loss: {out:.4f}", end ='\r' )
     sys.stdout.flush()
     if current_batch == loader_train.steps_per_epoch:
@@ -175,7 +182,7 @@ for batch in loader_train:
         loss = 0
         current_batch = 0
         # current_epoch += 1
-        
+        zs = 0
         model.save(save_path)
 
         if current_epoch != epochs:
