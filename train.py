@@ -165,13 +165,12 @@ for batch in loader_train:
     inputs, target = batch
     target = target.reshape(-1, 1)
     out, margin  = train_step(inputs, target)
-    zs.append(margin)
-    quantiles  = tfp.stats.percentile(tf.concat(zs, axis = 0), [25, 75])
+    quantiles  = tfp.stats.percentile(tf.concat(margins, axis = 0), [25, 75])
     w          = (quantiles[1] - quantiles[0])/1.349
     loss  += out
     current_batch += 1 
     pbar.update(1)
-    pbar.set_description(f"Last loss: {loss/current_batch:.4f}; w: {w:.4f}")
+    pbar.set_description(f"Avg_loss: {loss/current_batch:.4f}; w_batch: {w:.4f}")
     # print(f"Completed: \t {current_batch} \t / {loader_train.steps_per_epoch} \t current_loss: {out:.4f}", end ='\r' )
     sys.stdout.flush()
     if current_batch == loader_train.steps_per_epoch:
@@ -198,17 +197,24 @@ print("Testing model")
 
 loss = 0
 current_batch = 0 
+zs = []
 for batch in loader_test:
     inputs, target = batch
     target = target.reshape(-1, 1)
     predictions = model(inputs)
+    margin = tf.cast(predictions, tf.float32) - tf.cast(target, tf.float32)
+    zs.append(margin)
     out    = loss_func(predictions, target)
+
     loss  += out
     current_batch += 1
     # print(f"completed: \t {current_batch} \t / {loader_test.steps_per_epoch} \t current_loss: {out}", end ='\r' )
 
-    
-print(f" \n Done, test loss:{loss / loader_test.steps_per_epoch:.3f}")
+
+quantiles  = tfp.stats.percentile(tf.concat(zs, axis = 0), [25, 75])
+w          = (quantiles[1] - quantiles[0])/1.349
+print(f" \n Done, test loss:{loss / loader_test.steps_per_epoch:.4f}")
+print(f" Accuracy W: {w:.4f})
 
 
 model.save(save_path)
