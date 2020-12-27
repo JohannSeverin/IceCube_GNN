@@ -165,7 +165,7 @@ for batch in loader_train:
     inputs, target = batch
     target = target.reshape(-1, 1)
     out, margin  = train_step(inputs, target)
-    quantiles  = tfp.stats.percentile(tf.concat(margins, axis = 0), [25, 75])
+    quantiles  = tfp.stats.percentile(tf.concat(margin, axis = 0), [25, 75])
     w          = (quantiles[1] - quantiles[0])/1.349
     loss  += out
     current_batch += 1 
@@ -214,7 +214,7 @@ for batch in loader_test:
 quantiles  = tfp.stats.percentile(tf.concat(zs, axis = 0), [25, 75])
 w          = (quantiles[1] - quantiles[0])/1.349
 print(f" \n Done, test loss:{loss / loader_test.steps_per_epoch:.4f}")
-print(f" Accuracy W: {w:.4f})
+print(f"Accuracy W: {w:.4f}")
 
 
 model.save(save_path)
