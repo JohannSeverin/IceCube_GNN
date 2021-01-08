@@ -7,7 +7,7 @@ os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 import tensorflow as tf
 import tensorflow_probability as tfp
 
-gpu_devices = tf.config.list_physical_devices('gpu') 
+gpu_devices = tf.config.list_physical_devices('GPU') 
 if len(gpu_devices) > 0:
     print("GPU detected")
     tf.config.experimental.set_memory_growth(gpu_devices[0], True)
@@ -197,12 +197,14 @@ print("Testing model")
 
 loss = 0
 current_batch = 0 
-zs = []
+zs, ts, ps = [], [], []
 for batch in loader_test:
     inputs, target = batch
     target = target.reshape(-1, 1)
     predictions = model(inputs)
     margin = tf.cast(predictions, tf.float32) - tf.cast(target, tf.float32)
+    ts.append(target)
+    ps.append(predictions)
     zs.append(margin)
     out    = loss_func(predictions, target)
 
@@ -215,6 +217,20 @@ quantiles  = tfp.stats.percentile(tf.concat(zs, axis = 0), [25, 75])
 w          = (quantiles[1] - quantiles[0])/1.349
 print(f" \n Done, test loss:{loss / loader_test.steps_per_epoch:.4f}")
 print(f"Accuracy W: {w:.4f}")
+
+cuts = np.arange(0, 4.5, 0.5)
+t_np = tf.concat(ts, axis = 0).numpy().flatten()
+z_np = tf.concat(zs, axis = 0).numpy().flatten()
+
+
+for i, j in zip(cuts[:-1], cuts[1:]):
+    mask = np.logical_and(t_np > i, t_np < j)
+    perc = np.percentile(z_np[mask], [25, 75])
+    w    = perc[1] - perc[0]
+    w   /= 1.349
+    print(f"Accuracy for {i:.2f} < log(E) < {j:.2f}: w = {w:.4f}, with {np.sum(mask)} events")
+
+
 
 
 model.save(save_path)
