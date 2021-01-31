@@ -15,7 +15,7 @@ import tensorflow as tf
 
 
 features = ["dom_x", "dom_y", "dom_z", "time", "charge_log10"]
-targets  = ["energy_log10", "position_x", "position_y", "position_z", "azimuth", "zenith"]
+targets  = ["energy_log10", "position_x", "position_y", "position_z", "direction_x", "direction_y", "direction_z"]
 
 
 
@@ -75,7 +75,18 @@ class graph_w_edge2(Dataset):
             df_event = read_sql(f"select event_no       from features where event_no >= {start_id} and event_no < {stop_id}", conn)
             df_feat  = read_sql(f"select {feature_call} from features where event_no >= {start_id} and event_no < {stop_id}", conn)
             df_targ  = read_sql(f"select {target_call } from truth    where event_no >= {start_id} and event_no < {stop_id}", conn)
+            
+            transformers = pickle.load(open(osp.join(db_folder, "transformers.pkl"), 'rb'))
+            trans_x      = transformers['features']
+            trans_y      = transformers['truth']
 
+            for col in df_feat.columns:
+                df_feat[col] = trans_x[col].inverse_transform(np.array(df_feat[col]).reshape(1, -1)).T
+
+            for col in df_targ.columns:
+                df_targ[col] = trans_y[col].inverse_transform(np.array(df_targ[col]).reshape(1, -1)).T
+            
+            
 
             # Cut indices
             print("Splitting data to events")
@@ -86,6 +97,8 @@ class graph_w_edge2(Dataset):
             xs          = np.split(x_not_split, np.cumsum(counts)[:-1])
 
             ys          = np.array(df_targ)
+
+
 
             # Generate adjacency matrices
             print("Generating adjacency matrices")

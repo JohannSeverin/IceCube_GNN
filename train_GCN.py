@@ -25,9 +25,9 @@ file_path = osp.dirname(osp.realpath(__file__))
 ################################################
 # Setup Deafult Variabls                       # 
 ################################################
-learning_rate = 5e-5
+learning_rate = 3e-4
 batch_size    = 512
-epochs        = 25
+epochs        = 10
 
 
 
@@ -64,73 +64,53 @@ opt           = Adam(learning_rate = learning_rate)
 
 def loss_func(y_reco, y_true):
     # Energy loss
-    loss      = 0 #tf.reduce_mean(
-    #     tf.abs(
-    #         tf.subtract(
-    #             y_reco[:,0], y_true[:,0]
-    #             )
-    #         )
-    #     )
-    # # Position loss
-    # loss     += tf.reduce_mean(
-    #     tf.sqrt(
-    #         tf.reduce_sum(
-    #             tf.square(
-    #                 tf.subtract(
-    #                     y_reco[:, 1:4], y_true[:, 1:4]
-    #                 )
-    #             ), axis = 1
-    #         )
-    #     )
-    # )
-    # Angle loss
+    loss      = tf.reduce_mean(
+        tf.abs(
+            tf.subtract(
+                y_reco[:,0], y_true[:,0]
+                )
+            )
+        )
+    # Position loss
+    loss     += 1 / 1000 * tf.reduce_mean(
+        tf.sqrt(
+            tf.reduce_sum(
+                tf.square(
+                    tf.subtract(
+                        y_reco[:, 1:4], y_true[:, 1:4]
+                    )
+                ), axis = 1
+            )
+        )
+    )
+
     loss     += tf.reduce_mean(
-        tf.math.acos(
-            tf.sin(y_reco[:, 5]) * tf.sin(y_true[:, 5]) + tf.cos(y_reco[:, 5]) * tf.cos(y_true[:, 5]) * tf.cos(y_true[:,4] - y_reco[:, 4]) 
-        ))
-
-
-
-
-
-    #     tf.sqrt(
-    #         tf.reduce_sum(
-    #             tf.square(
-    #                 tf.subtract(
-    #                     y_reco[:, 1:4], y_true[:, 1:4]
-    #                 )
-    #             ), axis = 1
-    #         )
-    #     )
-    # )
-
-    # loss     += tf.reduce_mean(
-    #     tf.math.log(tf.math.cosh(tf.math.acos(
-    #         tf.math.divide_no_nan(
-    #             tf.reduce_sum(
-    #                 tf.multiply(
-    #                     y_reco[:, 4:], y_true[:, 4:]
-    #                 ), axis = 1
-    #             ),
-    #             tf.multiply(
-    #                 tf.sqrt(
-    #                     tf.reduce_sum(
-    #                         tf.square(
-    #                             y_reco[:, 4:]
-    #                         ), axis = 1
-    #                     )
-    #                 ),
-    #                 tf.sqrt(
-    #                     tf.reduce_sum(
-    #                         tf.square(
-    #                             y_true[:, 4:]
-    #                         ), axis = 1
-    #                     )
-    #                 )
-    #             )
-    #         )
-    #     )))
-    # )
+        tf.math.log(tf.math.cosh(tf.math.acos(
+            tf.math.divide_no_nan(
+                tf.reduce_sum(
+                    tf.multiply(
+                        y_reco[:, 4:], y_true[:, 4:]
+                    ), axis = 1
+                ),
+                tf.multiply(
+                    tf.sqrt(
+                        tf.reduce_sum(
+                            tf.square(
+                                y_reco[:, 4:]
+                            ), axis = 1
+                        )
+                    ),
+                    tf.sqrt(
+                        tf.reduce_sum(
+                            tf.square(
+                                y_true[:, 4:]
+                            ), axis = 1
+                        )
+                    )
+                )
+            )
+        )))
+    )
     return loss
 
 def loss_func_from(y_reco, y_true):
@@ -143,7 +123,7 @@ def loss_func_from(y_reco, y_true):
             )
         )
     # Position loss
-    loss_dist  = tf.reduce_mean(
+    loss_dist  = 1 / 1000 * tf.reduce_mean(
         tf.sqrt(
             tf.reduce_sum(
                 tf.square(
@@ -155,37 +135,37 @@ def loss_func_from(y_reco, y_true):
         )
     )
     # Angle loss
-    loss_angle = tf.reduce_mean(
-        tf.math.acos(
-            tf.sin(y_reco[:, 5]) * tf.sin(y_true[:, 5]) + tf.cos(y_reco[:, 5]) * tf.cos(y_true[:, 5]) * tf.cos(y_true[:,4] - y_reco[:, 4]) 
-        ))
     # loss_angle = tf.reduce_mean(
-    #     tf.math.log(tf.math.cosh(tf.math.acos(
-    #         tf.math.divide_no_nan(
-    #             tf.reduce_sum(
-    #                 tf.multiply(
-    #                     y_reco[:, 4:], y_true[:, 4:]
-    #                 ), axis = 1
-    #             ),
-    #             tf.multiply(
-    #                 tf.sqrt(
-    #                     tf.reduce_sum(
-    #                         tf.square(
-    #                             y_reco[:, 4:]
-    #                         ), axis = 1
-    #                     )
-    #                 ),
-    #                 tf.sqrt(
-    #                     tf.reduce_sum(
-    #                         tf.square(
-    #                             y_true[:, 4:]
-    #                         ), axis = 1
-    #                     )
-    #                 )
-    #             )
-    #         )
-    #     )))
-    # )
+    #     tf.math.acos(
+    #         tf.sin(y_reco[:, 5]) * tf.sin(y_true[:, 5]) + tf.cos(y_reco[:, 5]) * tf.cos(y_true[:, 5]) * tf.cos(y_true[:,4] - y_reco[:, 4]) 
+    #     ))
+    loss_angle = tf.reduce_mean(
+        tf.math.log(tf.math.cosh(tf.math.acos(
+            tf.math.divide_no_nan(
+                tf.reduce_sum(
+                    tf.multiply(
+                        y_reco[:, 4:], y_true[:, 4:]
+                    ), axis = 1
+                ),
+                tf.multiply(
+                    tf.sqrt(
+                        tf.reduce_sum(
+                            tf.square(
+                                y_reco[:, 4:]
+                            ), axis = 1
+                        )
+                    ),
+                    tf.sqrt(
+                        tf.reduce_sum(
+                            tf.square(
+                                y_true[:, 4:]
+                            ), axis = 1
+                        )
+                    )
+                )
+            )
+        )))
+    )
     return float(loss_energy), float(loss_dist), float(loss_angle)
 
 def metrics(y_reco, y_true):
@@ -210,35 +190,35 @@ def metrics(y_reco, y_true):
 
     # Angle metric
     
-    angle_resi = 180 / np.pi * tf.math.acos(
-            tf.sin(y_reco[:, 5]) * tf.sin(y_true[:, 5]) + tf.cos(y_reco[:, 5]) * tf.cos(y_true[:, 5]) * tf.cos(y_true[:,4] - y_reco[:, 4]) 
-        )
-
     # angle_resi = 180 / np.pi * tf.math.acos(
-    #     tf.math.divide_no_nan(
-    #         tf.reduce_sum(
-    #             tf.multiply(
-    #                 y_reco[:, 4:], y_true[:, 4:]
-    #             ), axis = 1
-    #         ),
-    #         tf.multiply(
-    #             tf.sqrt(
-    #                 tf.reduce_sum(
-    #                     tf.square(
-    #                         y_reco[:, 4:]
-    #                     ), axis = 1
-    #                 )
-    #             ),
-    #             tf.sqrt(
-    #                 tf.reduce_sum(
-    #                     tf.square(
-    #                         y_true[:, 4:]
-    #                     ), axis = 1
-    #                 )
-    #             )
-    #         )
+    #         tf.sin(y_reco[:, 5]) * tf.sin(y_true[:, 5]) + tf.cos(y_reco[:, 5]) * tf.cos(y_true[:, 5]) * tf.cos(y_true[:,4] - y_reco[:, 4]) 
     #     )
-    # )
+
+    angle_resi = 180 / np.pi * tf.math.acos(
+        tf.math.divide_no_nan(
+            tf.reduce_sum(
+                tf.multiply(
+                    y_reco[:, 4:], y_true[:, 4:]
+                ), axis = 1
+            ),
+            tf.multiply(
+                tf.sqrt(
+                    tf.reduce_sum(
+                        tf.square(
+                            y_reco[:, 4:]
+                        ), axis = 1
+                    )
+                ),
+                tf.sqrt(
+                    tf.reduce_sum(
+                        tf.square(
+                            y_true[:, 4:]
+                        ), axis = 1
+                    )
+                )
+            )
+        )
+    )
     u_angle         = tfp.stats.percentile(angle_resi, [68])
 
     return float(w_energy.numpy()), float(u_pos.numpy()), float(u_angle.numpy())
