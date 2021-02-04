@@ -25,9 +25,9 @@ file_path = osp.dirname(osp.realpath(__file__))
 ################################################
 # Setup Deafult Variabls                       # 
 ################################################
-learning_rate = 3e-4
-batch_size    = 512
-epochs        = 10
+learning_rate = 1e-3
+batch_size    = 128
+epochs        = 1
 
 
 
@@ -35,7 +35,7 @@ epochs        = 10
 ################################################
 # Get model and data                           # 
 ################################################
-from models.GCN import model
+from models.MessagePass import model
 model = model()
 
 
@@ -61,6 +61,7 @@ loader_test   = DisjointLoader(dataset_test , epochs = 1,      batch_size = batc
 ################################################
 
 opt           = Adam(learning_rate = learning_rate)
+mse           = MeanSquaredError()
 
 def loss_func(y_reco, y_true):
     # Energy loss
@@ -72,7 +73,7 @@ def loss_func(y_reco, y_true):
             )
         )
     # Position loss
-    loss     += 1 / 1000 * tf.reduce_mean(
+    loss     += tf.reduce_mean(
         tf.sqrt(
             tf.reduce_sum(
                 tf.square(
@@ -84,33 +85,14 @@ def loss_func(y_reco, y_true):
         )
     )
 
-    loss     += tf.reduce_mean(
-        tf.math.log(tf.math.cosh(tf.math.acos(
-            tf.math.divide_no_nan(
-                tf.reduce_sum(
-                    tf.multiply(
-                        y_reco[:, 4:], y_true[:, 4:]
-                    ), axis = 1
-                ),
-                tf.multiply(
-                    tf.sqrt(
-                        tf.reduce_sum(
-                            tf.square(
-                                y_reco[:, 4:]
-                            ), axis = 1
-                        )
-                    ),
-                    tf.sqrt(
-                        tf.reduce_sum(
-                            tf.square(
-                                y_true[:, 4:]
-                            ), axis = 1
-                        )
-                    )
-                )
-            )
-        )))
-    )
+    loss      += tf.reduce_mean(
+        tf.math.acos(tf.reduce_sum(y_reco[:, 4:] * y_true[:, 4:], axis = 1) /
+        tf.sqrt(tf.reduce_sum(y_reco[:, 4:] ** 2, axis = 1) * tf.sqrt(tf.reduce_sum(y_true[:, 4:] ** 2, axis = 1))))
+        )
+
+    loss      += tf.reduce_mean(tf.abs(1 - tf.reduce_sum(y_reco[:, 4:] ** 2 , axis = 1)))
+
+    # loss    += mse(y_reco[:, 4:], y_true[:, 4:])
     return loss
 
 def loss_func_from(y_reco, y_true):
@@ -123,7 +105,7 @@ def loss_func_from(y_reco, y_true):
             )
         )
     # Position loss
-    loss_dist  = 1 / 1000 * tf.reduce_mean(
+    loss_dist  = tf.reduce_mean(
         tf.sqrt(
             tf.reduce_sum(
                 tf.square(
@@ -135,37 +117,12 @@ def loss_func_from(y_reco, y_true):
         )
     )
     # Angle loss
-    # loss_angle = tf.reduce_mean(
-    #     tf.math.acos(
-    #         tf.sin(y_reco[:, 5]) * tf.sin(y_true[:, 5]) + tf.cos(y_reco[:, 5]) * tf.cos(y_true[:, 5]) * tf.cos(y_true[:,4] - y_reco[:, 4]) 
-    #     ))
     loss_angle = tf.reduce_mean(
-        tf.math.log(tf.math.cosh(tf.math.acos(
-            tf.math.divide_no_nan(
-                tf.reduce_sum(
-                    tf.multiply(
-                        y_reco[:, 4:], y_true[:, 4:]
-                    ), axis = 1
-                ),
-                tf.multiply(
-                    tf.sqrt(
-                        tf.reduce_sum(
-                            tf.square(
-                                y_reco[:, 4:]
-                            ), axis = 1
-                        )
-                    ),
-                    tf.sqrt(
-                        tf.reduce_sum(
-                            tf.square(
-                                y_true[:, 4:]
-                            ), axis = 1
-                        )
-                    )
-                )
-            )
-        )))
-    )
+        tf.math.acos(tf.reduce_sum(y_reco[:, 4:] * y_true[:, 4:], axis = 1) /
+        tf.sqrt(tf.reduce_sum(y_reco[:, 4:] ** 2, axis = 1) * tf.sqrt(tf.reduce_sum(y_true[:, 4:] ** 2, axis = 1))))
+        )
+    loss_angle += tf.reduce_mean(tf.abs(1 - tf.reduce_sum(y_reco[:, 4:] ** 2 , axis = 1)))
+    
     return float(loss_energy), float(loss_dist), float(loss_angle)
 
 def metrics(y_reco, y_true):
@@ -189,36 +146,9 @@ def metrics(y_reco, y_true):
 
 
     # Angle metric
+    angle_resi = 180 / np.pi * tf.math.acos(tf.reduce_sum(y_reco[:, 4:] * y_true[:, 4:], axis = 1) /
+        tf.sqrt(tf.reduce_sum(y_reco[:, 4:] ** 2, axis = 1) * tf.sqrt(tf.reduce_sum(y_true[:, 4:] ** 2, axis = 1))))
     
-    # angle_resi = 180 / np.pi * tf.math.acos(
-    #         tf.sin(y_reco[:, 5]) * tf.sin(y_true[:, 5]) + tf.cos(y_reco[:, 5]) * tf.cos(y_true[:, 5]) * tf.cos(y_true[:,4] - y_reco[:, 4]) 
-    #     )
-
-    angle_resi = 180 / np.pi * tf.math.acos(
-        tf.math.divide_no_nan(
-            tf.reduce_sum(
-                tf.multiply(
-                    y_reco[:, 4:], y_true[:, 4:]
-                ), axis = 1
-            ),
-            tf.multiply(
-                tf.sqrt(
-                    tf.reduce_sum(
-                        tf.square(
-                            y_reco[:, 4:]
-                        ), axis = 1
-                    )
-                ),
-                tf.sqrt(
-                    tf.reduce_sum(
-                        tf.square(
-                            y_true[:, 4:]
-                        ), axis = 1
-                    )
-                )
-            )
-        )
-    )
     u_angle         = tfp.stats.percentile(angle_resi, [68])
 
     return float(w_energy.numpy()), float(u_pos.numpy()), float(u_angle.numpy())
@@ -255,6 +185,9 @@ def validation(loader):
     prediction_list, target_list = [], []
     for batch in loader:
         inputs, targets = batch
+        inputs[0][:, :3] = inputs[0][:, :3] / 1000
+        inputs[0][:, 3] = inputs[0][:, 3] / 10000
+        targets[:, 1:4] = targets[:, 1:4] / 1000
         predictions, targets, out = test_step(inputs, targets)
         loss           += out
         
@@ -291,6 +224,9 @@ start_time    = time.time()
 
 for batch in loader_train:
     inputs, targets = batch
+    inputs[0][:, :3] = inputs[0][:, :3] / 1000
+    inputs[0][:, 3] = inputs[0][:, 3] / 10000
+    targets[:, 1:4] = targets[:, 1:4] / 1000
     out             = train_step(inputs, targets)
     loss           += out
 

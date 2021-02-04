@@ -3,7 +3,7 @@ import tensorflow as tf
 from tensorflow.keras.models import Model, Sequential
 from tensorflow.keras.layers import Dense, BatchNormalization
 from tensorflow.keras.activations import tanh
-from spektral.layers import MessagePassing, GlobalMaxPool
+from spektral.layers import MessagePassing, GlobalAvgPool
 
 # from sonnet import Linear
 # from sonnet.nets import MLP
@@ -24,15 +24,16 @@ class model(Model):
         self.mp_layers    = [MP(n_out = hidden_states, hidden_states = hidden_states) for i in range(3)]
         self.norm_layers  = [BatchNormalization() for i in range(3)]
         self.norm_decode  = BatchNormalization()
-        self.pool         = GlobalMaxPool()
+        self.pool         = GlobalAvgPool()
         self.decode       = MLP(output = hidden_states, hidden = hidden_states * 2, layers = 4)
-        self.out1         = Dense(8)
-        self.out2         = Dense(1)
+        self.out1         = Dense(hidden_states // 2)
+        self.out2         = Dense(7)
 
 
     
     def call(self, inputs, training = False):
-        x, a, e, i = inputs
+        x, a, i    = inputs
+        e          = self.generate_edge_features(x, a)
         x          = self.encode_x1(x)
         x          = self.encode_x2(x)
         e          = self.encode_e1(e)
@@ -41,11 +42,31 @@ class model(Model):
             x      = norm(x, training = training)
             x      = MP([x, a, e])
         x          = self.norm_decode(x, training = training)
-        x          = self.pool(x)
+        x          = self.pool([x, i])
         x          = self.decode(x)
         x          = tanh(self.out1(x))
         x          = self.out2(x)
         return x
+
+    def generate_edge_features(self, x, a):
+      send    = a.indices[:, 0]
+      receive = a.indices[:, 1]
+
+      diff_x  = tf.subtract(tf.gather(x, receive), tf.gather(x, send))
+
+      dists   = tf.sqrt(
+        tf.reduce_sum(
+          tf.square(
+            diff_x[:, :3]
+          ), axis = 1
+        ))
+
+      vects = tf.math.divide_no_nan(diff_x[:, :3], tf.expand_dims(dists, axis = -1))
+
+      e = tf.concat([diff_x[:, 3:], tf.expand_dims(dists, -1), vects], axis = 1)
+
+
+      return e
 
 
 
