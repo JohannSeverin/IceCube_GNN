@@ -15,7 +15,7 @@ import tensorflow as tf
 
 
 features = ["dom_x", "dom_y", "dom_z", "time", "charge_log10"]
-targets  = ["energy_log10", "position_x", "position_y", "position_z", "direction_x", "direction_y", "direction_z"]
+targets  = ["energy_log10", "position_x", "position_y", "position_z", "azimuth", "zenith"]
 
 muon = True
 
@@ -150,8 +150,8 @@ if __name__ == "__main__":
         print("Folder created for raw files, please add some before continuing")
         sys.exit()
 
-    if os.path.isdir(osp.join(path, "processed", "graph_w_edge2")):
-        shutil.rmtree(osp.join(path, "processed", "graph_w_edge2"))
+    if os.path.isdir(osp.join(path, "processed", "graph_w_edge2_anlges")):
+        shutil.rmtree(osp.join(path, "processed", "graph_w_edge2_angles"))
     if len(sys.argv) == 2:
         n_data = int(sys.argv[1])
         print(f"Preparing dataset with {n_data} graphs")

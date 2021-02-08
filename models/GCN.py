@@ -9,9 +9,9 @@ from spektral.layers import ECCConv
 from spektral.layers.pooling.global_pool import GlobalMaxPool 
 
 from tensorflow.keras import Model, Input
-from tensorflow.keras.layers import Dense
+from tensorflow.keras.layers import Dense, LeakyReLU
 from tensorflow.keras.activations import tanh
-
+from tensorflow.sparse import SparseTensor
 
 
 hidden_states = 64
@@ -32,10 +32,11 @@ class model(Model):
         # self.decode  = [Dense(hidden_states * 4)] + [Dense(hidden_states * 2)] + [Dense(hidden_states) for i in range(layers - 2 )]
         self.decode  = [Dense(size * hidden_states) for size in [8, 4, 2, 1, 1, 1]]
         self.d2      = Dense(n_out)
+        self.activation   = LeakyReLU(alpha = 0.1)
 
     def call(self, inputs, training = False):
         x, a, i = inputs
-        e       = self.generate_edge_features(x, a)
+        a, e    = self.generate_edge_features(x, a)
         x = self.ECC1([x, a, e])
         x = self.GCN1([x, a])
         x = self.GCN2([x, a])
@@ -43,13 +44,20 @@ class model(Model):
         x = self.GCN4([x, a])
         x = self.Pool([x, i])
         for decode_layer in self.decode:
-          x = tanh(decode_layer(x))
+          x = self.activation(decode_layer(x))
         x = self.d2(x)
         return x
 
     def generate_edge_features(self, x, a):
       send    = a.indices[:, 0]
       receive = a.indices[:, 1]
+
+      # forwards  = tf.gather(x[:, 3], send) < tf.gather(x[:, 3], receive)
+
+      # send    = tf.cast(send[forwards], tf.int64)
+      # receive = tf.cast(receive[forwards], tf.int64)
+
+      # a       = SparseTensor(indices = tf.stack([send, receive], axis = 1), values = tf.ones(tf.shape(send), dtype = tf.float32), dense_shape = tf.cast(tf.shape(a), tf.int64))
 
       diff_x  = tf.subtract(tf.gather(x, receive), tf.gather(x, send))
 
@@ -64,8 +72,7 @@ class model(Model):
 
       e = tf.concat([diff_x[:, 3:], tf.expand_dims(dists, -1), vects], axis = 1)
 
-
-      return e
+      return a, e
 
 
         

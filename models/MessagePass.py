@@ -33,7 +33,7 @@ class model(Model):
     
     def call(self, inputs, training = False):
         x, a, i    = inputs
-        e          = self.generate_edge_features(x, a)
+        a, e       = self.generate_edge_features(x, a)
         x          = self.encode_x1(x)
         x          = self.encode_x2(x)
         e          = self.encode_e1(e)
@@ -52,6 +52,13 @@ class model(Model):
       send    = a.indices[:, 0]
       receive = a.indices[:, 1]
 
+      forwards  = tf.gather(x[:, 3], send) < tf.gather(x[:, 3], receive)
+
+      send    = tf.cast(send[forwards], tf.int64)
+      receive = tf.cast(receive[forwards], tf.int64)
+
+      a       = SparseTensor(indices = tf.stack([send, receive], axis = 1), values = tf.ones(tf.shape(send), dtype = tf.float32), dense_shape = tf.cast(tf.shape(a), tf.int64))
+
       diff_x  = tf.subtract(tf.gather(x, receive), tf.gather(x, send))
 
       dists   = tf.sqrt(
@@ -65,8 +72,7 @@ class model(Model):
 
       e = tf.concat([diff_x[:, 3:], tf.expand_dims(dists, -1), vects], axis = 1)
 
-
-      return e
+      return a, e
 
 
 

@@ -25,9 +25,10 @@ file_path = osp.dirname(osp.realpath(__file__))
 ################################################
 # Setup Deafult Variabls                       # 
 ################################################
-learning_rate = 1e-3
-batch_size    = 128
-epochs        = 1
+learning_rate = 5e-4
+batch_size    = 512
+epochs        = 70
+model_name    = "GCN3"
 
 
 
@@ -35,7 +36,7 @@ epochs        = 1
 ################################################
 # Get model and data                           # 
 ################################################
-from models.MessagePass import model
+from models.GCN import model
 model = model()
 
 
@@ -53,8 +54,9 @@ dataset_test  = dataset[idx_lists[2]]
 loader_train  = DisjointLoader(dataset_train, epochs = epochs, batch_size = batch_size)
 loader_test   = DisjointLoader(dataset_test , epochs = 1,      batch_size = batch_size)
 
-
-
+save_path     = osp.join(file_path, "models", "saved_models", model_name)
+if not os.path.exists(save_path):
+    os.mkdir(save_path)
 
 ################################################
 # Loss and Optimation                          # 
@@ -90,7 +92,7 @@ def loss_func(y_reco, y_true):
         tf.sqrt(tf.reduce_sum(y_reco[:, 4:] ** 2, axis = 1) * tf.sqrt(tf.reduce_sum(y_true[:, 4:] ** 2, axis = 1))))
         )
 
-    loss      += tf.reduce_mean(tf.abs(1 - tf.reduce_sum(y_reco[:, 4:] ** 2 , axis = 1)))
+    # loss      += tf.reduce_mean(tf.abs(1 - tf.reduce_sum(y_reco[:, 4:] ** 2 , axis = 1)))
 
     # loss    += mse(y_reco[:, 4:], y_true[:, 4:])
     return loss
@@ -121,7 +123,7 @@ def loss_func_from(y_reco, y_true):
         tf.math.acos(tf.reduce_sum(y_reco[:, 4:] * y_true[:, 4:], axis = 1) /
         tf.sqrt(tf.reduce_sum(y_reco[:, 4:] ** 2, axis = 1) * tf.sqrt(tf.reduce_sum(y_true[:, 4:] ** 2, axis = 1))))
         )
-    loss_angle += tf.reduce_mean(tf.abs(1 - tf.reduce_sum(y_reco[:, 4:] ** 2 , axis = 1)))
+    # loss_angle += tf.reduce_mean(tf.abs(1 - tf.reduce_sum(y_reco[:, 4:] ** 2 , axis = 1)))
     
     return float(loss_energy), float(loss_dist), float(loss_angle)
 
@@ -152,6 +154,21 @@ def metrics(y_reco, y_true):
     u_angle         = tfp.stats.percentile(angle_resi, [68])
 
     return float(w_energy.numpy()), float(u_pos.numpy()), float(u_angle.numpy())
+
+def lr_schedule(epochs = epochs, initial = learning_rate, decay = 0.8):
+    n = 1
+    lr = initial
+    yield lr
+    while n < 3:
+        lr *= 2
+        n  += 1
+        yield lr
+    while True:
+        lr *= decay
+        n  += 1 
+        yield lr
+
+        
 
 
 ################################################
@@ -221,6 +238,9 @@ loss          = 0
 
 pbar          = tqdm(total = loader_train.steps_per_epoch, position = 0, leave = True)
 start_time    = time.time()
+lr_gen        = lr_schedule()
+learning_Rate = next(lr_gen)
+
 
 for batch in loader_train:
     inputs, targets = batch
@@ -237,7 +257,7 @@ for batch in loader_train:
 
     if current_batch == loader_train.steps_per_epoch:
         
-        print(f"Epoch {current_epoch} of {epochs} done in {time.time() - start_time:.2f} seconds")
+        print(f"Epoch {current_epoch} of {epochs} done in {time.time() - start_time:.2f} seconds using learning rate: {learning_rate:.2E}")
         print(f"Avg loss of train: {loss / loader_train.steps_per_epoch:.6f}")
 
         loader_val    = DisjointLoader(dataset_val, epochs = 1,      batch_size = batch_size)
@@ -250,8 +270,17 @@ for batch in loader_train:
         if current_epoch != epochs:
             pbar          = tqdm(total = loader_train.steps_per_epoch, position = 0, leave = True)
 
+        learning_rate = next(lr_gen)
+        opt.learning_rate.assign(learning_rate)
+
+        if current_epoch % 10 == 0:
+            model.save(save_path)
+            print("Model saved")
+
         loss            = 0
         start_time      = time.time()
         current_epoch  += 1
         current_batch   = 0
+
+        
 
