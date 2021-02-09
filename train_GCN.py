@@ -1,5 +1,6 @@
 import os, sys, argparse, importlib, time
 import numpy as np
+import matplotlib.pyplot as plt
 import os.path as osp
 
 from tqdm import tqdm
@@ -27,8 +28,10 @@ file_path = osp.dirname(osp.realpath(__file__))
 ################################################
 learning_rate = 5e-4
 batch_size    = 512
-epochs        = 70
-model_name    = "GCN3"
+epochs        = 0
+early_stop    = True
+patience      = 3
+model_name    = "MessPass__"
 
 
 
@@ -36,8 +39,9 @@ model_name    = "GCN3"
 ################################################
 # Get model and data                           # 
 ################################################
-from models.GCN import model
-model = model()
+# from models.MessagePass import model
+model = load_model(osp.join(file_path, "models", "saved_models", "MessPass1"))
+# model = model()
 
 
 from data.graph_w_edge2 import graph_w_edge2
@@ -155,7 +159,7 @@ def metrics(y_reco, y_true):
 
     return float(w_energy.numpy()), float(u_pos.numpy()), float(u_angle.numpy())
 
-def lr_schedule(epochs = epochs, initial = learning_rate, decay = 0.8):
+def lr_schedule(epochs = epochs, initial = learning_rate, decay = 0.9):
     n = 1
     lr = initial
     yield lr
@@ -223,7 +227,69 @@ def validation(loader):
 
 
 
+def test(loader):
+    loss = 0
+    prediction_list, target_list = [], []
+    for batch in loader:
+        inputs, targets = batch
+        inputs[0][:, :3] = inputs[0][:, :3] / 1000
+        inputs[0][:, 3] = inputs[0][:, 3] / 10000
+        targets[:, 1:4] = targets[:, 1:4] / 1000
+        predictions, targets, out = test_step(inputs, targets)
+        loss           += out
+        
+        prediction_list.append(predictions)
+        target_list.append(targets)
 
+    y_reco  = tf.concat(prediction_list, axis = 0).numpy()
+    y_true  = tf.concat(target_list, axis = 0)
+    y_true  = tf.cast(y_true, tf.float32).numpy()
+
+    energy = y_true[:, 0]
+    counts, bins = np.histogram(energy, bins = 10)
+
+    xs = (bins[1:] + bins[: -1]) / 2
+
+    w_energies, u_distances, u_angles = [], [], []
+
+    for i in range(len(bins)-1):
+        idx = np.logical_and(energy > bins[i], energy < bins[i + 1])
+
+        w, u_dist, u_angle = metrics(y_true[idx, :], y_reco[idx, :])
+
+        w_energies.append(w)
+        u_distances.append(u_dist)
+        u_angles.append(u_angle)
+
+
+    fig, ax = plt.subplots(ncols = 3, figsize = (12, 4))
+
+    for a in ax:
+        a_ = a.twinx()
+        a_.step(xs, counts, color = "gray", zorder = 10, alpha = 0.7)
+        a_.set_yscale("log")
+        a.set_xlabel("Log Energy")
+    
+
+    # Energy reconstruction
+    ax[0].scatter(xs, w_energies)
+    ax[0].set_title("Energy Performance")
+    ax[0].set_ylabel(r"$w(\Delta log(E)$")
+
+
+    # Angle reconstruction
+    ax[1].scatter(xs, u_angles)
+    ax[1].set_title("Angle Performance")
+    ax[1].set_ylabel(r"$u(\Delta \Omega)$")
+
+    # Distance reconstruction
+    ax[2].scatter(xs, u_distances)
+    ax[2].set_title("Distance Performance")
+    ax[2].set_ylabel(r"$u(||y_{reco} - y_{true}||)$")
+
+    fig.tight_layout()
+
+    return fig, ax
 
 
 ################################################
@@ -233,8 +299,8 @@ def validation(loader):
 current_batch = 0
 current_epoch = 1
 loss          = 0
-
-
+lowest_loss   = 9999999
+early_stop_counter    = 0
 
 pbar          = tqdm(total = loader_train.steps_per_epoch, position = 0, leave = True)
 start_time    = time.time()
@@ -266,7 +332,18 @@ for batch in loader_train:
         print(f"Avg loss of validation: {val_loss:.6f}")
         print(f"Loss from:  Energy: {val_loss_from[0]:.6f} \t Position: {val_loss_from[1]:.6f} \t Angle: {val_loss_from[2]:.6f} ")
         print(f"Energy: w = {val_metric[0]:.6f} \t Position: u = {val_metric[1]:.6f} \t Angle: u = {val_metric[2]:.6f}")
+
+        if val_loss < lowest_loss:
+            early_stop_counter = 0
+            lowest_loss        = val_loss
+        else:
+            early_stop_counter += 1
         
+        if early_stop and (early_stop_counter >= patience):
+            model.save(save_path)
+            print("Stopped training. No improvement was seen in {patience} epochs")
+            break
+
         if current_epoch != epochs:
             pbar          = tqdm(total = loader_train.steps_per_epoch, position = 0, leave = True)
 
@@ -283,4 +360,5 @@ for batch in loader_train:
         current_batch   = 0
 
         
-
+fig, ax = test(loader_test)
+fig.savefig("test.pdf")

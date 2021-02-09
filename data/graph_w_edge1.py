@@ -63,7 +63,6 @@ class graph_w_edge1(Dataset):
                     seq     = concat([seq, read_sql(f"select * from sequential where event_no < {limit};", con)])
                     sca     = concat([sca, read_sql(f"select * from scalar where event_no < {limit};", con)])
             downloaded = len(seq.event_no.unique())
-# >>>>>>> dbb8ad9bd1749f2ac8d9aa88b752629e1547efdb
             if downloaded >= self.n_data:
                 print(f"Succesfully loaded data for {downloaded} graphs")
                 break

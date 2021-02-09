@@ -3,6 +3,7 @@ import tensorflow as tf
 from tensorflow.keras.models import Model, Sequential
 from tensorflow.keras.layers import Dense, BatchNormalization
 from tensorflow.keras.activations import tanh
+from tensorflow.sparse import SparseTensor, eye, add
 from spektral.layers import MessagePassing, GlobalAvgPool
 
 # from sonnet import Linear
@@ -26,7 +27,7 @@ class model(Model):
         self.norm_decode  = BatchNormalization()
         self.pool         = GlobalAvgPool()
         self.decode       = MLP(output = hidden_states, hidden = hidden_states * 2, layers = 4)
-        self.out1         = Dense(hidden_states // 2)
+        self.out1         = Dense(hidden_states)
         self.out2         = Dense(7)
 
 
@@ -52,13 +53,11 @@ class model(Model):
       send    = a.indices[:, 0]
       receive = a.indices[:, 1]
 
-      forwards  = tf.gather(x[:, 3], send) < tf.gather(x[:, 3], receive)
+      forwards  = tf.gather(x[:, 3], send) <= tf.gather(x[:, 3], receive)
 
       send    = tf.cast(send[forwards], tf.int64)
       receive = tf.cast(receive[forwards], tf.int64)
-
       a       = SparseTensor(indices = tf.stack([send, receive], axis = 1), values = tf.ones(tf.shape(send), dtype = tf.float32), dense_shape = tf.cast(tf.shape(a), tf.int64))
-
       diff_x  = tf.subtract(tf.gather(x, receive), tf.gather(x, send))
 
       dists   = tf.sqrt(
