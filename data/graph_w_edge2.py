@@ -85,10 +85,10 @@ class graph_w_edge2(Dataset):
             trans_y      = transformers['truth']
 
 
-            for col in df_feat.columns:
+            for col in ["dom_x", "dom_y", "dom_z"]:
                 df_feat[col] = trans_x[col].inverse_transform(np.array(df_feat[col]).reshape(1, -1)).T
 
-            for col in df_targ.columns:
+            for col in ["energy_log10", "position_x", "position_y", "position_z", "direction_x", "direction_y", "direction_z"]:
                 df_targ[col] = trans_y[col].inverse_transform(np.array(df_targ[col]).reshape(1, -1)).T
             
             
@@ -160,4 +160,4 @@ if __name__ == "__main__":
         print("Preparing dataset with all availible raw data")
 
     # Preparing data 
-    dataset = graph_w_edge2(n_data = n_data)
+    dataset = graph_w_edge2(n_data = n_data, n_neighbors=8)

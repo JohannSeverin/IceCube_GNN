@@ -1,3 +1,5 @@
+
+        
 import os
 from spektral.layers.convolutional.gcn_conv import GCNConv
 
@@ -9,13 +11,13 @@ from spektral.layers import ECCConv
 from spektral.layers.pooling.global_pool import GlobalMaxPool 
 
 from tensorflow.keras import Model, Input
-from tensorflow.keras.layers import Dense, LeakyReLU
+from tensorflow.keras.layers import Dense, LeakyReLU, BatchNormalization
 from tensorflow.keras.activations import tanh
 from tensorflow.sparse import SparseTensor
 
 
 hidden_states = 64
-
+activation = LeakyReLU(alpha = 0.1)
 
 # Probably needs regularization, but first step is just to fit, then we will regularize.
 
@@ -29,10 +31,9 @@ class model(Model):
         self.GCN3    = GCNConv(hidden_states * 4, activation = "relu")
         self.GCN4    = GCNConv(hidden_states * 8, activation = "relu")
         self.Pool    = GlobalMaxPool()
-        # self.decode  = [Dense(hidden_states * 4)] + [Dense(hidden_states * 2)] + [Dense(hidden_states) for i in range(layers - 2 )]
         self.decode  = [Dense(size * hidden_states) for size in [8, 4, 2, 1, 1, 1]]
+        self.norm_layers  = [BatchNormalization() for i in range(len(self.decode))]
         self.d2      = Dense(n_out)
-        self.activation   = LeakyReLU(alpha = 0.1)
 
     def call(self, inputs, training = False):
         x, a, i = inputs
@@ -43,8 +44,9 @@ class model(Model):
         x = self.GCN3([x, a])
         x = self.GCN4([x, a])
         x = self.Pool([x, i])
-        for decode_layer in self.decode:
-          x = self.activation(decode_layer(x))
+        for decode_layer, norm_layer in zip(self.decode, self.norm_layers):
+          x = activation(decode_layer(x))
+          x = norm_layer(x)
         x = self.d2(x)
         return x
 
@@ -52,12 +54,12 @@ class model(Model):
       send    = a.indices[:, 0]
       receive = a.indices[:, 1]
 
-      # forwards  = tf.gather(x[:, 3], send) < tf.gather(x[:, 3], receive)
+      forwards  = tf.gather(x[:, 3], send) <= tf.gather(x[:, 3], receive)
 
-      # send    = tf.cast(send[forwards], tf.int64)
-      # receive = tf.cast(receive[forwards], tf.int64)
+      send    = tf.cast(send[forwards], tf.int64)
+      receive = tf.cast(receive[forwards], tf.int64)
 
-      # a       = SparseTensor(indices = tf.stack([send, receive], axis = 1), values = tf.ones(tf.shape(send), dtype = tf.float32), dense_shape = tf.cast(tf.shape(a), tf.int64))
+      a       = SparseTensor(indices = tf.stack([send, receive], axis = 1), values = tf.ones(tf.shape(send), dtype = tf.float32), dense_shape = tf.cast(tf.shape(a), tf.int64))
 
       diff_x  = tf.subtract(tf.gather(x, receive), tf.gather(x, send))
 

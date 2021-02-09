@@ -28,20 +28,20 @@ file_path = osp.dirname(osp.realpath(__file__))
 ################################################
 learning_rate = 5e-4
 batch_size    = 512
-epochs        = 0
+epochs        = 100
 early_stop    = True
 patience      = 3
-model_name    = "MessPass__"
-
+model_name    = "None"
 
 
 
 ################################################
 # Get model and data                           # 
 ################################################
-# from models.MessagePass import model
-model = load_model(osp.join(file_path, "models", "saved_models", "MessPass1"))
-# model = model()
+from models.GCN import model
+model = model()
+# model = load_model(osp.join(file_path, "models", "saved_models", "MessPass1"))
+
 
 
 from data.graph_w_edge2 import graph_w_edge2
@@ -207,7 +207,7 @@ def validation(loader):
     for batch in loader:
         inputs, targets = batch
         inputs[0][:, :3] = inputs[0][:, :3] / 1000
-        inputs[0][:, 3] = inputs[0][:, 3] / 10000
+        inputs[0][:, 3] = inputs[0][:, 3]
         targets[:, 1:4] = targets[:, 1:4] / 1000
         predictions, targets, out = test_step(inputs, targets)
         loss           += out
@@ -311,7 +311,7 @@ learning_Rate = next(lr_gen)
 for batch in loader_train:
     inputs, targets = batch
     inputs[0][:, :3] = inputs[0][:, :3] / 1000
-    inputs[0][:, 3] = inputs[0][:, 3] / 10000
+    inputs[0][:, 3] = inputs[0][:, 3]
     targets[:, 1:4] = targets[:, 1:4] / 1000
     out             = train_step(inputs, targets)
     loss           += out

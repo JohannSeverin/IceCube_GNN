@@ -1,7 +1,7 @@
 import tensorflow as tf
 
 from tensorflow.keras.models import Model, Sequential
-from tensorflow.keras.layers import Dense, BatchNormalization
+from tensorflow.keras.layers import Dense, BatchNormalization, LeakyReLU
 from tensorflow.keras.activations import tanh
 from tensorflow.sparse import SparseTensor, eye, add
 from spektral.layers import MessagePassing, GlobalAvgPool
@@ -29,6 +29,8 @@ class model(Model):
         self.decode       = MLP(output = hidden_states, hidden = hidden_states * 2, layers = 4)
         self.out1         = Dense(hidden_states)
         self.out2         = Dense(7)
+
+        self.activation   = LeakyReLU(0.15)
 
 
     
