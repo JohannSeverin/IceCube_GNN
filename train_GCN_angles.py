@@ -26,7 +26,7 @@ file_path = osp.dirname(osp.realpath(__file__))
 ################################################
 # Setup Deafult Variabls                       # 
 ################################################
-learning_rate = 5e-4
+learning_rate = 2.5e-4
 batch_size    = 512
 epochs        = 100
 early_stop    = True
@@ -38,13 +38,13 @@ model_name    = "None"
 ################################################
 # Get model and data                           # 
 ################################################
-from models.GCN import model
+from models.MessagePass_angles import model
 model = model()
 # model = load_model(osp.join(file_path, "models", "saved_models", "MessPass1"))
 
 
 
-from data.graph_w_edge2 import graph_w_edge2
+from data.graph_w_edge2_angles import graph_w_edge2
 dataset = graph_w_edge2()
 idx_lists = dataset.index_lists
 
@@ -91,10 +91,16 @@ def loss_func(y_reco, y_true):
         )
     )
 
-    loss      += tf.reduce_mean(
-        tf.math.acos(tf.reduce_sum(y_reco[:, 4:] * y_true[:, 4:], axis = 1) /
-        tf.sqrt(tf.reduce_sum(y_reco[:, 4:] ** 2, axis = 1) * tf.sqrt(tf.reduce_sum(y_true[:, 4:] ** 2, axis = 1))))
-        )
+    # azimuthal = y_reco[:, 4]
+    # zenith    = y_reco[:, 5]
+    loss     += tf.reduce_mean(
+        tf.math.acos(tf.cos(y_reco[:, 5]) * tf.cos(y_true[:, 5]) + tf.sin(y_reco[:, 5]) * tf.sin(y_true[:, 5]) * tf.cos(y_reco[:, 4] - y_true[:, 4]))
+    )
+
+    # loss      += tf.reduce_mean(
+    #     tf.math.acos(tf.reduce_sum(y_reco[:, 4:] * y_true[:, 4:], axis = 1) /
+    #     tf.sqrt(tf.reduce_sum(y_reco[:, 4:] ** 2, axis = 1) * tf.sqrt(tf.reduce_sum(y_true[:, 4:] ** 2, axis = 1))))
+    #     )
 
     # loss      += tf.reduce_mean(tf.abs(1 - tf.reduce_sum(y_reco[:, 4:] ** 2 , axis = 1)))
 
@@ -123,10 +129,13 @@ def loss_func_from(y_reco, y_true):
         )
     )
     # Angle loss
-    loss_angle = tf.reduce_mean(
-        tf.math.acos(tf.reduce_sum(y_reco[:, 4:] * y_true[:, 4:], axis = 1) /
-        tf.sqrt(tf.reduce_sum(y_reco[:, 4:] ** 2, axis = 1) * tf.sqrt(tf.reduce_sum(y_true[:, 4:] ** 2, axis = 1))))
-        )
+    loss_angle  = tf.reduce_mean(
+        tf.math.acos(tf.cos(y_reco[:, 5]) * tf.cos(y_true[:, 5]) + tf.sin(y_reco[:, 5]) * tf.sin(y_true[:, 5]) * tf.cos(y_reco[:, 4] - y_true[:, 4]))
+    )
+    # loss_angle = tf.reduce_mean(
+    #     tf.math.acos(tf.reduce_sum(y_reco[:, 4:] * y_true[:, 4:], axis = 1) /
+    #     tf.sqrt(tf.reduce_sum(y_reco[:, 4:] ** 2, axis = 1) * tf.sqrt(tf.reduce_sum(y_true[:, 4:] ** 2, axis = 1))))
+    #     )
     # loss_angle += tf.reduce_mean(tf.abs(1 - tf.reduce_sum(y_reco[:, 4:] ** 2 , axis = 1)))
     
     return float(loss_energy), float(loss_dist), float(loss_angle)
@@ -152,8 +161,7 @@ def metrics(y_reco, y_true):
 
 
     # Angle metric
-    angle_resi = 180 / np.pi * tf.math.acos(tf.reduce_sum(y_reco[:, 4:] * y_true[:, 4:], axis = 1) /
-        tf.sqrt(tf.reduce_sum(y_reco[:, 4:] ** 2, axis = 1) * tf.sqrt(tf.reduce_sum(y_true[:, 4:] ** 2, axis = 1))))
+    angle_resi = 180 / np.pi * tf.math.acos(tf.cos(y_reco[:, 5]) * tf.cos(y_true[:, 5]) + tf.sin(y_reco[:, 5]) * tf.sin(y_true[:, 5]) * tf.cos(y_reco[:, 4] - y_true[:, 4]))
     
     u_angle         = tfp.stats.percentile(angle_resi, [68])
 
@@ -190,6 +198,7 @@ def train_step(inputs, targets):
     gradients = tape.gradient(loss, model.trainable_variables)
     opt.apply_gradients(zip(gradients, model.trainable_variables))
     return loss
+
 
 
 @tf.function(input_signature = loader_test.tf_signature(), experimental_relax_shapes = True)
@@ -341,7 +350,7 @@ for batch in loader_train:
         
         if early_stop and (early_stop_counter >= patience):
             model.save(save_path)
-            print("Stopped training. No improvement was seen in {patience} epochs")
+            print(f"Stopped training. No improvement was seen in {patience} epochs")
             break
 
         if current_epoch != epochs:

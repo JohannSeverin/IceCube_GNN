@@ -6,7 +6,7 @@ import os.path as osp
 from pandas import read_sql, concat
 from sklearn.preprocessing import normalize, RobustScaler
 from sklearn.neighbors import kneighbors_graph as knn
-
+from scipy.sparse import csr_matrix
 
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2' 
 from spektral.data import Dataset, Graph
@@ -61,11 +61,12 @@ class graph_w_edge2(Dataset):
             # Find indices to cut after
             try:
                 if muon:
-                    start_id = conn.execute(f"select distinct event_no from features where event_no > 130000000 limit 1 offset {self.skip}").fetchall()[0][0]
-                    stop_id  = conn.execute(f"select distinct event_no from features where event_no > 130000000 limit 1 offset {self.skip + self.n_data}").fetchall()[0][0]
+                    start_id = conn.execute(f"select distinct event_no from truth where pid = 13 limit 1 offset {self.skip}").fetchall()[0][0]
+                    stop_id  = conn.execute(f"select distinct event_no from truth where pid = 13 limit 1 offset {self.skip + self.n_data}").fetchall()[0][0]
                 else:
-                    start_id = conn.execute(f"select distinct event_no from features limit 1 offset {self.skip}").fetchall()[0][0]
-                    stop_id  = conn.execute(f"select distinct event_no from features limit 1 offset {self.skip + self.n_data}").fetchall()[0][0]
+                    start_id = conn.execute(f"select distinct event_no from truth limit 1 offset {self.skip}").fetchall()[0][0]
+                    stop_id  = conn.execute(f"select distinct event_no from truth limit 1 offset {self.skip + self.n_data}").fetchall()[0][0]
+  
             except:
                 start_id = 0
                 stop_id  = 999999999
@@ -76,8 +77,8 @@ class graph_w_edge2(Dataset):
 
             # Load data from db-file
             print("Reading files")
-            df_event = read_sql(f"select event_no       from features where event_no >= {start_id} and event_no < {stop_id}", conn)
-            df_feat  = read_sql(f"select {feature_call} from features where event_no >= {start_id} and event_no < {stop_id}", conn)
+            df_event = read_sql(f"select event_no       from features where event_no >= {start_id} and event_no < {stop_id} and SRTInIcePulses = 1", conn)
+            df_feat  = read_sql(f"select {feature_call} from features where event_no >= {start_id} and event_no < {stop_id} and SRTInIcePulses = 1", conn)
             df_targ  = read_sql(f"select {target_call } from truth    where event_no >= {start_id} and event_no < {stop_id}", conn)
             
             transformers = pickle.load(open(osp.join(db_folder, "transformers.pkl"), 'rb'))
@@ -109,7 +110,10 @@ class graph_w_edge2(Dataset):
             print("Generating adjacency matrices")
             graph_list = []
             for x, y in tqdm(zip(xs, ys), total = len(xs)):
-                a = knn(x[:, :3], self.n_neighbors)
+                try:
+                    a = knn(x[:, :3], self.n_neighbors)
+                except:
+                    a = csr_matrix(np.ones(shape = (x.shape[0], x.shape[0])) - np.eye(x.shape[0]))
 
                 
 
@@ -160,4 +164,4 @@ if __name__ == "__main__":
         print("Preparing dataset with all availible raw data")
 
     # Preparing data 
-    dataset = graph_w_edge2(n_data = n_data, n_neighbors=8)
+    dataset = graph_w_edge2(n_data = n_data, n_neighbors= 6)

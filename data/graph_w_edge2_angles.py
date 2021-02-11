@@ -2,6 +2,7 @@ import numpy as np
 import os, sqlite3, pickle, sys, gzip, shutil, time
 from tqdm import tqdm
 import os.path as osp
+from scipy.sparse import csr_matrix
 
 from pandas import read_sql, concat
 from sklearn.preprocessing import normalize, RobustScaler
@@ -15,7 +16,7 @@ import tensorflow as tf
 
 
 features = ["dom_x", "dom_y", "dom_z", "time", "charge_log10"]
-targets  = ["energy_log10", "position_x", "position_y", "position_z", "azimuth", "zenith"]
+targets  = ["energy_log10", "position_x", "position_y", "position_z", "azimuth", "zenith", "pid"]
 
 muon = True
 
@@ -43,7 +44,7 @@ class graph_w_edge2(Dataset):
         Set the path of the data to be in the processed folder
         """
         cwd = osp.dirname(osp.realpath(__file__))
-        path = osp.join(cwd, "processed/graph_w_edge2")
+        path = osp.join(cwd, "processed/graph_w_edge2_angles")
         return path
 
 
@@ -61,11 +62,11 @@ class graph_w_edge2(Dataset):
             # Find indices to cut after
             try:
                 if muon:
-                    start_id = conn.execute(f"select distinct event_no from features where event_no > 130000000 and event_no < 140000000 limit 1 offset {self.skip}").fetchall()[0][0]
-                    stop_id  = conn.execute(f"select distinct event_no from features where event_no > 130000000 and event_no < 140000000 limit 1 offset {self.skip + self.n_data}").fetchall()[0][0]
+                    start_id = conn.execute(f"select distinct event_no from truth where pid = 13 limit 1 offset {self.skip}").fetchall()[0][0]
+                    stop_id  = conn.execute(f"select distinct event_no from truth where pid = 13 limit 1 offset {self.skip + self.n_data}").fetchall()[0][0]
                 else:
-                    start_id = conn.execute(f"select distinct event_no from features limit 1 offset {self.skip}").fetchall()[0][0]
-                    stop_id  = conn.execute(f"select distinct event_no from features limit 1 offset {self.skip + self.n_data}").fetchall()[0][0]
+                    start_id = conn.execute(f"select distinct event_no from truth limit 1 offset {self.skip}").fetchall()[0][0]
+                    stop_id  = conn.execute(f"select distinct event_no from truth limit 1 offset {self.skip + self.n_data}").fetchall()[0][0]
             except:
                 start_id = 0
                 stop_id  = 999999999
@@ -76,8 +77,8 @@ class graph_w_edge2(Dataset):
 
             # Load data from db-file
             print("Reading files")
-            df_event = read_sql(f"select event_no       from features where event_no >= {start_id} and event_no < {stop_id}", conn)
-            df_feat  = read_sql(f"select {feature_call} from features where event_no >= {start_id} and event_no < {stop_id}", conn)
+            df_event = read_sql(f"select event_no       from features where event_no >= {start_id} and event_no < {stop_id} and SRTInIcePulses = 1", conn)
+            df_feat  = read_sql(f"select {feature_call} from features where event_no >= {start_id} and event_no < {stop_id} and SRTInIcePulses = 1", conn)
             df_targ  = read_sql(f"select {target_call } from truth    where event_no >= {start_id} and event_no < {stop_id}", conn)
             
             transformers = pickle.load(open(osp.join(db_folder, "transformers.pkl"), 'rb'))
@@ -88,7 +89,7 @@ class graph_w_edge2(Dataset):
             for col in ["dom_x", "dom_y", "dom_z"]:
                 df_feat[col] = trans_x[col].inverse_transform(np.array(df_feat[col]).reshape(1, -1)).T
 
-            for col in ["energy_log10", "position_x", "position_y", "position_z"]:
+            for col in ["energy_log10", "position_x", "position_y", "position_z", "azimuth", "zenith"]:
                 df_targ[col] = trans_y[col].inverse_transform(np.array(df_targ[col]).reshape(1, -1)).T
             
             
@@ -109,10 +110,11 @@ class graph_w_edge2(Dataset):
             print("Generating adjacency matrices")
             graph_list = []
             for x, y in tqdm(zip(xs, ys), total = len(xs)):
-                a = knn(x[:, :3], self.n_neighbors)
-
+                try:
+                    a = knn(x[:, :3], self.n_neighbors)
+                except:
+                    a = csr_matrix(np.ones(shape = (x.shape[0], x.shape[0])) - np.eye(x.shape[0]))
                 
-
                 graph_list.append(Graph(x = x, a = a, y = y))
 
             graph_list = np.array(graph_list, dtype = object)
@@ -150,7 +152,7 @@ if __name__ == "__main__":
         print("Folder created for raw files, please add some before continuing")
         sys.exit()
 
-    if os.path.isdir(osp.join(path, "processed", "graph_w_edge2_anlges")):
+    if os.path.isdir(osp.join(path, "processed", "graph_w_edge2_angles")):
         shutil.rmtree(osp.join(path, "processed", "graph_w_edge2_angles"))
     if len(sys.argv) == 2:
         n_data = int(sys.argv[1])

@@ -22,7 +22,7 @@ activation = LeakyReLU(alpha = 0.1)
 # Probably needs regularization, but first step is just to fit, then we will regularize.
 
 class model(Model):
-    def __init__(self, n_out = 7):
+    def __init__(self, n_out = 6):
         super().__init__()
         # Define layers of the model
         self.ECC1    = ECCConv(hidden_states, [hidden_states, hidden_states, hidden_states], n_out = hidden_states, activation = "relu")
