@@ -16,7 +16,7 @@ import tensorflow as tf
 
 
 features = ["dom_x", "dom_y", "dom_z", "time", "charge_log10"]
-targets  = ["energy_log10", "position_x", "position_y", "position_z", "azimuth", "zenith", "pid"]
+targets  = ["energy_log10", "position_x", "position_y", "position_z", "azimuth", "zenith"]
 
 muon = True
 

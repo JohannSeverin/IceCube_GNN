@@ -59,12 +59,12 @@ class model(Model):
       send    = a.indices[:, 0]
       receive = a.indices[:, 1]
 
-      # forwards  = tf.gather(x[:, 3], send) <= tf.gather(x[:, 3], receive)
+      forwards  = tf.gather(x[:, 3], send) <= tf.gather(x[:, 3], receive)
 
-      # send    = tf.cast(send[forwards], tf.int64)
-      # receive = tf.cast(receive[forwards], tf.int64)
+      send    = tf.cast(send[forwards], tf.int64)
+      receive = tf.cast(receive[forwards], tf.int64)
 
-      # a       = SparseTensor(indices = tf.stack([send, receive], axis = 1), values = tf.ones(tf.shape(send), dtype = tf.float32), dense_shape = tf.cast(tf.shape(a), tf.int64))
+      a       = SparseTensor(indices = tf.stack([send, receive], axis = 1), values = tf.ones(tf.shape(send), dtype = tf.float32), dense_shape = tf.cast(tf.shape(a), tf.int64))
 
       diff_x  = tf.subtract(tf.gather(x, receive), tf.gather(x, send))
 

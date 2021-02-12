@@ -2,6 +2,7 @@ import os, sys, argparse, importlib, time
 import numpy as np
 import matplotlib.pyplot as plt
 import os.path as osp
+from tensorflow.python.ops.math_ops import reduce_euclidean_norm
 
 from tqdm import tqdm
 
@@ -31,7 +32,7 @@ batch_size    = 512
 epochs        = 100
 early_stop    = True
 patience      = 3
-model_name    = "None"
+model_name    = "GCN_Forward"
 
 
 
@@ -69,6 +70,19 @@ if not os.path.exists(save_path):
 opt           = Adam(learning_rate = learning_rate)
 mse           = MeanSquaredError()
 
+def angle(pred, true):
+    return tf.math.acos(
+        tf.clip_by_value(
+            tf.math.divide_no_nan(tf.reduce_sum(pred * true, axis = 1),
+            tf.math.reduce_euclidean_norm(pred, axis = 1) * tf.math.reduce_euclidean_norm(true,  axis = 1)),
+            -1., 1.)
+        )
+
+def negative_cos(pred, true):
+    return 1 - tf.math.divide_no_nan(tf.reduce_sum(pred * true, axis = 1),
+            tf.math.reduce_euclidean_norm(pred, axis = 1) * tf.math.reduce_euclidean_norm(true,  axis = 1))
+
+
 def loss_func(y_reco, y_true):
     # Energy loss
     loss      = tf.reduce_mean(
@@ -91,14 +105,9 @@ def loss_func(y_reco, y_true):
         )
     )
 
-    loss      += tf.reduce_mean(
-        tf.math.acos(tf.reduce_sum(y_reco[:, 4:] * y_true[:, 4:], axis = 1) /
-        tf.sqrt(tf.reduce_sum(y_reco[:, 4:] ** 2, axis = 1) * tf.sqrt(tf.reduce_sum(y_true[:, 4:] ** 2, axis = 1))))
-        )
+    loss           += tf.reduce_mean(negative_cos(y_reco[:, 4:], y_true[:,4:]))
+    # loss      += tf.reduce_mean(angle(y_reco[:, 4:], y_true[:, 4:]))
 
-    # loss      += tf.reduce_mean(tf.abs(1 - tf.reduce_sum(y_reco[:, 4:] ** 2 , axis = 1)))
-
-    # loss    += mse(y_reco[:, 4:], y_true[:, 4:])
     return loss
 
 def loss_func_from(y_reco, y_true):
@@ -123,10 +132,8 @@ def loss_func_from(y_reco, y_true):
         )
     )
     # Angle loss
-    loss_angle = tf.reduce_mean(
-        tf.math.acos(tf.reduce_sum(y_reco[:, 4:] * y_true[:, 4:], axis = 1) /
-        tf.sqrt(tf.reduce_sum(y_reco[:, 4:] ** 2, axis = 1) * tf.sqrt(tf.reduce_sum(y_true[:, 4:] ** 2, axis = 1))))
-        )
+    loss_angle = tf.reduce_mean(negative_cos(y_reco[:, 4:], y_true[:, 4:]))
+    # loss_angle = tf.reduce_mean(angle(y_reco[:, 4:], y_true[:, 4:]))
     # loss_angle += tf.reduce_mean(tf.abs(1 - tf.reduce_sum(y_reco[:, 4:] ** 2 , axis = 1)))
     
     return float(loss_energy), float(loss_dist), float(loss_angle)
@@ -152,9 +159,8 @@ def metrics(y_reco, y_true):
 
 
     # Angle metric
-    angle_resi = 180 / np.pi * tf.math.acos(tf.reduce_sum(y_reco[:, 4:] * y_true[:, 4:], axis = 1) /
-        tf.sqrt(tf.reduce_sum(y_reco[:, 4:] ** 2, axis = 1) * tf.sqrt(tf.reduce_sum(y_true[:, 4:] ** 2, axis = 1))))
-    
+    angle_resi = 180 / np.pi * tf.reduce_mean(angle(y_reco[:, 4:], y_true[:, 4:]))
+
     u_angle         = tfp.stats.percentile(angle_resi, [68])
 
     return float(w_energy.numpy()), float(u_pos.numpy()), float(u_angle.numpy())
@@ -192,6 +198,7 @@ def train_step(inputs, targets):
     return loss
 
 
+
 @tf.function(input_signature = loader_test.tf_signature(), experimental_relax_shapes = True)
 def test_step(inputs, targets):
     predictions = model(inputs, training = False)
@@ -224,7 +231,6 @@ def validation(loader):
     loss                     = loss_func(y_reco, y_true)
 
     return loss, [l_energy, l_pos, l_angle], [w_energy, u_pos, u_angle]
-
 
 
 def test(loader):
@@ -266,7 +272,7 @@ def test(loader):
 
     for a in ax:
         a_ = a.twinx()
-        a_.step(xs, counts, color = "gray", zorder = 10, alpha = 0.7)
+        a_.step(xs, counts, color = "gray", zorder = 10, alpha = 0.7, where = "mid")
         a_.set_yscale("log")
         a.set_xlabel("Log Energy")
     
@@ -341,7 +347,7 @@ for batch in loader_train:
         
         if early_stop and (early_stop_counter >= patience):
             model.save(save_path)
-            print("Stopped training. No improvement was seen in {patience} epochs")
+            print(f"Stopped training. No improvement was seen in {patience} epochs")
             break
 
         if current_epoch != epochs:
@@ -361,4 +367,4 @@ for batch in loader_train:
 
         
 fig, ax = test(loader_test)
-fig.savefig("test.pdf")
+fig.savefig(f"model_tests/{model_name}_test.pdf")

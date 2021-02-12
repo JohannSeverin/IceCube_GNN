@@ -38,7 +38,7 @@ model_name    = "None"
 ################################################
 # Get model and data                           # 
 ################################################
-from models.MessagePass_angles import model
+from models.GCN_angles import model
 model = model()
 # model = load_model(osp.join(file_path, "models", "saved_models", "MessPass1"))
 
@@ -94,17 +94,8 @@ def loss_func(y_reco, y_true):
     # azimuthal = y_reco[:, 4]
     # zenith    = y_reco[:, 5]
     loss     += tf.reduce_mean(
-        tf.math.acos(tf.cos(y_reco[:, 5]) * tf.cos(y_true[:, 5]) + tf.sin(y_reco[:, 5]) * tf.sin(y_true[:, 5]) * tf.cos(y_reco[:, 4] - y_true[:, 4]))
-    )
+        1 - (tf.cos(y_reco[:, 5]) * tf.cos(y_true[:, 5]) + tf.sin(y_reco[:, 5]) * tf.sin(y_true[:, 5]) * tf.cos(y_reco[:, 4] - y_true[:, 4])))
 
-    # loss      += tf.reduce_mean(
-    #     tf.math.acos(tf.reduce_sum(y_reco[:, 4:] * y_true[:, 4:], axis = 1) /
-    #     tf.sqrt(tf.reduce_sum(y_reco[:, 4:] ** 2, axis = 1) * tf.sqrt(tf.reduce_sum(y_true[:, 4:] ** 2, axis = 1))))
-    #     )
-
-    # loss      += tf.reduce_mean(tf.abs(1 - tf.reduce_sum(y_reco[:, 4:] ** 2 , axis = 1)))
-
-    # loss    += mse(y_reco[:, 4:], y_true[:, 4:])
     return loss
 
 def loss_func_from(y_reco, y_true):
@@ -130,8 +121,7 @@ def loss_func_from(y_reco, y_true):
     )
     # Angle loss
     loss_angle  = tf.reduce_mean(
-        tf.math.acos(tf.cos(y_reco[:, 5]) * tf.cos(y_true[:, 5]) + tf.sin(y_reco[:, 5]) * tf.sin(y_true[:, 5]) * tf.cos(y_reco[:, 4] - y_true[:, 4]))
-    )
+       1 - (tf.cos(y_reco[:, 5]) * tf.cos(y_true[:, 5]) + tf.sin(y_reco[:, 5]) * tf.sin(y_true[:, 5]) * tf.cos(y_reco[:, 4] - y_true[:, 4])))
     # loss_angle = tf.reduce_mean(
     #     tf.math.acos(tf.reduce_sum(y_reco[:, 4:] * y_true[:, 4:], axis = 1) /
     #     tf.sqrt(tf.reduce_sum(y_reco[:, 4:] ** 2, axis = 1) * tf.sqrt(tf.reduce_sum(y_true[:, 4:] ** 2, axis = 1))))
@@ -370,4 +360,4 @@ for batch in loader_train:
 
         
 fig, ax = test(loader_test)
-fig.savefig("test.pdf")
+fig.savefig(f"model_tests/{model_name}_test.pdf")
