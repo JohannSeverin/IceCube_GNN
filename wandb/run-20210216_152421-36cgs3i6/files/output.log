@@ -1,0 +1,21 @@
+GPU detected
+WARNING:tensorflow:No training configuration found in save file, so the model was *not* compiled. Compile it manually.
+Loading data to memory
+  0%|                                                              | 0/157 [00:00<?, ?it/s][0;31m---------------------------------------------------------------------------[0m
+[0;31mValueError[0m                                Traceback (most recent call last)
+[0;32m~/Desktop/IceCube_GNN/train_GCN.py[0m in [0;36m<module>[0;34m[0m
+[1;32m    464[0m [0;34m[0m[0m
+[1;32m    465[0m [0;34m[0m[0m
+[0;32m--> 466[0;31m [0mfig[0m[0;34m,[0m [0max[0m [0;34m=[0m [0mtest[0m[0;34m([0m[0mloader_test[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    467[0m [0mfig[0m[0;34m.[0m[0msavefig[0m[0;34m([0m[0;34mf"model_tests/{model_name}_test.pdf"[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m~/Desktop/IceCube_GNN/train_GCN.py[0m in [0;36mtest[0;34m(loader)[0m
+[1;32m    287[0m [0;34m[0m[0m
+[1;32m    288[0m     [0mreco_azi[0m   [0;34m=[0m [0mnp[0m[0;34m.[0m[0marctan2[0m[0;34m([0m[0mreco_vects[0m[0;34m[[0m[0;34m:[0m[0;34m,[0m [0;36m0[0m[0;34m][0m[0;34m,[0m [0mreco_vects[0m[0;34m[[0m[0;34m:[0m[0;34m,[0m [0;36m1[0m[0;34m][0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0;32m--> 289[0;31m     [0mreco_zen[0m   [0;34m=[0m [0mnp[0m[0;34m.[0m[0marctan2[0m[0;34m([0m[0mnp[0m[0;34m.[0m[0msqrt[0m[0;34m([0m[0;34m([0m[0mreco_vects[0m[0;34m[[0m[0;34m:[0m[0;34m,[0m [0;34m:[0m[0;36m2[0m[0;34m][0m [0;34m**[0m [0;36m2[0m[0;34m)[0m[0;34m.[0m[0msum[0m[0;34m([0m[0;36m1[0m[0;34m)[0m[0;34m,[0m [0mreco_vects[0m[0;34m[[0m[0;34m:[0m[0;34m,[0m [0;36m2[0m[0;34m][0m[0;34m)[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    290[0m [0;34m[0m[0m
+[1;32m    291[0m     [0mtrue_azi[0m   [0;34m=[0m [0mnp[0m[0;34m.[0m[0marctan2[0m[0;34m([0m[0mtrue_vects[0m[0;34m[[0m[0;34m:[0m[0;34m,[0m [0;36m0[0m[0;34m][0m[0;34m,[0m [0mtrue_vects[0m[0;34m[[0m[0;34m:[0m[0;34m,[0m [0;36m1[0m[0;34m][0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+
+[0;31mValueError[0m: invalid number of arguments
+
+[23;0t

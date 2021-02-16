@@ -1,0 +1,56 @@
+2021-02-16 11:39:58,609 INFO    MainThread:10896 [wandb_setup.py:_flush():70] setting env: {}
+2021-02-16 11:39:58,609 INFO    MainThread:10896 [wandb_setup.py:_flush():70] multiprocessing start_methods=fork,spawn,forkserver, using: spawn
+2021-02-16 11:39:58,609 INFO    MainThread:10896 [wandb_setup.py:_flush():70] setting login settings: {}
+2021-02-16 11:39:58,609 INFO    MainThread:10896 [wandb_setup.py:_flush():70] configuring jupyter hooks <wandb.sdk.wandb_init._WandbInit object at 0x7f7fa24cc9d0>
+2021-02-16 11:39:58,609 INFO    MainThread:10896 [wandb_init.py:_log_setup():319] Logging user logs to /home/johannbs/Desktop/IceCube_GNN/wandb/run-20210216_113958-15dbzdlc/logs/debug.log
+2021-02-16 11:39:58,610 INFO    MainThread:10896 [wandb_init.py:_log_setup():320] Logging internal logs to /home/johannbs/Desktop/IceCube_GNN/wandb/run-20210216_113958-15dbzdlc/logs/debug-internal.log
+2021-02-16 11:39:58,610 INFO    MainThread:10896 [wandb_init.py:init():351] calling init triggers
+2021-02-16 11:39:58,610 INFO    MainThread:10896 [wandb_init.py:init():356] wandb.init called with sweep_config: {}
+config: {}
+2021-02-16 11:39:58,610 INFO    MainThread:10896 [wandb_init.py:init():404] starting backend
+2021-02-16 11:39:58,621 INFO    MainThread:10896 [backend.py:ensure_launched():81] starting backend process...
+2021-02-16 11:39:58,628 INFO    MainThread:10896 [backend.py:ensure_launched():85] started backend process with pid: 10912
+2021-02-16 11:39:58,629 INFO    MainThread:10896 [wandb_init.py:init():413] backend started and connected
+2021-02-16 11:39:58,631 INFO    MainThread:10896 [wandb_init.py:init():436] updated telemetry
+2021-02-16 11:39:58,632 INFO    MainThread:10896 [wandb_init.py:init():459] communicating current version
+2021-02-16 11:39:59,446 INFO    MainThread:10896 [wandb_init.py:init():464] got version response 
+2021-02-16 11:39:59,446 INFO    MainThread:10896 [wandb_init.py:init():472] communicating run to backend with 30 second timeout
+2021-02-16 11:39:59,645 INFO    MainThread:10896 [wandb_init.py:init():495] starting run threads in backend
+2021-02-16 11:40:01,227 INFO    MainThread:10896 [wandb_run.py:_console_start():1411] atexit reg
+2021-02-16 11:40:01,227 INFO    MainThread:10896 [wandb_run.py:_redirect():1274] redirect: SettingsConsole.WRAP
+2021-02-16 11:40:01,227 INFO    MainThread:10896 [wandb_run.py:_redirect():1309] Wrapping output streams.
+2021-02-16 11:40:01,228 INFO    MainThread:10896 [wandb_run.py:_redirect():1325] Redirects installed.
+2021-02-16 11:40:01,228 INFO    MainThread:10896 [wandb_init.py:init():518] run started, returning control to user process
+2021-02-16 11:40:02,126 INFO    MainThread:10896 [wandb_config.py:__setitem__():142] config set hidden_states = 128 - <bound method Run._config_callback of <wandb.sdk.wandb_run.Run object at 0x7f7f9a7ce9d0>>
+2021-02-16 11:40:02,126 INFO    MainThread:10896 [wandb_run.py:_config_callback():663] config_cb hidden_states 128 None
+2021-02-16 11:40:02,127 INFO    MainThread:10896 [wandb_config.py:__setitem__():142] config set forward = True - <bound method Run._config_callback of <wandb.sdk.wandb_run.Run object at 0x7f7f9a7ce9d0>>
+2021-02-16 11:40:02,127 INFO    MainThread:10896 [wandb_run.py:_config_callback():663] config_cb forward True None
+2021-02-16 11:40:02,127 INFO    MainThread:10896 [wandb_config.py:__setitem__():142] config set dropout = 0 - <bound method Run._config_callback of <wandb.sdk.wandb_run.Run object at 0x7f7f9a7ce9d0>>
+2021-02-16 11:40:02,127 INFO    MainThread:10896 [wandb_run.py:_config_callback():663] config_cb dropout 0 None
+2021-02-16 11:41:51,646 INFO    MainThread:10896 [wandb_init.py:_pause_backend():240] pausing backend
+2021-02-16 11:42:53,254 INFO    MainThread:10896 [wandb_init.py:_resume_backend():245] resuming backend
+2021-02-16 11:42:53,275 INFO    MainThread:10896 [wandb_init.py:_pause_backend():240] pausing backend
+2021-02-16 11:42:58,967 INFO    MainThread:10896 [wandb_init.py:_resume_backend():245] resuming backend
+2021-02-16 11:42:58,968 INFO    MainThread:10896 [wandb_init.py:_pause_backend():240] pausing backend
+2021-02-16 11:42:58,970 INFO    MainThread:10896 [wandb_run.py:_atexit_cleanup():1381] got exitcode: 0
+2021-02-16 11:42:58,970 INFO    MainThread:10896 [wandb_run.py:_restore():1353] restore
+2021-02-16 11:42:59,203 INFO    MainThread:10896 [wandb_run.py:_wait_for_finish():1504] got exit ret: file_counts {
+  wandb_count: 1
+}
+pusher_stats {
+  uploaded_bytes: 790
+  total_bytes: 790
+}
+
+2021-02-16 11:43:01,208 INFO    MainThread:10896 [wandb_run.py:_wait_for_finish():1504] got exit ret: done: true
+exit_result {
+}
+file_counts {
+  wandb_count: 5
+}
+pusher_stats {
+  uploaded_bytes: 39888
+  total_bytes: 39888
+}
+
+2021-02-16 11:43:02,511 INFO    MainThread:10896 [wandb_run.py:_show_files():1726] logging synced files

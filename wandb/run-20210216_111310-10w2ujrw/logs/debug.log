@@ -1,0 +1,44 @@
+2021-02-16 11:13:10,725 INFO    MainThread:8296 [wandb_setup.py:_flush():70] setting env: {}
+2021-02-16 11:13:10,725 INFO    MainThread:8296 [wandb_setup.py:_flush():70] multiprocessing start_methods=fork,spawn,forkserver, using: spawn
+2021-02-16 11:13:10,725 INFO    MainThread:8296 [wandb_setup.py:_flush():70] setting login settings: {}
+2021-02-16 11:13:10,725 INFO    MainThread:8296 [wandb_setup.py:_flush():70] configuring jupyter hooks <wandb.sdk.wandb_init._WandbInit object at 0x7f25a25ffca0>
+2021-02-16 11:13:10,726 INFO    MainThread:8296 [wandb_init.py:_log_setup():319] Logging user logs to /home/johannbs/Desktop/IceCube_GNN/wandb/run-20210216_111310-10w2ujrw/logs/debug.log
+2021-02-16 11:13:10,726 INFO    MainThread:8296 [wandb_init.py:_log_setup():320] Logging internal logs to /home/johannbs/Desktop/IceCube_GNN/wandb/run-20210216_111310-10w2ujrw/logs/debug-internal.log
+2021-02-16 11:13:10,726 INFO    MainThread:8296 [wandb_init.py:init():351] calling init triggers
+2021-02-16 11:13:10,726 INFO    MainThread:8296 [wandb_init.py:init():356] wandb.init called with sweep_config: {}
+config: {}
+2021-02-16 11:13:10,726 INFO    MainThread:8296 [wandb_init.py:init():404] starting backend
+2021-02-16 11:13:10,756 INFO    MainThread:8296 [backend.py:ensure_launched():81] starting backend process...
+2021-02-16 11:13:10,779 INFO    MainThread:8296 [backend.py:ensure_launched():85] started backend process with pid: 8354
+2021-02-16 11:13:10,780 INFO    MainThread:8296 [wandb_init.py:init():413] backend started and connected
+2021-02-16 11:13:10,781 INFO    MainThread:8296 [wandb_init.py:init():436] updated telemetry
+2021-02-16 11:13:10,782 INFO    MainThread:8296 [wandb_init.py:init():459] communicating current version
+2021-02-16 11:13:11,634 INFO    MainThread:8296 [wandb_init.py:init():464] got version response 
+2021-02-16 11:13:11,634 INFO    MainThread:8296 [wandb_init.py:init():472] communicating run to backend with 30 second timeout
+2021-02-16 11:13:11,852 INFO    MainThread:8296 [wandb_init.py:init():495] starting run threads in backend
+2021-02-16 11:13:13,601 INFO    MainThread:8296 [wandb_run.py:_console_start():1411] atexit reg
+2021-02-16 11:13:13,601 INFO    MainThread:8296 [wandb_run.py:_redirect():1274] redirect: SettingsConsole.WRAP
+2021-02-16 11:13:13,602 INFO    MainThread:8296 [wandb_run.py:_redirect():1309] Wrapping output streams.
+2021-02-16 11:13:13,602 INFO    MainThread:8296 [wandb_run.py:_redirect():1325] Redirects installed.
+2021-02-16 11:13:13,602 INFO    MainThread:8296 [wandb_init.py:init():518] run started, returning control to user process
+2021-02-16 11:13:19,425 INFO    MainThread:8296 [wandb_config.py:__setitem__():142] config set hidden_states = 64 - <bound method Run._config_callback of <wandb.sdk.wandb_run.Run object at 0x7f25b4e03ac0>>
+2021-02-16 11:13:19,426 INFO    MainThread:8296 [wandb_run.py:_config_callback():663] config_cb hidden_states 64 None
+2021-02-16 11:13:19,426 INFO    MainThread:8296 [wandb_config.py:__setitem__():142] config set forward = False - <bound method Run._config_callback of <wandb.sdk.wandb_run.Run object at 0x7f25b4e03ac0>>
+2021-02-16 11:13:19,426 INFO    MainThread:8296 [wandb_run.py:_config_callback():663] config_cb forward False None
+2021-02-16 11:13:19,426 INFO    MainThread:8296 [wandb_config.py:__setitem__():142] config set dropout = 0 - <bound method Run._config_callback of <wandb.sdk.wandb_run.Run object at 0x7f25b4e03ac0>>
+2021-02-16 11:13:19,426 INFO    MainThread:8296 [wandb_run.py:_config_callback():663] config_cb dropout 0 None
+2021-02-16 11:13:19,438 INFO    MainThread:8296 [wandb_init.py:_pause_backend():240] pausing backend
+2021-02-16 11:13:43,622 INFO    MainThread:8296 [wandb_init.py:_resume_backend():245] resuming backend
+2021-02-16 11:13:43,641 INFO    MainThread:8296 [wandb_setup.py:_flush():70] setting env: {}
+2021-02-16 11:13:43,641 INFO    MainThread:8296 [wandb_setup.py:_flush():70] multiprocessing start_methods=fork,spawn,forkserver, using: spawn
+2021-02-16 11:13:43,641 INFO    MainThread:8296 [wandb_setup.py:_flush():70] setting login settings: {}
+2021-02-16 11:13:43,641 INFO    MainThread:8296 [wandb_setup.py:_flush():70] configuring jupyter hooks <wandb.sdk.wandb_init._WandbInit object at 0x7f25a25ffca0>
+2021-02-16 11:13:43,641 INFO    MainThread:8296 [wandb_init.py:_log_setup():319] Logging user logs to /home/johannbs/Desktop/IceCube_GNN/wandb/run-20210216_111343-tzvgtw69/logs/debug.log
+2021-02-16 11:13:43,641 INFO    MainThread:8296 [wandb_init.py:_log_setup():320] Logging internal logs to /home/johannbs/Desktop/IceCube_GNN/wandb/run-20210216_111343-tzvgtw69/logs/debug-internal.log
+2021-02-16 11:13:43,641 INFO    MainThread:8296 [wandb_init.py:init():351] calling init triggers
+2021-02-16 11:13:43,641 INFO    MainThread:8296 [wandb_init.py:init():356] wandb.init called with sweep_config: {}
+config: {}
+2021-02-16 11:13:43,641 INFO    MainThread:8296 [wandb_init.py:init():371] re-initializing run, found existing run on stack: 10w2ujrw
+2021-02-16 11:13:43,642 INFO    MainThread:8296 [wandb_run.py:finish():1068] finishing run johannbs/icecube/10w2ujrw
+2021-02-16 11:13:43,642 INFO    MainThread:8296 [wandb_init.py:_jupyter_teardown():250] cleaning up jupyter logic
+2021-02-16 11:13:43,642 INFO    MainThread:8296 [jupyter.py:save_history():208] not saving jupyter history

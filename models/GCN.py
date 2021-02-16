@@ -11,7 +11,7 @@ from spektral.layers import ECCConv
 from spektral.layers.pooling.global_pool import GlobalMaxPool, GlobalAvgPool, GlobalSumPool
 
 from tensorflow.keras import Model, Input
-from tensorflow.keras.layers import Dense, LeakyReLU, BatchNormalization
+from tensorflow.keras.layers import Dense, LeakyReLU, BatchNormalization, Dropout
 from tensorflow.keras.activations import tanh
 from tensorflow.sparse import SparseTensor
 
@@ -22,8 +22,9 @@ activation = LeakyReLU(alpha = 0.1)
 # Probably needs regularization, but first step is just to fit, then we will regularize.
 
 class model(Model):
-    def __init__(self, n_out = 7):
+    def __init__(self, n_out = 7, hidden_states = 64, forward = False, dropout = 0):
         super().__init__()
+        self.forward = forward
         # Define layers of the model
         self.ECC1    = ECCConv(hidden_states, [hidden_states, hidden_states, hidden_states], n_out = hidden_states, activation = "relu")
         self.GCN1    = GCNConv(hidden_states, activation = "relu")
@@ -33,9 +34,11 @@ class model(Model):
         self.Pool1   = GlobalMaxPool()
         self.Pool2   = GlobalAvgPool()
         self.Pool3   = GlobalSumPool()
-        self.decode  = [Dense(size * hidden_states) for size in [16, 8, 4, 2, 2]]
+        self.decode  = [Dense(size * hidden_states) for size in [24, 12, 4, 3]]
+        self.drop_layers  = [Dropout(dropout) for i in range(len(self.decode))]
         self.norm_layers  = [BatchNormalization() for i in range(len(self.decode))]
         self.d2      = Dense(n_out)
+
 
     def call(self, inputs, training = False):
         x, a, i = inputs
@@ -49,7 +52,8 @@ class model(Model):
         x2 = self.Pool2([x, i])
         x3 = self.Pool3([x, i])
         x = tf.concat([x1, x2, x3], axis = 1)
-        for decode_layer, norm_layer in zip(self.decode, self.norm_layers):
+        for decode_layer, norm_layer, drop_layer in zip(self.decode, self.norm_layers, self.drop_layers):
+          x = drop_layer(x, training = training)
           x = activation(decode_layer(x))
           x = norm_layer(x, training = training)
         x = self.d2(x)
@@ -58,13 +62,14 @@ class model(Model):
     def generate_edge_features(self, x, a):
       send    = a.indices[:, 0]
       receive = a.indices[:, 1]
+      
+      if self.forward == True:
+        forwards  = tf.gather(x[:, 3], send) <= tf.gather(x[:, 3], receive)
 
-      forwards  = tf.gather(x[:, 3], send) <= tf.gather(x[:, 3], receive)
+        send    = tf.cast(send[forwards], tf.int64)
+        receive = tf.cast(receive[forwards], tf.int64)
 
-      send    = tf.cast(send[forwards], tf.int64)
-      receive = tf.cast(receive[forwards], tf.int64)
-
-      a       = SparseTensor(indices = tf.stack([send, receive], axis = 1), values = tf.ones(tf.shape(send), dtype = tf.float32), dense_shape = tf.cast(tf.shape(a), tf.int64))
+        a       = SparseTensor(indices = tf.stack([send, receive], axis = 1), values = tf.ones(tf.shape(send), dtype = tf.float32), dense_shape = tf.cast(tf.shape(a), tf.int64))
 
       diff_x  = tf.subtract(tf.gather(x, receive), tf.gather(x, send))
 

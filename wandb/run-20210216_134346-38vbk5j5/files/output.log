@@ -1,0 +1,10 @@
+GPU detected
+Loading data to memory
+[0;36m  File [0;32m"/home/johannbs/Desktop/IceCube_GNN/loss_functions.py"[0;36m, line [0;32m35[0m
+[0;31m    loss       +=[0m
+[0m                  ^[0m
+[0;31mSyntaxError[0m[0;31m:[0m invalid syntax
+
+
+
+[23;0t

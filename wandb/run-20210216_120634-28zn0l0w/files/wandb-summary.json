@@ -1,0 +1,1 @@
+{"Train Loss": 0.43988722562789917, "Validation Loss": 0.46570998430252075, "Energy metric": 0.16896259784698486, "Position metric": 0.2587522864341736, "Angle metric": 18.17509651184082, "Learning rate": 1.2725370882271901e-05, "_runtime": 4465, "_timestamp": 1613478059, "_step": 50}

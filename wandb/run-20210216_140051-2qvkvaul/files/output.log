@@ -1,0 +1,20 @@
+GPU detected
+Loading data to memory
+  0%|                                                   | 0/157 [00:00<?, ?it/s]  1%|▎                                          | 1/157 [00:05<14:40,  5.64s/it][0;31m---------------------------------------------------------------------------[0m
+[0;31mTypeError[0m                                 Traceback (most recent call last)
+[0;32m~/Desktop/IceCube_GNN/train_GCN.py[0m in [0;36m<module>[0;34m[0m
+[1;32m    352[0m     [0mcurrent_batch[0m  [0;34m+=[0m [0;36m1[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    353[0m     [0mpbar[0m[0;34m.[0m[0mupdate[0m[0;34m([0m[0;36m1[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0;32m--> 354[0;31m     [0mpbar[0m[0;34m.[0m[0mset_description[0m[0;34m([0m[0;34mf"Epoch {current_epoch} / {epochs}; Avg_loss: {loss / current_batch:.6f}"[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    355[0m [0;34m[0m[0m
+[1;32m    356[0m [0;34m[0m[0m
+
+[0;32m~/anaconda3/lib/python3.8/site-packages/tensorflow/python/framework/ops.py[0m in [0;36m__format__[0;34m(self, format_spec)[0m
+[1;32m    995[0m [0;34m[0m[0m
+[1;32m    996[0m   [0;32mdef[0m [0m__format__[0m[0;34m([0m[0mself[0m[0;34m,[0m [0mformat_spec[0m[0;34m)[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[0;32m--> 997[0;31m     [0;32mreturn[0m [0mself[0m[0;34m.[0m[0m_numpy[0m[0;34m([0m[0;34m)[0m[0;34m.[0m[0m__format__[0m[0;34m([0m[0mformat_spec[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    998[0m [0;34m[0m[0m
+[1;32m    999[0m   [0;32mdef[0m [0m__reduce__[0m[0;34m([0m[0mself[0m[0;34m)[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+
+[0;31mTypeError[0m: unsupported format string passed to numpy.ndarray.__format__
+
