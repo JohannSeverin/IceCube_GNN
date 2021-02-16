@@ -45,8 +45,9 @@ model_name    = "GCN_big_angle_loss2"
 ################################################
 hidden_states = 128
 forward       = False
-dropout       = 0.7
+dropout       = 0.5
 loss_method   = "loss_func_linear_angle"
+n_neighbors   = 9 # SKRIV SELV IND
 
 
 
@@ -57,7 +58,7 @@ wandb.config.dropout = dropout
 wandb.config.learning_rate = learning_rate
 wandb.config.batch_size = batch_size
 wandb.config.loss_func = loss_method
-
+wandb.config.n_neighbors = n_neighbors
 
 
 
@@ -285,11 +286,11 @@ def test(loader):
     true_vects = normalize(y_true[:, 4:])
 
 
-    reco_azi   = np.arctan2(reco_vects[:, 0], reco_vects[:, 1])
-    reco_zen   = np.arctan2(np.sqrt((reco_vects[:, :2] ** 2).sum(1)), reco_vects[:, 2])
+    reco_azi   = np.arctan2(reco_vects[:, 1], reco_vects[:, 0])
+    reco_zen   = np.arctan2(reco_vects[:, 2], np.sqrt((reco_vects[:, :2] ** 2).sum(1)))
 
-    true_azi   = np.arctan2(true_vects[:, 0], true_vects[:, 1])
-    true_zen   = np.arctan2(np.sqrt((true_vects[:, :2] ** 2).sum(1)), true_vects[:, 2])
+    true_azi   = np.arctan2(true_vects[:, 1], true_vects[:, 0])
+    true_zen   = np.arctan2(true_vects[:, 2], np.sqrt((true_vects[:, :2] ** 2).sum(1)))
 
 
 
@@ -365,21 +366,21 @@ def test(loader):
 
     # Energy
     ax_bot[0].set_title("Energy")
-    ax_bot[0].hist(y_reco[:, 0] - y_true[:, 0], label = "reco - true", histtype = "step")
-    ax_bot[0].hist(y_reco[:, 0], label = "reco", histtype = "step")
-    ax_bot[0].hist(y_true[:, 0], label = "true", histtype = "step")
+    ax_bot[0].hist(y_reco[:, 0] - y_true[:, 0], label = "reco - true", histtype = "step", bins = 50)
+    ax_bot[0].hist(y_reco[:, 0], label = "reco", histtype = "step", bins = 50)
+    ax_bot[0].hist(y_true[:, 0], label = "true", histtype = "step", bins = 50)
 
     # Zenith
     ax_bot[1].set_title("Zenith angle")
-    ax_bot[1].hist(reco_zen - true_zen, label = "reco - true", histtype = "step")
-    ax_bot[1].hist(reco_zen, label = "reco", histtype = "step")
-    ax_bot[1].hist(true_zen, label = "true", histtype = "step")
+    ax_bot[1].hist(reco_zen - true_zen, label = "reco - true", histtype = "step", bins = 50)
+    ax_bot[1].hist(reco_zen, label = "reco", histtype = "step", bins = 50)
+    ax_bot[1].hist(true_zen, label = "true", histtype = "step", bins = 50)
 
     # Azimuthal
     ax_bot[2].set_title("Azimuthal angle")
-    ax_bot[2].hist(reco_azi - true_azi, label = "reco - true", histtype = "step")
-    ax_bot[2].hist(reco_azi, label = "reco", histtype = "step")
-    ax_bot[2].hist(true_azi, label = "true", histtype = "step")
+    ax_bot[2].hist(reco_azi - true_azi, label = "reco - true", histtype = "step", bins = 50)
+    ax_bot[2].hist(reco_azi, label = "reco", histtype = "step", bins = 50)
+    ax_bot[2].hist(true_azi, label = "true", histtype = "step", bins = 50)
     ax_bot[2].legend()
 
     fig.tight_layout()

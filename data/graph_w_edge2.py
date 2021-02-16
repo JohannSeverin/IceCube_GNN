@@ -164,4 +164,4 @@ if __name__ == "__main__":
         print("Preparing dataset with all availible raw data")
 
     # Preparing data 
-    dataset = graph_w_edge2(n_data = n_data, n_neighbors= 6)
+    dataset = graph_w_edge2(n_data = n_data, n_neighbors= 9)

@@ -33,3 +33,30 @@ config: {}
 2021-02-16 16:22:05,920 INFO    MainThread:30099 [wandb_run.py:_config_callback():663] config_cb batch_size 512 None
 2021-02-16 16:22:05,921 INFO    MainThread:30099 [wandb_config.py:__setitem__():142] config set loss_func = loss_func_linear_angle - <bound method Run._config_callback of <wandb.sdk.wandb_run.Run object at 0x7f16b155da90>>
 2021-02-16 16:22:05,921 INFO    MainThread:30099 [wandb_run.py:_config_callback():663] config_cb loss_func loss_func_linear_angle None
+2021-02-16 16:43:49,148 INFO    MainThread:30099 [wandb_init.py:_pause_backend():240] pausing backend
+2021-02-16 16:43:50,619 INFO    MainThread:30099 [wandb_init.py:_resume_backend():245] resuming backend
+2021-02-16 16:43:50,620 INFO    MainThread:30099 [wandb_init.py:_pause_backend():240] pausing backend
+2021-02-16 16:43:50,621 INFO    MainThread:30099 [wandb_run.py:_atexit_cleanup():1381] got exitcode: 0
+2021-02-16 16:43:50,622 INFO    MainThread:30099 [wandb_run.py:_restore():1353] restore
+2021-02-16 16:43:51,166 INFO    MainThread:30099 [wandb_run.py:_wait_for_finish():1504] got exit ret: file_counts {
+  wandb_count: 1
+}
+pusher_stats {
+  uploaded_bytes: 790
+  total_bytes: 790
+}
+
+2021-02-16 16:43:53,170 INFO    MainThread:30099 [wandb_run.py:_wait_for_finish():1504] got exit ret: done: true
+exit_result {
+}
+file_counts {
+  wandb_count: 5
+}
+pusher_stats {
+  uploaded_bytes: 508453
+  total_bytes: 508453
+}
+
+2021-02-16 16:43:54,468 INFO    MainThread:30099 [wandb_run.py:_show_summary():1659] rendering summary
+2021-02-16 16:43:54,469 INFO    MainThread:30099 [wandb_run.py:_show_history():1697] rendering history
+2021-02-16 16:43:54,469 INFO    MainThread:30099 [wandb_run.py:_show_files():1726] logging synced files

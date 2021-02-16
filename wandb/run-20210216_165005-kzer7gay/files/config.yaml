@@ -12,9 +12,6 @@ _wandb:
       1:
       - 3
       - 5
-      2:
-      - 3
-      - 5
       4: 3.8.5
       5: 0.10.19
       8:
@@ -24,7 +21,7 @@ batch_size:
   value: 512
 dropout:
   desc: null
-  value: 0.7
+  value: 0.5
 forward:
   desc: null
   value: false
@@ -37,3 +34,6 @@ learning_rate:
 loss_func:
   desc: null
   value: loss_func_linear_angle
+n_neighbors:
+  desc: null
+  value: 9
