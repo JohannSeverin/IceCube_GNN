@@ -1,0 +1,53 @@
+GPU detected
+Loading data to memory
+
+[0;31m---------------------------------------------------------------------------[0m
+[0;31mTypeError[0m                                 Traceback (most recent call last)
+[0;32m<ipython-input-5-be9d5f0032da>[0m in [0;36m<module>[0;34m[0m
+[0;32m----> 1[0;31m [0;32mfor[0m [0mbatch[0m [0;32min[0m [0mloader_train[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m      2[0m     [0;32mbreak[0m[0;34m[0m[0;34m[0m[0m
+[1;32m      3[0m [0;34m[0m[0m
+
+[0;32m~/anaconda3/lib/python3.8/site-packages/spektral/data/loaders.py[0m in [0;36m__next__[0;34m(self)[0m
+[1;32m     98[0m [0;34m[0m[0m
+[1;32m     99[0m     [0;32mdef[0m [0m__next__[0m[0;34m([0m[0mself[0m[0;34m)[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[0;32m--> 100[0;31m         [0mnxt[0m [0;34m=[0m [0mself[0m[0;34m.[0m[0m_generator[0m[0;34m.[0m[0m__next__[0m[0;34m([0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    101[0m         [0;32mreturn[0m [0mself[0m[0;34m.[0m[0mcollate[0m[0;34m([0m[0mnxt[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    102[0m [0;34m[0m[0m
+
+[0;32m~/anaconda3/lib/python3.8/site-packages/spektral/data/utils.py[0m in [0;36mbatch_generator[0;34m(data, batch_size, epochs, shuffle)[0m
+[1;32m    144[0m     [0;32mif[0m [0mlen[0m[0;34m([0m[0mdata[0m[0;34m)[0m [0;34m<[0m [0;36m1[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    145[0m         [0;32mraise[0m [0mValueError[0m[0;34m([0m[0;34m'data cannot be empty'[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0;32m--> 146[0;31m     [0;32mif[0m [0mlen[0m[0;34m([0m[0mset[0m[0;34m([0m[0;34m[[0m[0mlen[0m[0;34m([0m[0mitem[0m[0;34m)[0m [0;32mfor[0m [0mitem[0m [0;32min[0m [0mdata[0m[0;34m][0m[0;34m)[0m[0;34m)[0m [0;34m>[0m [0;36m1[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    147[0m         [0;32mraise[0m [0mValueError[0m[0;34m([0m[0;34m'All inputs must have the same __len__'[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    148[0m [0;34m[0m[0m
+
+[0;32m~/anaconda3/lib/python3.8/site-packages/spektral/data/utils.py[0m in [0;36m<listcomp>[0;34m(.0)[0m
+[1;32m    144[0m     [0;32mif[0m [0mlen[0m[0;34m([0m[0mdata[0m[0;34m)[0m [0;34m<[0m [0;36m1[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    145[0m         [0;32mraise[0m [0mValueError[0m[0;34m([0m[0;34m'data cannot be empty'[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0;32m--> 146[0;31m     [0;32mif[0m [0mlen[0m[0;34m([0m[0mset[0m[0;34m([0m[0;34m[[0m[0mlen[0m[0;34m([0m[0mitem[0m[0;34m)[0m [0;32mfor[0m [0mitem[0m [0;32min[0m [0mdata[0m[0;34m][0m[0;34m)[0m[0;34m)[0m [0;34m>[0m [0;36m1[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    147[0m         [0;32mraise[0m [0mValueError[0m[0;34m([0m[0;34m'All inputs must have the same __len__'[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    148[0m [0;34m[0m[0m
+
+[0;31mTypeError[0m: object of type 'NoneType' has no len()
+
+<spektral.data.loaders.DisjointLoader at 0x7f17a3ef0a00>
+
+
+[0;31m---------------------------------------------------------------------------[0m
+[0;31mNameError[0m                                 Traceback (most recent call last)
+[0;32m<ipython-input-8-0e20a88bbe2e>[0m in [0;36m<module>[0;34m[0m
+[0;32m----> 1[0;31m [0mbatch[0m[0;34m[0m[0;34m[0m[0m
+[0m
+[0;31mNameError[0m: name 'batch' is not defined
+
+[0;31m---------------------------------------------------------------------------[0m
+[0;31mNameError[0m                                 Traceback (most recent call last)
+[0;32m<ipython-input-9-0e20a88bbe2e>[0m in [0;36m<module>[0;34m[0m
+[0;32m----> 1[0;31m [0mbatch[0m[0;34m[0m[0;34m[0m[0m
+[0m
+[0;31mNameError[0m: name 'batch' is not defined
+
+
+
+[23;0t

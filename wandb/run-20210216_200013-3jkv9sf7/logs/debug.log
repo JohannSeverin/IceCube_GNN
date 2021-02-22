@@ -1,0 +1,64 @@
+2021-02-16 20:00:13,853 INFO    MainThread:38796 [wandb_setup.py:_flush():70] setting env: {}
+2021-02-16 20:00:13,853 INFO    MainThread:38796 [wandb_setup.py:_flush():70] multiprocessing start_methods=fork,spawn,forkserver, using: spawn
+2021-02-16 20:00:13,854 INFO    MainThread:38796 [wandb_setup.py:_flush():70] setting login settings: {}
+2021-02-16 20:00:13,854 INFO    MainThread:38796 [wandb_setup.py:_flush():70] configuring jupyter hooks <wandb.sdk.wandb_init._WandbInit object at 0x7f63a3f1eb20>
+2021-02-16 20:00:13,855 INFO    MainThread:38796 [wandb_init.py:_log_setup():319] Logging user logs to /home/johannbs/Desktop/IceCube_GNN/wandb/run-20210216_200013-3jkv9sf7/logs/debug.log
+2021-02-16 20:00:13,855 INFO    MainThread:38796 [wandb_init.py:_log_setup():320] Logging internal logs to /home/johannbs/Desktop/IceCube_GNN/wandb/run-20210216_200013-3jkv9sf7/logs/debug-internal.log
+2021-02-16 20:00:13,856 INFO    MainThread:38796 [wandb_init.py:init():351] calling init triggers
+2021-02-16 20:00:13,856 INFO    MainThread:38796 [wandb_init.py:init():356] wandb.init called with sweep_config: {}
+config: {}
+2021-02-16 20:00:13,856 INFO    MainThread:38796 [wandb_init.py:init():404] starting backend
+2021-02-16 20:00:13,878 INFO    MainThread:38796 [backend.py:ensure_launched():81] starting backend process...
+2021-02-16 20:00:13,891 INFO    MainThread:38796 [backend.py:ensure_launched():85] started backend process with pid: 38832
+2021-02-16 20:00:13,892 INFO    MainThread:38796 [wandb_init.py:init():413] backend started and connected
+2021-02-16 20:00:13,894 INFO    MainThread:38796 [wandb_init.py:init():436] updated telemetry
+2021-02-16 20:00:13,894 INFO    MainThread:38796 [wandb_init.py:init():459] communicating current version
+2021-02-16 20:00:14,722 INFO    MainThread:38796 [wandb_init.py:init():464] got version response 
+2021-02-16 20:00:14,723 INFO    MainThread:38796 [wandb_init.py:init():472] communicating run to backend with 30 second timeout
+2021-02-16 20:00:14,916 INFO    MainThread:38796 [wandb_init.py:init():495] starting run threads in backend
+2021-02-16 20:00:16,434 INFO    MainThread:38796 [wandb_run.py:_console_start():1411] atexit reg
+2021-02-16 20:00:16,434 INFO    MainThread:38796 [wandb_run.py:_redirect():1274] redirect: SettingsConsole.WRAP
+2021-02-16 20:00:16,435 INFO    MainThread:38796 [wandb_run.py:_redirect():1309] Wrapping output streams.
+2021-02-16 20:00:16,435 INFO    MainThread:38796 [wandb_run.py:_redirect():1325] Redirects installed.
+2021-02-16 20:00:16,435 INFO    MainThread:38796 [wandb_init.py:init():518] run started, returning control to user process
+2021-02-16 20:00:19,003 INFO    MainThread:38796 [wandb_config.py:__setitem__():142] config set hidden_states = 128 - <bound method Run._config_callback of <wandb.sdk.wandb_run.Run object at 0x7f63a0459e80>>
+2021-02-16 20:00:19,003 INFO    MainThread:38796 [wandb_run.py:_config_callback():663] config_cb hidden_states 128 None
+2021-02-16 20:00:19,003 INFO    MainThread:38796 [wandb_config.py:__setitem__():142] config set forward = False - <bound method Run._config_callback of <wandb.sdk.wandb_run.Run object at 0x7f63a0459e80>>
+2021-02-16 20:00:19,004 INFO    MainThread:38796 [wandb_run.py:_config_callback():663] config_cb forward False None
+2021-02-16 20:00:19,004 INFO    MainThread:38796 [wandb_config.py:__setitem__():142] config set dropout = 0.5 - <bound method Run._config_callback of <wandb.sdk.wandb_run.Run object at 0x7f63a0459e80>>
+2021-02-16 20:00:19,004 INFO    MainThread:38796 [wandb_run.py:_config_callback():663] config_cb dropout 0.5 None
+2021-02-16 20:00:19,004 INFO    MainThread:38796 [wandb_config.py:__setitem__():142] config set learning_rate = 0.001 - <bound method Run._config_callback of <wandb.sdk.wandb_run.Run object at 0x7f63a0459e80>>
+2021-02-16 20:00:19,004 INFO    MainThread:38796 [wandb_run.py:_config_callback():663] config_cb learning_rate 0.001 None
+2021-02-16 20:00:19,005 INFO    MainThread:38796 [wandb_config.py:__setitem__():142] config set batch_size = 512 - <bound method Run._config_callback of <wandb.sdk.wandb_run.Run object at 0x7f63a0459e80>>
+2021-02-16 20:00:19,005 INFO    MainThread:38796 [wandb_run.py:_config_callback():663] config_cb batch_size 512 None
+2021-02-16 20:00:19,005 INFO    MainThread:38796 [wandb_config.py:__setitem__():142] config set loss_func = loss_func_linear_angle - <bound method Run._config_callback of <wandb.sdk.wandb_run.Run object at 0x7f63a0459e80>>
+2021-02-16 20:00:19,005 INFO    MainThread:38796 [wandb_run.py:_config_callback():663] config_cb loss_func loss_func_linear_angle None
+2021-02-16 20:00:19,006 INFO    MainThread:38796 [wandb_config.py:__setitem__():142] config set n_neighbors = 9 - <bound method Run._config_callback of <wandb.sdk.wandb_run.Run object at 0x7f63a0459e80>>
+2021-02-16 20:00:19,006 INFO    MainThread:38796 [wandb_run.py:_config_callback():663] config_cb n_neighbors 9 None
+2021-02-16 23:43:00,503 INFO    MainThread:38796 [wandb_init.py:_pause_backend():240] pausing backend
+2021-02-16 23:43:25,179 INFO    MainThread:38796 [wandb_init.py:_resume_backend():245] resuming backend
+2021-02-16 23:43:25,179 INFO    MainThread:38796 [wandb_init.py:_pause_backend():240] pausing backend
+2021-02-16 23:43:25,180 INFO    MainThread:38796 [wandb_run.py:_atexit_cleanup():1381] got exitcode: 0
+2021-02-16 23:43:25,180 INFO    MainThread:38796 [wandb_run.py:_restore():1353] restore
+2021-02-16 23:43:25,406 INFO    MainThread:38796 [wandb_run.py:_wait_for_finish():1504] got exit ret: file_counts {
+  wandb_count: 1
+}
+pusher_stats {
+  uploaded_bytes: 790
+  total_bytes: 790
+}
+
+2021-02-16 23:43:27,409 INFO    MainThread:38796 [wandb_run.py:_wait_for_finish():1504] got exit ret: done: true
+exit_result {
+}
+file_counts {
+  wandb_count: 5
+}
+pusher_stats {
+  uploaded_bytes: 2001328
+  total_bytes: 2001328
+}
+
+2021-02-16 23:43:28,697 INFO    MainThread:38796 [wandb_run.py:_show_summary():1659] rendering summary
+2021-02-16 23:43:28,697 INFO    MainThread:38796 [wandb_run.py:_show_history():1697] rendering history
+2021-02-16 23:43:28,698 INFO    MainThread:38796 [wandb_run.py:_show_files():1726] logging synced files

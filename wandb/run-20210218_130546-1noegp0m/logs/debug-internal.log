@@ -1,0 +1,28 @@
+2021-02-18 13:05:47,394 INFO    MainThread:12248 [internal.py:wandb_internal():88] W&B internal server running at pid: 12248, started at: 2021-02-18 13:05:47.394317
+2021-02-18 13:05:47,396 DEBUG   HandlerThread:12248 [handler.py:handle_request():94] handle_request: check_version
+2021-02-18 13:05:47,397 DEBUG   SenderThread:12248 [sender.py:send():117] send: header
+2021-02-18 13:05:47,397 INFO    WriterThread:12248 [datastore.py:open_for_write():77] open: /home/johannbs/Desktop/IceCube_GNN/wandb/run-20210218_130546-1noegp0m/run-1noegp0m.wandb
+2021-02-18 13:05:47,397 DEBUG   SenderThread:12248 [sender.py:send():117] send: request
+2021-02-18 13:05:47,397 DEBUG   SenderThread:12248 [sender.py:send_request():126] send_request: check_version
+2021-02-18 13:05:47,429 DEBUG   SenderThread:12248 [sender.py:send():117] send: run
+2021-02-18 13:05:47,628 INFO    SenderThread:12248 [sender.py:_start_run_threads():593] run started: 1noegp0m with start time 1613649946
+2021-02-18 13:05:47,628 DEBUG   SenderThread:12248 [sender.py:send():117] send: summary
+2021-02-18 13:05:47,628 INFO    SenderThread:12248 [sender.py:_save_file():682] saving file wandb-summary.json with policy end
+2021-02-18 13:05:47,629 DEBUG   HandlerThread:12248 [handler.py:handle_request():94] handle_request: run_start
+2021-02-18 13:05:49,022 DEBUG   HandlerThread:12248 [meta.py:__init__():34] meta init
+2021-02-18 13:05:49,022 DEBUG   HandlerThread:12248 [meta.py:__init__():48] meta init done
+2021-02-18 13:05:49,022 DEBUG   HandlerThread:12248 [meta.py:probe():190] probe
+2021-02-18 13:05:49,028 DEBUG   HandlerThread:12248 [meta.py:_setup_git():180] setup git
+2021-02-18 13:05:49,047 DEBUG   HandlerThread:12248 [meta.py:_setup_git():187] setup git done
+2021-02-18 13:05:49,047 DEBUG   HandlerThread:12248 [meta.py:_save_pip():52] save pip
+2021-02-18 13:05:49,048 DEBUG   HandlerThread:12248 [meta.py:_save_pip():66] save pip done
+2021-02-18 13:05:49,049 DEBUG   HandlerThread:12248 [meta.py:probe():231] probe done
+2021-02-18 13:05:49,052 DEBUG   SenderThread:12248 [sender.py:send():117] send: files
+2021-02-18 13:05:49,053 INFO    SenderThread:12248 [sender.py:_save_file():682] saving file wandb-metadata.json with policy now
+2021-02-18 13:05:49,059 DEBUG   HandlerThread:12248 [handler.py:handle_request():94] handle_request: status
+2021-02-18 13:05:49,059 DEBUG   SenderThread:12248 [sender.py:send():117] send: request
+2021-02-18 13:05:49,059 DEBUG   SenderThread:12248 [sender.py:send_request():126] send_request: status
+2021-02-18 13:05:49,215 DEBUG   SenderThread:12248 [sender.py:send():117] send: config
+2021-02-18 13:05:49,399 DEBUG   SenderThread:12248 [sender.py:send():117] send: config
+2021-02-18 13:05:49,577 DEBUG   SenderThread:12248 [sender.py:send():117] send: config
+2021-02-18 13:05:49,751 DEBUG   SenderThread:12248 [sender.py:send():117] send: config

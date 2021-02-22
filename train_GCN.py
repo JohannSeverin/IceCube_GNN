@@ -32,12 +32,12 @@ file_path = osp.dirname(osp.realpath(__file__))
 ################################################
 # Setup Deafult Variabls                       # 
 ################################################
-learning_rate = 5e-4
+learning_rate = 1e-3
 batch_size    = 512
 epochs        = 100
 early_stop    = True
 patience      = 3
-model_name    = "GCN_big_angle_loss2"
+model_name    = "GCN_big_angle_loss3"
 
 
 ################################################
@@ -345,17 +345,17 @@ def test(loader):
 
     # Energy
     ax_mid[0].set_title("Energy")
-    ax_mid[0].plot(y_true[:, 0], y_reco[:, 0], 'b.', alpha = 0.5)
+    ax_mid[0].plot(y_true[:, 0], y_reco[:, 0], 'b.', alpha = 0.25)
 
 
     # Zenith
     ax_mid[1].set_title("Zenith angle")
-    ax_mid[1].plot(true_zen, reco_zen, 'b.', alpha = 0.5)
+    ax_mid[1].plot(true_zen, reco_zen, 'b.', alpha = 0.25)
     
 
     # Azimuthal
     ax_mid[2].set_title("Azimuthal angle")
-    ax_mid[2].plot(true_azi, reco_azi, 'b.', alpha = 0.5)
+    ax_mid[2].plot(true_azi, reco_azi, 'b.', alpha = 0.25)
 
 
 

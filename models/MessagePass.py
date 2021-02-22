@@ -3,6 +3,7 @@ import tensorflow as tf
 from tensorflow.keras.models import Model, Sequential
 from tensorflow.keras.layers import Dense, BatchNormalization, LeakyReLU
 from tensorflow.keras.activations import tanh
+from tensorflow.python.keras.layers.core import Dropout
 from tensorflow.sparse import SparseTensor, eye, add
 from spektral.layers import MessagePassing, GlobalAvgPool
 
@@ -13,22 +14,23 @@ from spektral.layers import MessagePassing, GlobalAvgPool
 
 class model(Model):
 
-    def __init__(self, hidden_states = 64,  **kwargs):
+    def __init__(self, hidden_states = 64,  dropout = 0, forward = False):
         # Encode X and E
         super().__init__()
+        self.forward = forward
         self.encode_x1 = Dense(hidden_states // 2)
         self.encode_x2 = Dense( hidden_states, activation = 'relu')
         self.encode_e1 = Dense(hidden_states // 2)
         self.encode_e2 = Dense( hidden_states, activation = 'relu')
 
         # self.MP_model1    = MP(n_out = hidden_states, hidden_states = hidden_states)
-        self.mp_layers    = [MP(n_out = hidden_states, hidden_states = hidden_states) for i in range(3)]
+        self.mp_layers    = [MP(n_out = hidden_states, dropout = dropout, hidden_states = hidden_states) for i in range(3)]
         self.norm_layers  = [BatchNormalization() for i in range(3)]
         self.norm_decode  = BatchNormalization()
         self.pool         = GlobalAvgPool()
         self.decode       = MLP(output = hidden_states, hidden = hidden_states * 2, layers = 4)
         self.out1         = Dense(hidden_states)
-        self.out2         = Dense(7)
+        self.out2         = Dense(1, activation = "sigmoid")
 
         self.activation   = LeakyReLU(0.15)
 
@@ -54,12 +56,13 @@ class model(Model):
     def generate_edge_features(self, x, a):
       send    = a.indices[:, 0]
       receive = a.indices[:, 1]
+      if self.forward:
+        forwards  = tf.gather(x[:, 3], send) <= tf.gather(x[:, 3], receive)
 
-      forwards  = tf.gather(x[:, 3], send) <= tf.gather(x[:, 3], receive)
-
-      send    = tf.cast(send[forwards], tf.int64)
-      receive = tf.cast(receive[forwards], tf.int64)
-      a       = SparseTensor(indices = tf.stack([send, receive], axis = 1), values = tf.ones(tf.shape(send), dtype = tf.float32), dense_shape = tf.cast(tf.shape(a), tf.int64))
+        send    = tf.cast(send[forwards], tf.int64)
+        receive = tf.cast(receive[forwards], tf.int64)
+        a       = SparseTensor(indices = tf.stack([send, receive], axis = 1), values = tf.ones(tf.shape(send), dtype = tf.float32), dense_shape = tf.cast(tf.shape(a), tf.int64))
+      
       diff_x  = tf.subtract(tf.gather(x, receive), tf.gather(x, send))
 
       dists   = tf.sqrt(
@@ -79,14 +82,14 @@ class model(Model):
 
 class MP(MessagePassing):
 
-    def __init__(self, n_out, hidden_states):
+    def __init__(self, n_out, hidden_states, dropout = 0):
         super().__init__()
         self.n_out = n_out
         self.hidden_states = hidden_states
-        self.message_mlp = MLP(hidden_states * 2, hidden = hidden_states * 4, layers = 2)
-        self.update_mlp  = MLP(hidden_states * 1, hidden = hidden_states * 2, layers = 2)
+        self.message_mlp = MLP(hidden_states * 2, hidden = hidden_states * 4, layers = 2, dropout = dropout)
+        self.update_mlp  = MLP(hidden_states * 1, hidden = hidden_states * 2, layers = 2, dropout = dropout)
 
-    def propagate(self, x, a, e=None, **kwargs):
+    def propagate(self, x, a, e=None, training = False, **kwargs):
         self.n_nodes = tf.shape(x)[0]
         self.index_i = a.indices[:, 1]
         self.index_j = a.indices[:, 0]
@@ -94,26 +97,26 @@ class MP(MessagePassing):
         # Message
         # print(x, a, e)
         # msg_kwargs = self.get_kwargs(x, a, e, self.msg_signature, kwargs)
-        messages = self.message(x, a, e)
+        messages = self.message(x, a, e, training = training)
 
         # Aggregate
         # agg_kwargs = self.get_kwargs(x, a, e, self.agg_signature, kwargs)
-        embeddings = self.aggregate(messages)
+        embeddings = self.aggregate(messages, training = training)
 
         # Update
         # upd_kwargs = self.get_kwargs(x, a, e, self.upd_signature, kwargs)
-        output = self.update(embeddings)
+        output = self.update(embeddings, training = training)
 
         return output
 
-    def message(self, x, a, e):
+    def message(self, x, a, e, training = False):
         # print([self.get_i(x), self.get_j(x), e])
         out = tf.concat([self.get_i(x), self.get_j(x), e], axis = 1)
-        out = self.message_mlp(out)
+        out = self.message_mlp(out, training = training)
         return out
     
-    def update(self, embeddings):
-        out = self.update_mlp(embeddings)
+    def update(self, embeddings, training = False):
+        out = self.update_mlp(embeddings, training = training)
         return out
 
 class MLP(Model):
@@ -127,7 +130,9 @@ class MLP(Model):
         for i in range(layers):
             # Linear
             self.mlp.add(Dense(hidden if i < layers - 1 else output, activation = activation))
+            if dropout > 0:
+                self.mlp.add(Dropout(dropout))
 
 
-    def call(self, inputs):
-        return self.mlp(inputs)
+    def call(self, inputs, training = False):
+        return self.mlp(inputs, training = training)
