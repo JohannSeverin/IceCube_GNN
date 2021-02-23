@@ -1,0 +1,53 @@
+2021-02-22 11:01:15,675 INFO    MainThread:11414 [internal.py:wandb_internal():88] W&B internal server running at pid: 11414, started at: 2021-02-22 11:01:15.675044
+2021-02-22 11:01:15,677 DEBUG   HandlerThread:11414 [handler.py:handle_request():94] handle_request: check_version
+2021-02-22 11:01:15,677 INFO    WriterThread:11414 [datastore.py:open_for_write():77] open: /home/johannbs/Desktop/IceCube_GNN/wandb/run-20210222_110114-n19ju3wi/run-n19ju3wi.wandb
+2021-02-22 11:01:15,677 DEBUG   SenderThread:11414 [sender.py:send():117] send: header
+2021-02-22 11:01:15,678 DEBUG   SenderThread:11414 [sender.py:send():117] send: request
+2021-02-22 11:01:15,678 DEBUG   SenderThread:11414 [sender.py:send_request():126] send_request: check_version
+2021-02-22 11:01:15,709 DEBUG   SenderThread:11414 [sender.py:send():117] send: run
+2021-02-22 11:01:15,901 INFO    SenderThread:11414 [sender.py:_start_run_threads():593] run started: n19ju3wi with start time 1613988074
+2021-02-22 11:01:15,901 DEBUG   SenderThread:11414 [sender.py:send():117] send: summary
+2021-02-22 11:01:15,901 INFO    SenderThread:11414 [sender.py:_save_file():682] saving file wandb-summary.json with policy end
+2021-02-22 11:01:15,902 DEBUG   HandlerThread:11414 [handler.py:handle_request():94] handle_request: run_start
+2021-02-22 11:01:17,311 DEBUG   HandlerThread:11414 [meta.py:__init__():34] meta init
+2021-02-22 11:01:17,311 DEBUG   HandlerThread:11414 [meta.py:__init__():48] meta init done
+2021-02-22 11:01:17,311 DEBUG   HandlerThread:11414 [meta.py:probe():190] probe
+2021-02-22 11:01:17,317 DEBUG   HandlerThread:11414 [meta.py:_setup_git():180] setup git
+2021-02-22 11:01:17,338 DEBUG   HandlerThread:11414 [meta.py:_setup_git():187] setup git done
+2021-02-22 11:01:17,338 DEBUG   HandlerThread:11414 [meta.py:_save_pip():52] save pip
+2021-02-22 11:01:17,353 DEBUG   HandlerThread:11414 [meta.py:_save_pip():66] save pip done
+2021-02-22 11:01:17,353 DEBUG   HandlerThread:11414 [meta.py:probe():231] probe done
+2021-02-22 11:01:17,487 DEBUG   SenderThread:11414 [sender.py:send():117] send: files
+2021-02-22 11:01:17,488 INFO    SenderThread:11414 [sender.py:_save_file():682] saving file wandb-metadata.json with policy now
+2021-02-22 11:01:17,494 DEBUG   HandlerThread:11414 [handler.py:handle_request():94] handle_request: status
+2021-02-22 11:01:17,495 DEBUG   SenderThread:11414 [sender.py:send():117] send: request
+2021-02-22 11:01:17,495 DEBUG   SenderThread:11414 [sender.py:send_request():126] send_request: status
+2021-02-22 11:01:20,198 DEBUG   SenderThread:11414 [sender.py:send():117] send: config
+2021-02-22 11:01:20,426 DEBUG   SenderThread:11414 [sender.py:send():117] send: config
+2021-02-22 11:01:20,610 DEBUG   SenderThread:11414 [sender.py:send():117] send: config
+2021-02-22 11:01:20,784 DEBUG   SenderThread:11414 [sender.py:send():117] send: config
+2021-02-22 11:01:20,961 DEBUG   SenderThread:11414 [sender.py:send():117] send: config
+2021-02-22 11:01:21,144 DEBUG   SenderThread:11414 [sender.py:send():117] send: config
+2021-02-22 11:01:21,323 DEBUG   SenderThread:11414 [sender.py:send():117] send: config
+2021-02-22 11:01:21,496 DEBUG   SenderThread:11414 [sender.py:send():117] send: stats
+2021-02-22 11:01:25,195 DEBUG   SenderThread:11414 [sender.py:send():117] send: stats
+2021-02-22 11:01:29,692 DEBUG   SenderThread:11414 [sender.py:send():117] send: stats
+2021-02-22 11:01:32,653 DEBUG   HandlerThread:11414 [handler.py:handle_request():94] handle_request: status
+2021-02-22 11:01:32,654 DEBUG   SenderThread:11414 [sender.py:send():117] send: request
+2021-02-22 11:01:32,654 DEBUG   SenderThread:11414 [sender.py:send_request():126] send_request: status
+2021-02-22 11:01:34,173 DEBUG   SenderThread:11414 [sender.py:send():117] send: stats
+2021-02-22 11:01:38,652 DEBUG   SenderThread:11414 [sender.py:send():117] send: stats
+2021-02-22 11:01:43,123 DEBUG   SenderThread:11414 [sender.py:send():117] send: stats
+2021-02-22 11:01:47,601 DEBUG   SenderThread:11414 [sender.py:send():117] send: stats
+2021-02-22 11:01:47,815 DEBUG   HandlerThread:11414 [handler.py:handle_request():94] handle_request: status
+2021-02-22 11:01:47,816 DEBUG   SenderThread:11414 [sender.py:send():117] send: request
+2021-02-22 11:01:47,816 DEBUG   SenderThread:11414 [sender.py:send_request():126] send_request: status
+2021-02-22 11:01:52,071 DEBUG   SenderThread:11414 [sender.py:send():117] send: stats
+2021-02-22 11:01:56,060 WARNING MainThread:11414 [internal.py:wandb_internal():146] Internal process interrupt: 1
+2021-02-22 11:01:56,542 DEBUG   SenderThread:11414 [sender.py:send():117] send: stats
+2021-02-22 11:01:58,028 WARNING MainThread:11414 [internal.py:wandb_internal():146] Internal process interrupt: 2
+2021-02-22 11:01:58,028 ERROR   MainThread:11414 [internal.py:wandb_internal():149] Internal process interrupted.
+2021-02-22 11:01:58,543 INFO    WriterThread:11414 [datastore.py:close():258] close: /home/johannbs/Desktop/IceCube_GNN/wandb/run-20210222_110114-n19ju3wi/run-n19ju3wi.wandb
+2021-02-22 11:01:58,543 INFO    SenderThread:11414 [sender.py:finish():766] shutting down sender
+2021-02-22 11:01:58,544 INFO    HandlerThread:11414 [handler.py:finish():333] shutting down handler
+2021-02-22 11:01:58,907 INFO    MainThread:11414 [internal.py:handle_exit():78] Internal process exited

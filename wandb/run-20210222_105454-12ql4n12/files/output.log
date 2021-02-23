@@ -1,0 +1,20 @@
+GPU detected
+Loading data to memory
+[0;31m---------------------------------------------------------------------------[0m
+[0;31mImportError[0m                               Traceback (most recent call last)
+[0;32m~/Desktop/IceCube_GNN/train_likelihood.py[0m in [0;36m<module>[0;34m[0m
+[1;32m     96[0m [0;31m# Loss and Optimation                          #[0m[0;34m[0m[0;34m[0m[0;34m[0m[0m
+[1;32m     97[0m [0;31m################################################[0m[0;34m[0m[0;34m[0m[0;34m[0m[0m
+[0;32m---> 98[0;31m [0;32mimport[0m [0mloss_functions[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m     99[0m [0;34m[0m[0m
+[1;32m    100[0m [0mloss_func[0m     [0;34m=[0m [0mgetattr[0m[0;34m([0m[0mloss_functions[0m[0;34m,[0m [0mloss_method[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m~/Desktop/IceCube_GNN/loss_functions.py[0m in [0;36m<module>[0;34m[0m
+[1;32m      2[0m [0;32mfrom[0m [0mtensorflow[0m[0;34m.[0m[0mkeras[0m[0;34m.[0m[0mbackend[0m [0;32mimport[0m [0mepsilon[0m[0;34m[0m[0;34m[0m[0m
+[1;32m      3[0m [0;34m[0m[0m
+[0;32m----> 4[0;31m [0;32mfrom[0m [0mtensorflow_probability[0m [0;32mimport[0m [0mNormal[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m      5[0m [0;34m[0m[0m
+[1;32m      6[0m [0;32mfrom[0m [0mnumpy[0m [0;32mimport[0m [0mpi[0m[0;34m[0m[0;34m[0m[0m
+
+[0;31mImportError[0m: cannot import name 'Normal' from 'tensorflow_probability' (/home/johannbs/anaconda3/lib/python3.8/site-packages/tensorflow_probability/__init__.py)
+

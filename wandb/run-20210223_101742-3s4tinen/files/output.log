@@ -1,0 +1,7 @@
+GPU detected
+[0;36m  File [0;32m"/home/johannbs/Desktop/IceCube_GNN/models/GCN.py"[0;36m, line [0;32m38[0m
+[0;31m    self.drop_layers  = [Dropout(dropout) for i in range(len(self.decode))][0m
+[0m    ^[0m
+[0;31mSyntaxError[0m[0;31m:[0m invalid syntax
+
+

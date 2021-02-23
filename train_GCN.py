@@ -8,7 +8,7 @@ from sklearn.preprocessing import normalize
 from tqdm import tqdm
 
 import wandb 
-wandb.init(project="icecube", entity="johannbs")
+
 
 
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2' 
@@ -32,42 +32,45 @@ file_path = osp.dirname(osp.realpath(__file__))
 ################################################
 # Setup Deafult Variabls                       # 
 ################################################
-learning_rate = 1e-3
+learning_rate = 5e-4
 batch_size    = 512
 epochs        = 100
 early_stop    = True
 patience      = 3
-model_name    = "GCN_big_angle_loss3"
+log_wandb     = True
+model_name    = "GCN_Schauser_doptimized"
 
 
 ################################################
 # Setup Hyperparameters                        # 
 ################################################
-hidden_states = 128
+hidden_states = 64
 forward       = False
-dropout       = 0.5
+dropout       = 0.3
 loss_method   = "loss_func_linear_angle"
-n_neighbors   = 9 # SKRIV SELV IND
+n_neighbors   = 6 # SKRIV SELV IND
 
 
 
-# Declare for log
-wandb.config.hidden_states = hidden_states
-wandb.config.forward = forward
-wandb.config.dropout = dropout
-wandb.config.learning_rate = learning_rate
-wandb.config.batch_size = batch_size
-wandb.config.loss_func = loss_method
-wandb.config.n_neighbors = n_neighbors
+if log_wandb:
+    wandb.init(project="icecube", entity="johannbs")
+    # Declare for log
+    wandb.config.hidden_states = hidden_states
+    wandb.config.forward = forward
+    wandb.config.dropout = dropout
+    wandb.config.learning_rate = learning_rate
+    wandb.config.batch_size = batch_size
+    wandb.config.loss_func = loss_method
+    wandb.config.n_neighbors = n_neighbors
 
 
 
 ################################################
 # Get model and data                           # 
 ################################################
-# from models.GCN import model
-# model = model(hidden_states=hidden_states, forward=forward, dropout = dropout)
-model = load_model(osp.join(file_path, "models", "saved_models", "MessPass1"))
+from models.GCN import model
+model = model(hidden_states=hidden_states, forward=forward, dropout = dropout)
+# model = load_model(osp.join(file_path, "models", "saved_models", "MessPass1"))
 
 
 
@@ -111,61 +114,6 @@ def negative_cos(pred, true):
     return 1 - tf.math.divide_no_nan(tf.reduce_sum(pred * true, axis = 1),
             tf.math.reduce_euclidean_norm(pred, axis = 1) * tf.math.reduce_euclidean_norm(true,  axis = 1))
 
-# def loss_func(y_reco, y_true):
-#     # Energy loss
-#     loss      = tf.reduce_mean(
-#         tf.abs(
-#             tf.subtract(
-#                 y_reco[:,0], y_true[:,0]
-#                 )
-#             )
-#         )
-#     # Position loss
-#     loss     += tf.reduce_mean(
-#         tf.sqrt(
-#             tf.reduce_sum(
-#                 tf.square(
-#                     tf.subtract(
-#                         y_reco[:, 1:4], y_true[:, 1:4]
-#                     )
-#                 ), axis = 1
-#             )
-#         )
-#     )
-
-#     loss           += tf.reduce_mean(negative_cos(y_reco[:, 4:], y_true[:,4:]))
-#     # loss      += tf.reduce_mean(angle(y_reco[:, 4:], y_true[:, 4:]))
-
-#     return loss
-
-# def loss_func_from(y_reco, y_true):
-#     # Energy loss
-#     loss_energy = tf.reduce_mean(
-#         tf.abs(
-#             tf.subtract(
-#                 y_reco[:,0], y_true[:,0]
-#                 )
-#             )
-#         )
-#     # Position loss
-#     loss_dist  = tf.reduce_mean(
-#         tf.sqrt(
-#             tf.reduce_sum(
-#                 tf.square(
-#                     tf.subtract(
-#                         y_reco[:, 1:4], y_true[:, 1:4]
-#                     )
-#                 ), axis = 1
-#             )
-#         )
-#     )
-#     # Angle loss
-#     loss_angle = tf.reduce_mean(negative_cos(y_reco[:, 4:], y_true[:, 4:]))
-#     # loss_angle = tf.reduce_mean(angle(y_reco[:, 4:], y_true[:, 4:]))
-#     # loss_angle += tf.reduce_mean(tf.abs(1 - tf.reduce_sum(y_reco[:, 4:] ** 2 , axis = 1)))
-    
-#     return float(loss_energy), float(loss_dist), float(loss_angle)
-
 def metrics(y_reco, y_true):
     # Energy metric
     energy_residuals = y_true[:, 0] - y_reco[:, 0]
@@ -187,7 +135,7 @@ def metrics(y_reco, y_true):
 
 
     # Angle metric
-    angle_resi = 180 / np.pi * tf.reduce_mean(angle(y_reco[:, 4:], y_true[:, 4:]))
+    angle_resi = 180 / np.pi * angle(y_reco[:, 4:], y_true[:, 4:])
 
     u_angle         = tfp.stats.percentile(angle_resi, [68])
 
@@ -243,7 +191,6 @@ def validation(loader):
     for batch in loader:
         inputs, targets = batch
         inputs[0][:, :3] = inputs[0][:, :3] / 1000
-        inputs[0][:, 3] = inputs[0][:, 3]
         targets[:, 1:4] = targets[:, 1:4] / 1000
         predictions, targets, out = test_step(inputs, targets)
         loss           += out
@@ -268,7 +215,6 @@ def test(loader):
     for batch in loader:
         inputs, targets = batch
         inputs[0][:, :3] = inputs[0][:, :3] / 1000
-        inputs[0][:, 3] = inputs[0][:, 3] / 10000
         targets[:, 1:4] = targets[:, 1:4] / 1000
         predictions, targets, out = test_step(inputs, targets)
         loss           += out
@@ -407,7 +353,6 @@ learning_rate = next(lr_gen)
 for batch in loader_train:
     inputs, targets = batch
     inputs[0][:, :3] = inputs[0][:, :3] / 1000
-    inputs[0][:, 3] = inputs[0][:, 3]
     targets[:, 1:4] = targets[:, 1:4] / 1000
     out             = train_step(inputs, targets)
     loss           += out
@@ -429,12 +374,13 @@ for batch in loader_train:
         print(f"Loss from:  Energy: {val_loss_from[0]:.6f} \t Position: {val_loss_from[1]:.6f} \t Angle: {val_loss_from[2]:.6f} ")
         print(f"Energy: w = {val_metric[0]:.6f} \t Position: u = {val_metric[1]:.6f} \t Angle: u = {val_metric[2]:.6f}")
 
-        wandb.log({"Train Loss":      loss / loader_train.steps_per_epoch,
-                   "Validation Loss": val_loss, 
-                   "Energy metric":   val_metric[0],
-                   "Position metric": val_metric[1],
-                   "Angle metric":    val_metric[2],
-                   "Learning rate":   learning_rate})
+        if log_wandb:
+            wandb.log({"Train Loss":      loss / loader_train.steps_per_epoch,
+                    "Validation Loss": val_loss, 
+                    "Energy metric":   val_metric[0],
+                    "Position metric": val_metric[1],
+                    "Angle metric":    val_metric[2],
+                    "Learning rate":   learning_rate})
 
 
         if val_loss < lowest_loss:
@@ -449,7 +395,9 @@ for batch in loader_train:
             break
 
         if current_epoch != epochs:
-            pbar          = tqdm(total = loader_train.steps_per_epoch, position = 0, leave = True)
+            pbar.n            = 0
+            pbar.last_print_n = 0
+            pbar.refresh()
 
         learning_rate = next(lr_gen)
         opt.learning_rate.assign(learning_rate)
