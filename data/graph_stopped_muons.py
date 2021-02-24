@@ -77,8 +77,8 @@ class graph_w_edge2(Dataset):
 
             # Load data from db-file
             print("Reading files")
-            df_event = read_sql(f"select event_no       from features where event_no >= {start_id} and event_no < {stop_id}", conn)
-            df_feat  = read_sql(f"select {feature_call} from features where event_no >= {start_id} and event_no < {stop_id}", conn)
+            df_event = read_sql(f"select event_no       from features where event_no >= {start_id} and event_no < {stop_id} and SRTInIcePulses = 1", conn)
+            df_feat  = read_sql(f"select {feature_call} from features where event_no >= {start_id} and event_no < {stop_id} and SRTInIcePulses = 1", conn)
             df_targ  = read_sql(f"select {target_call } from truth    where event_no >= {start_id} and event_no < {stop_id}", conn)
             
             transformers = pickle.load(open(osp.join(db_folder, "transformers.pkl"), 'rb'))
@@ -163,4 +163,4 @@ if __name__ == "__main__":
         print("Preparing dataset with all availible raw data")
 
     # Preparing data 
-    dataset = graph_w_edge2(n_data = n_data, n_neighbors= 9)
+    dataset = graph_w_edge2(n_data = n_data, n_neighbors= 6)

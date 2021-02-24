@@ -44,9 +44,9 @@ model_name    = "GCN_Schauser_doptimized"
 ################################################
 # Setup Hyperparameters                        # 
 ################################################
-hidden_states = 64
+hidden_states = 128
 forward       = False
-dropout       = 0.3
+dropout       = 0.5
 loss_method   = "loss_func_linear_angle"
 n_neighbors   = 6 # SKRIV SELV IND
 

@@ -1,0 +1,345 @@
+2021-02-23 13:13:05.265950: I tensorflow/compiler/jit/xla_cpu_device.cc:41] Not creating XLA devices, tf_xla_enable_xla_devices not set
+GPU detected
+2021-02-23 13:13:05.267044: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcuda.so.1
+2021-02-23 13:13:05.298957: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:941] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
+2021-02-23 13:13:05.299264: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1720] Found device 0 with properties: 
+pciBusID: 0000:03:00.0 name: GeForce GTX 1060 3GB computeCapability: 6.1
+coreClock: 1.7085GHz coreCount: 9 deviceMemorySize: 2.95GiB deviceMemoryBandwidth: 178.99GiB/s
+2021-02-23 13:13:05.299291: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcudart.so.11.0
+2021-02-23 13:13:05.302225: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcublas.so.11
+2021-02-23 13:13:05.302305: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcublasLt.so.11
+2021-02-23 13:13:05.303197: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcufft.so.10
+2021-02-23 13:13:05.303415: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcurand.so.10
+2021-02-23 13:13:05.305989: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcusolver.so.11
+2021-02-23 13:13:05.306687: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcusparse.so.11
+2021-02-23 13:13:05.306818: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcudnn.so.8
+2021-02-23 13:13:05.306997: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:941] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
+2021-02-23 13:13:05.307318: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:941] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
+2021-02-23 13:13:05.307548: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1862] Adding visible gpu devices: 0
+2021-02-23 13:13:05.538989: I tensorflow/core/platform/cpu_feature_guard.cc:142] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  SSE3 SSE4.1 SSE4.2 AVX
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2021-02-23 13:13:05.539515: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:941] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
+2021-02-23 13:13:05.539812: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1720] Found device 0 with properties: 
+pciBusID: 0000:03:00.0 name: GeForce GTX 1060 3GB computeCapability: 6.1
+coreClock: 1.7085GHz coreCount: 9 deviceMemorySize: 2.95GiB deviceMemoryBandwidth: 178.99GiB/s
+2021-02-23 13:13:05.539848: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcudart.so.11.0
+2021-02-23 13:13:05.539883: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcublas.so.11
+2021-02-23 13:13:05.539905: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcublasLt.so.11
+2021-02-23 13:13:05.539928: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcufft.so.10
+2021-02-23 13:13:05.539950: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcurand.so.10
+2021-02-23 13:13:05.539973: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcusolver.so.11
+2021-02-23 13:13:05.539995: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcusparse.so.11
+2021-02-23 13:13:05.540018: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcudnn.so.8
+2021-02-23 13:13:05.540086: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:941] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
+2021-02-23 13:13:05.540409: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:941] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
+2021-02-23 13:13:05.540643: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1862] Adding visible gpu devices: 0
+2021-02-23 13:13:05.540676: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcudart.so.11.0
+2021-02-23 13:13:06.124155: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1261] Device interconnect StreamExecutor with strength 1 edge matrix:
+2021-02-23 13:13:06.124188: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1267]      0 
+2021-02-23 13:13:06.124197: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1280] 0:   N 
+2021-02-23 13:13:06.124441: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:941] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
+2021-02-23 13:13:06.124766: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:941] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
+2021-02-23 13:13:06.125055: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:941] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
+2021-02-23 13:13:06.125310: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1406] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 2124 MB memory) -> physical GPU (device: 0, name: GeForce GTX 1060 3GB, pci bus id: 0000:03:00.0, compute capability: 6.1)
+2021-02-23 13:13:06.125569: I tensorflow/compiler/jit/xla_gpu_device.cc:99] Not creating XLA devices, tf_xla_enable_xla_devices not set
+WARNING:tensorflow:No training configuration found in save file, so the model was *not* compiled. Compile it manually.
+Loading data to memory
+  0%|          | 0/196 [00:00<?, ?it/s]/home/johannbs/anaconda3/lib/python3.8/site-packages/tensorflow/python/framework/indexed_slices.py:435: UserWarning: Converting sparse IndexedSlices(IndexedSlices(indices=Tensor("gradients/ecc_conv/GatherV2_grad/Reshape_1:0", shape=(None,), dtype=int64), values=Tensor("gradients/ecc_conv/GatherV2_grad/Reshape:0", shape=(None, 5), dtype=float32), dense_shape=Tensor("gradients/ecc_conv/GatherV2_grad/Cast:0", shape=(2,), dtype=int32))) to a dense Tensor of unknown shape. This may consume a large amount of memory.
+  warnings.warn(
+/home/johannbs/anaconda3/lib/python3.8/site-packages/tensorflow/python/framework/indexed_slices.py:435: UserWarning: Converting sparse IndexedSlices(IndexedSlices(indices=Tensor("gradients/GatherV2_grad/Reshape_1:0", shape=(None,), dtype=int64), values=Tensor("gradients/GatherV2_grad/Reshape:0", shape=(None, 5), dtype=float32), dense_shape=Tensor("gradients/GatherV2_grad/Cast:0", shape=(2,), dtype=int32))) to a dense Tensor of unknown shape. This may consume a large amount of memory.
+  warnings.warn(
+/home/johannbs/anaconda3/lib/python3.8/site-packages/tensorflow/python/framework/indexed_slices.py:435: UserWarning: Converting sparse IndexedSlices(IndexedSlices(indices=Tensor("gradients/GatherV2_1_grad/Reshape_1:0", shape=(None,), dtype=int64), values=Tensor("gradients/GatherV2_1_grad/Reshape:0", shape=(None, 5), dtype=float32), dense_shape=Tensor("gradients/GatherV2_1_grad/Cast:0", shape=(2,), dtype=int32))) to a dense Tensor of unknown shape. This may consume a large amount of memory.
+  warnings.warn(
+2021-02-23 13:13:19.992795: I tensorflow/compiler/mlir/mlir_graph_optimization_pass.cc:116] None of the MLIR optimization passes are enabled (registered 2)
+2021-02-23 13:13:20.059041: I tensorflow/core/platform/profile_utils/cpu_utils.cc:112] CPU Frequency: 3599870000 Hz
+2021-02-23 13:13:20.479426: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcublas.so.11
+2021-02-23 13:13:20.704819: I tensorflow/stream_executor/platform/default/dso_loader.cc:49] Successfully opened dynamic library libcublasLt.so.11
+  1%|          | 1/196 [00:05<17:07,  5.27s/it]Epoch 1 / 100; Avg_loss: 0.321492:   1%|          | 1/196 [00:05<17:07,  5.27s/it]Epoch 1 / 100; Avg_loss: 0.321492:   1%|          | 2/196 [00:07<13:41,  4.24s/it]Epoch 1 / 100; Avg_loss: 0.345603:   1%|          | 2/196 [00:07<13:41,  4.24s/it]Epoch 1 / 100; Avg_loss: 0.345603:   2%|▏         | 3/196 [00:08<11:15,  3.50s/it]Epoch 1 / 100; Avg_loss: 0.347474:   2%|▏         | 3/196 [00:08<11:15,  3.50s/it]Epoch 1 / 100; Avg_loss: 0.347474:   2%|▏         | 4/196 [00:10<09:39,  3.02s/it]Epoch 1 / 100; Avg_loss: 0.346272:   2%|▏         | 4/196 [00:10<09:39,  3.02s/it]Epoch 1 / 100; Avg_loss: 0.346272:   3%|▎         | 5/196 [00:12<08:26,  2.65s/it]Epoch 1 / 100; Avg_loss: 0.345373:   3%|▎         | 5/196 [00:12<08:26,  2.65s/it]Epoch 1 / 100; Avg_loss: 0.345373:   3%|▎         | 6/196 [00:14<07:40,  2.42s/it]Epoch 1 / 100; Avg_loss: 0.349316:   3%|▎         | 6/196 [00:14<07:40,  2.42s/it]Epoch 1 / 100; Avg_loss: 0.349316:   4%|▎         | 7/196 [00:16<07:03,  2.24s/it]Epoch 1 / 100; Avg_loss: 0.348684:   4%|▎         | 7/196 [00:16<07:03,  2.24s/it]Epoch 1 / 100; Avg_loss: 0.348684:   4%|▍         | 8/196 [00:18<06:35,  2.10s/it]Epoch 1 / 100; Avg_loss: 0.346075:   4%|▍         | 8/196 [00:18<06:35,  2.10s/it]Epoch 1 / 100; Avg_loss: 0.346075:   5%|▍         | 9/196 [00:19<06:17,  2.02s/it]Epoch 1 / 100; Avg_loss: 0.347067:   5%|▍         | 9/196 [00:19<06:17,  2.02s/it]Epoch 1 / 100; Avg_loss: 0.347067:   5%|▌         | 10/196 [00:21<06:05,  1.96s/it]Epoch 1 / 100; Avg_loss: 0.345857:   5%|▌         | 10/196 [00:21<06:05,  1.96s/it]Epoch 1 / 100; Avg_loss: 0.345857:   6%|▌         | 11/196 [00:23<05:55,  1.92s/it]Epoch 1 / 100; Avg_loss: 0.345230:   6%|▌         | 11/196 [00:23<05:55,  1.92s/it]Epoch 1 / 100; Avg_loss: 0.345230:   6%|▌         | 12/196 [00:25<05:45,  1.88s/it]Epoch 1 / 100; Avg_loss: 0.344811:   6%|▌         | 12/196 [00:25<05:45,  1.88s/it]Epoch 1 / 100; Avg_loss: 0.344811:   7%|▋         | 13/196 [00:27<05:38,  1.85s/it]Epoch 1 / 100; Avg_loss: 0.346851:   7%|▋         | 13/196 [00:27<05:38,  1.85s/it]Epoch 1 / 100; Avg_loss: 0.346851:   7%|▋         | 14/196 [00:28<05:33,  1.83s/it]Epoch 1 / 100; Avg_loss: 0.347044:   7%|▋         | 14/196 [00:28<05:33,  1.83s/it]Epoch 1 / 100; Avg_loss: 0.347044:   8%|▊         | 15/196 [00:30<05:27,  1.81s/it]Epoch 1 / 100; Avg_loss: 0.347045:   8%|▊         | 15/196 [00:30<05:27,  1.81s/it]Epoch 1 / 100; Avg_loss: 0.347045:   8%|▊         | 16/196 [00:32<05:31,  1.84s/it]Epoch 1 / 100; Avg_loss: 0.347226:   8%|▊         | 16/196 [00:32<05:31,  1.84s/it]Epoch 1 / 100; Avg_loss: 0.347226:   9%|▊         | 17/196 [00:34<05:28,  1.84s/it]Epoch 1 / 100; Avg_loss: 0.345941:   9%|▊         | 17/196 [00:34<05:28,  1.84s/it]2021-02-23 13:14:02.228518: W tensorflow/core/common_runtime/bfc_allocator.cc:433] Allocator (GPU_0_bfc) ran out of memory trying to allocate 791.18MiB (rounded to 829612800)requested by op PartitionedCall/gradients/StatefulPartitionedCall_grad/PartitionedCall/gradients/ecc_conv/MatMul_grad/MatMul_1
+Current allocation summary follows.
+2021-02-23 13:14:02.228621: I tensorflow/core/common_runtime/bfc_allocator.cc:972] BFCAllocator dump for GPU_0_bfc
+2021-02-23 13:14:02.228661: I tensorflow/core/common_runtime/bfc_allocator.cc:979] Bin (256): 	Total Chunks: 74, Chunks in use: 74. 18.5KiB allocated for chunks. 18.5KiB in use in bin. 313B client-requested in use in bin.
+2021-02-23 13:14:02.228694: I tensorflow/core/common_runtime/bfc_allocator.cc:979] Bin (512): 	Total Chunks: 12, Chunks in use: 12. 9.0KiB allocated for chunks. 9.0KiB in use in bin. 9.0KiB client-requested in use in bin.
+2021-02-23 13:14:02.228725: I tensorflow/core/common_runtime/bfc_allocator.cc:979] Bin (1024): 	Total Chunks: 23, Chunks in use: 23. 27.8KiB allocated for chunks. 27.8KiB in use in bin. 25.5KiB client-requested in use in bin.
+2021-02-23 13:14:02.228754: I tensorflow/core/common_runtime/bfc_allocator.cc:979] Bin (2048): 	Total Chunks: 8, Chunks in use: 8. 24.0KiB allocated for chunks. 24.0KiB in use in bin. 24.0KiB client-requested in use in bin.
+2021-02-23 13:14:02.228783: I tensorflow/core/common_runtime/bfc_allocator.cc:979] Bin (4096): 	Total Chunks: 14, Chunks in use: 13. 77.5KiB allocated for chunks. 73.2KiB in use in bin. 69.0KiB client-requested in use in bin.
+2021-02-23 13:14:02.228810: I tensorflow/core/common_runtime/bfc_allocator.cc:979] Bin (8192): 	Total Chunks: 1, Chunks in use: 1. 9.8KiB allocated for chunks. 9.8KiB in use in bin. 6.0KiB client-requested in use in bin.
+2021-02-23 13:14:02.228840: I tensorflow/core/common_runtime/bfc_allocator.cc:979] Bin (16384): 	Total Chunks: 9, Chunks in use: 9. 160.5KiB allocated for chunks. 160.5KiB in use in bin. 144.0KiB client-requested in use in bin.
+2021-02-23 13:14:02.228871: I tensorflow/core/common_runtime/bfc_allocator.cc:979] Bin (32768): 	Total Chunks: 3, Chunks in use: 3. 96.0KiB allocated for chunks. 96.0KiB in use in bin. 96.0KiB client-requested in use in bin.
+2021-02-23 13:14:02.228901: I tensorflow/core/common_runtime/bfc_allocator.cc:979] Bin (65536): 	Total Chunks: 3, Chunks in use: 3. 240.0KiB allocated for chunks. 240.0KiB in use in bin. 240.0KiB client-requested in use in bin.
+2021-02-23 13:14:02.228930: I tensorflow/core/common_runtime/bfc_allocator.cc:979] Bin (131072): 	Total Chunks: 5, Chunks in use: 5. 782.5KiB allocated for chunks. 782.5KiB in use in bin. 768.0KiB client-requested in use in bin.
+2021-02-23 13:14:02.228962: I tensorflow/core/common_runtime/bfc_allocator.cc:979] Bin (262144): 	Total Chunks: 1, Chunks in use: 1. 272.2KiB allocated for chunks. 272.2KiB in use in bin. 192.0KiB client-requested in use in bin.
+2021-02-23 13:14:02.228990: I tensorflow/core/common_runtime/bfc_allocator.cc:979] Bin (524288): 	Total Chunks: 8, Chunks in use: 6. 5.45MiB allocated for chunks. 4.05MiB in use in bin. 3.75MiB client-requested in use in bin.
+2021-02-23 13:14:02.229012: I tensorflow/core/common_runtime/bfc_allocator.cc:979] Bin (1048576): 	Total Chunks: 0, Chunks in use: 0. 0B allocated for chunks. 0B in use in bin. 0B client-requested in use in bin.
+2021-02-23 13:14:02.229040: I tensorflow/core/common_runtime/bfc_allocator.cc:979] Bin (2097152): 	Total Chunks: 1, Chunks in use: 0. 2.47MiB allocated for chunks. 0B in use in bin. 0B client-requested in use in bin.
+2021-02-23 13:14:02.229069: I tensorflow/core/common_runtime/bfc_allocator.cc:979] Bin (4194304): 	Total Chunks: 4, Chunks in use: 3. 23.87MiB allocated for chunks. 18.50MiB in use in bin. 13.50MiB client-requested in use in bin.
+2021-02-23 13:14:02.229099: I tensorflow/core/common_runtime/bfc_allocator.cc:979] Bin (8388608): 	Total Chunks: 4, Chunks in use: 4. 46.01MiB allocated for chunks. 46.01MiB in use in bin. 45.20MiB client-requested in use in bin.
+2021-02-23 13:14:02.229145: I tensorflow/core/common_runtime/bfc_allocator.cc:979] Bin (16777216): 	Total Chunks: 1, Chunks in use: 1. 16.00MiB allocated for chunks. 16.00MiB in use in bin. 9.00MiB client-requested in use in bin.
+2021-02-23 13:14:02.229178: I tensorflow/core/common_runtime/bfc_allocator.cc:979] Bin (33554432): 	Total Chunks: 2, Chunks in use: 0. 83.20MiB allocated for chunks. 0B in use in bin. 0B client-requested in use in bin.
+2021-02-23 13:14:02.229209: I tensorflow/core/common_runtime/bfc_allocator.cc:979] Bin (67108864): 	Total Chunks: 0, Chunks in use: 0. 0B allocated for chunks. 0B in use in bin. 0B client-requested in use in bin.
+2021-02-23 13:14:02.229251: I tensorflow/core/common_runtime/bfc_allocator.cc:979] Bin (134217728): 	Total Chunks: 6, Chunks in use: 3. 906.79MiB allocated for chunks. 478.92MiB in use in bin. 474.71MiB client-requested in use in bin.
+2021-02-23 13:14:02.229270: I tensorflow/core/common_runtime/bfc_allocator.cc:979] Bin (268435456): 	Total Chunks: 2, Chunks in use: 1. 963.53MiB allocated for chunks. 256.00MiB in use in bin. 158.24MiB client-requested in use in bin.
+2021-02-23 13:14:02.229300: I tensorflow/core/common_runtime/bfc_allocator.cc:995] Bin for 791.18MiB was 256.00MiB, Chunk State: 
+2021-02-23 13:14:02.229360: I tensorflow/core/common_runtime/bfc_allocator.cc:1001]   Size: 707.53MiB | Requested Size: 17.58MiB | in_use: 0 | bin_num: 20, prev:   Size: 158.24MiB | Requested Size: 158.24MiB | in_use: 1 | bin_num: -1
+2021-02-23 13:14:02.229384: I tensorflow/core/common_runtime/bfc_allocator.cc:1008] Next region of size 1073741824
+2021-02-23 13:14:02.229407: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] Free  at 7f1fb0000000 of size 165922560 next 153
+2021-02-23 13:14:02.229431: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f1fb9e3c700 of size 165922560 next 183
+2021-02-23 13:14:02.229451: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] Free  at 7f1fc3c78e00 of size 741896704 next 18446744073709551615
+2021-02-23 13:14:02.229470: I tensorflow/core/common_runtime/bfc_allocator.cc:1008] Next region of size 536870912
+2021-02-23 13:14:02.229488: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f1ff0000000 of size 165922560 next 199
+2021-02-23 13:14:02.229507: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] Free  at 7f1ff9e3c700 of size 52097280 next 200
+2021-02-23 13:14:02.229527: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f1ffcfeb800 of size 256 next 151
+2021-02-23 13:14:02.229547: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] Free  at 7f1ffcfeb900 of size 148509184 next 181
+2021-02-23 13:14:02.229566: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f2005d8cb00 of size 256 next 204
+2021-02-23 13:14:02.229587: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f2005d8cc00 of size 170341376 next 18446744073709551615
+2021-02-23 13:14:02.229606: I tensorflow/core/common_runtime/bfc_allocator.cc:1008] Next region of size 268435456
+2021-02-23 13:14:02.229629: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f2010000000 of size 268435456 next 18446744073709551615
+2021-02-23 13:14:02.229650: I tensorflow/core/common_runtime/bfc_allocator.cc:1008] Next region of size 134217728
+2021-02-23 13:14:02.229684: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] Free  at 7f2020000000 of size 134217728 next 18446744073709551615
+2021-02-23 13:14:02.229708: I tensorflow/core/common_runtime/bfc_allocator.cc:1008] Next region of size 67108864
+2021-02-23 13:14:02.229733: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f2028000000 of size 256 next 189
+2021-02-23 13:14:02.229765: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f2028000100 of size 256 next 217
+2021-02-23 13:14:02.229786: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f2028000200 of size 256 next 147
+2021-02-23 13:14:02.229808: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f2028000300 of size 256 next 148
+2021-02-23 13:14:02.229828: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f2028000400 of size 256 next 149
+2021-02-23 13:14:02.229849: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f2028000500 of size 256 next 156
+2021-02-23 13:14:02.229875: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] Free  at 7f2028000600 of size 35144704 next 205
+2021-02-23 13:14:02.229898: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f202a184a00 of size 12962816 next 180
+2021-02-23 13:14:02.229921: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] Free  at 7f202ade1600 of size 2592768 next 194
+2021-02-23 13:14:02.229945: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f202b05a600 of size 16407040 next 18446744073709551615
+2021-02-23 13:14:02.229967: I tensorflow/core/common_runtime/bfc_allocator.cc:1008] Next region of size 33554432
+2021-02-23 13:14:02.229991: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f2062000000 of size 9437184 next 59
+2021-02-23 13:14:02.230015: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f2062900000 of size 786432 next 81
+2021-02-23 13:14:02.230036: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f20629c0000 of size 196608 next 83
+2021-02-23 13:14:02.230048: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f20629f0000 of size 6144 next 85
+2021-02-23 13:14:02.230060: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f20629f1800 of size 6144 next 86
+2021-02-23 13:14:02.230070: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f20629f3000 of size 3072 next 87
+2021-02-23 13:14:02.230081: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f20629f3c00 of size 1024 next 88
+2021-02-23 13:14:02.230092: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f20629f4000 of size 1024 next 89
+2021-02-23 13:14:02.230104: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f20629f4400 of size 768 next 90
+2021-02-23 13:14:02.230115: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f20629f4700 of size 768 next 91
+2021-02-23 13:14:02.230125: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f20629f4a00 of size 768 next 92
+2021-02-23 13:14:02.230137: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f20629f4d00 of size 1280 next 93
+2021-02-23 13:14:02.230149: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f20629f5200 of size 1536 next 94
+2021-02-23 13:14:02.230160: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f20629f5800 of size 16384 next 95
+2021-02-23 13:14:02.230171: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f20629f9800 of size 16384 next 96
+2021-02-23 13:14:02.230182: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f20629fd800 of size 81920 next 97
+2021-02-23 13:14:02.230193: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f2062a11800 of size 1280 next 98
+2021-02-23 13:14:02.230203: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f2062a11d00 of size 16384 next 99
+2021-02-23 13:14:02.230214: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f2062a15d00 of size 32768 next 100
+2021-02-23 13:14:02.230225: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f2062a1dd00 of size 131072 next 101
+2021-02-23 13:14:02.230236: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f2062a3dd00 of size 524288 next 102
+2021-02-23 13:14:02.230250: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f2062abdd00 of size 9437184 next 103
+2021-02-23 13:14:02.230270: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f20633bdd00 of size 6144 next 104
+2021-02-23 13:14:02.230291: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f20633bf500 of size 4718592 next 105
+2021-02-23 13:14:02.230328: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f206383f500 of size 3072 next 106
+2021-02-23 13:14:02.230351: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f2063840100 of size 786432 next 107
+2021-02-23 13:14:02.230380: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f2063900100 of size 1024 next 108
+2021-02-23 13:14:02.230395: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f2063900500 of size 196608 next 109
+2021-02-23 13:14:02.230409: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f2063930500 of size 768 next 110
+2021-02-23 13:14:02.230424: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f2063930800 of size 6144 next 111
+2021-02-23 13:14:02.230439: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f2063932000 of size 6144 next 112
+2021-02-23 13:14:02.230471: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f2063933800 of size 3072 next 113
+2021-02-23 13:14:02.230487: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f2063934400 of size 3072 next 114
+2021-02-23 13:14:02.230498: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f2063935000 of size 1024 next 115
+2021-02-23 13:14:02.230522: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f2063935400 of size 1024 next 116
+2021-02-23 13:14:02.230538: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f2063935800 of size 768 next 117
+2021-02-23 13:14:02.230553: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f2063935b00 of size 768 next 118
+2021-02-23 13:14:02.230567: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f2063935e00 of size 768 next 119
+2021-02-23 13:14:02.230581: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f2063936100 of size 256 next 120
+2021-02-23 13:14:02.230596: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f2063936200 of size 256 next 121
+2021-02-23 13:14:02.230610: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f2063936300 of size 256 next 122
+2021-02-23 13:14:02.230624: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f2063936400 of size 256 next 123
+2021-02-23 13:14:02.230639: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f2063936500 of size 256 next 124
+2021-02-23 13:14:02.230665: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f2063936600 of size 256 next 125
+2021-02-23 13:14:02.230676: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f2063936700 of size 256 next 126
+2021-02-23 13:14:02.230687: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f2063936800 of size 256 next 127
+2021-02-23 13:14:02.230697: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f2063936900 of size 256 next 128
+2021-02-23 13:14:02.230708: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f2063936a00 of size 256 next 129
+2021-02-23 13:14:02.230732: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f2063936b00 of size 256 next 130
+2021-02-23 13:14:02.230747: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f2063936c00 of size 256 next 131
+2021-02-23 13:14:02.230769: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f2063936d00 of size 256 next 132
+2021-02-23 13:14:02.230803: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f2063936e00 of size 256 next 133
+2021-02-23 13:14:02.230825: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f2063936f00 of size 256 next 134
+2021-02-23 13:14:02.230847: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f2063937000 of size 256 next 135
+2021-02-23 13:14:02.230883: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f2063937100 of size 256 next 136
+2021-02-23 13:14:02.230903: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f2063937200 of size 256 next 137
+2021-02-23 13:14:02.230917: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f2063937300 of size 256 next 138
+2021-02-23 13:14:02.230937: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f2063937400 of size 256 next 139
+2021-02-23 13:14:02.230957: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f2063937500 of size 256 next 140
+2021-02-23 13:14:02.230971: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f2063937600 of size 256 next 141
+2021-02-23 13:14:02.230986: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f2063937700 of size 256 next 142
+2021-02-23 13:14:02.231005: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f2063937800 of size 256 next 143
+2021-02-23 13:14:02.231017: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] Free  at 7f2063937900 of size 5633792 next 210
+2021-02-23 13:14:02.231028: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f2063e97000 of size 256 next 157
+2021-02-23 13:14:02.231041: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f2063e97100 of size 256 next 195
+2021-02-23 13:14:02.231074: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f2063e97200 of size 256 next 150
+2021-02-23 13:14:02.231096: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f2063e97300 of size 256 next 222
+2021-02-23 13:14:02.231131: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f2063e97400 of size 256 next 197
+2021-02-23 13:14:02.231150: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f2063e97500 of size 256 next 203
+2021-02-23 13:14:02.231163: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f2063e97600 of size 256 next 188
+2021-02-23 13:14:02.231174: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] Free  at 7f2063e97700 of size 722944 next 163
+2021-02-23 13:14:02.231184: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f2063f47f00 of size 256 next 182
+2021-02-23 13:14:02.231194: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f2063f48000 of size 256 next 206
+2021-02-23 13:14:02.231205: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f2063f48100 of size 256 next 220
+2021-02-23 13:14:02.231215: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f2063f48200 of size 256 next 207
+2021-02-23 13:14:02.231226: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] Free  at 7f2063f48300 of size 4352 next 176
+2021-02-23 13:14:02.231236: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f2063f49400 of size 256 next 191
+2021-02-23 13:14:02.231247: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f2063f49500 of size 256 next 225
+2021-02-23 13:14:02.231257: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] Free  at 7f2063f49600 of size 748032 next 18446744073709551615
+2021-02-23 13:14:02.231268: I tensorflow/core/common_runtime/bfc_allocator.cc:1008] Next region of size 16777216
+2021-02-23 13:14:02.231282: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f206a000000 of size 256 next 20
+2021-02-23 13:14:02.231294: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f206a000100 of size 1024 next 21
+2021-02-23 13:14:02.231305: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f206a000500 of size 768 next 27
+2021-02-23 13:14:02.231316: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f206a000800 of size 256 next 29
+2021-02-23 13:14:02.231327: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f206a000900 of size 3072 next 8
+2021-02-23 13:14:02.231338: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f206a001500 of size 3072 next 30
+2021-02-23 13:14:02.231348: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f206a002100 of size 6144 next 31
+2021-02-23 13:14:02.231359: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f206a003900 of size 3072 next 66
+2021-02-23 13:14:02.231369: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f206a004500 of size 3072 next 32
+2021-02-23 13:14:02.231380: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f206a005100 of size 1280 next 28
+2021-02-23 13:14:02.231391: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f206a005600 of size 4864 next 33
+2021-02-23 13:14:02.231402: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f206a006900 of size 1024 next 34
+2021-02-23 13:14:02.231412: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f206a006d00 of size 1280 next 72
+2021-02-23 13:14:02.231423: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f206a007200 of size 1536 next 73
+2021-02-23 13:14:02.231433: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f206a007800 of size 1280 next 76
+2021-02-23 13:14:02.231444: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f206a007d00 of size 4096 next 36
+2021-02-23 13:14:02.231462: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f206a008d00 of size 1280 next 68
+2021-02-23 13:14:02.231483: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f206a009200 of size 1792 next 37
+2021-02-23 13:14:02.231505: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f206a009900 of size 1024 next 38
+2021-02-23 13:14:02.231525: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f206a009d00 of size 1024 next 39
+2021-02-23 13:14:02.231543: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f206a00a100 of size 256 next 63
+2021-02-23 13:14:02.231554: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f206a00a200 of size 256 next 70
+2021-02-23 13:14:02.231565: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f206a00a300 of size 256 next 71
+2021-02-23 13:14:02.231576: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f206a00a400 of size 256 next 40
+2021-02-23 13:14:02.231587: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f206a00a500 of size 1024 next 41
+2021-02-23 13:14:02.231597: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f206a00a900 of size 768 next 42
+2021-02-23 13:14:02.231607: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f206a00ac00 of size 768 next 43
+2021-02-23 13:14:02.231618: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f206a00af00 of size 256 next 35
+2021-02-23 13:14:02.231629: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f206a00b000 of size 256 next 19
+2021-02-23 13:14:02.231640: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f206a00b100 of size 256 next 44
+2021-02-23 13:14:02.231649: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f206a00b200 of size 768 next 45
+2021-02-23 13:14:02.231660: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f206a00b500 of size 256 next 52
+2021-02-23 13:14:02.231670: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f206a00b600 of size 256 next 53
+2021-02-23 13:14:02.231681: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f206a00b700 of size 256 next 57
+2021-02-23 13:14:02.231692: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f206a00b800 of size 256 next 58
+2021-02-23 13:14:02.231702: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f206a00b900 of size 256 next 61
+2021-02-23 13:14:02.231713: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f206a00ba00 of size 256 next 46
+2021-02-23 13:14:02.231724: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f206a00bb00 of size 256 next 47
+2021-02-23 13:14:02.231734: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f206a00bc00 of size 256 next 48
+2021-02-23 13:14:02.231744: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f206a00bd00 of size 1792 next 50
+2021-02-23 13:14:02.231755: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f206a00c400 of size 1536 next 51
+2021-02-23 13:14:02.231765: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f206a00ca00 of size 32768 next 55
+2021-02-23 13:14:02.231776: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f206a014a00 of size 6144 next 67
+2021-02-23 13:14:02.231787: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f206a016200 of size 26624 next 56
+2021-02-23 13:14:02.231798: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f206a01ca00 of size 16384 next 62
+2021-02-23 13:14:02.231808: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f206a020a00 of size 6144 next 69
+2021-02-23 13:14:02.231819: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f206a022200 of size 6144 next 22
+2021-02-23 13:14:02.231829: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f206a023a00 of size 6144 next 80
+2021-02-23 13:14:02.231854: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f206a025200 of size 1024 next 82
+2021-02-23 13:14:02.231866: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f206a025600 of size 768 next 84
+2021-02-23 13:14:02.231878: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f206a025900 of size 4608 next 14
+2021-02-23 13:14:02.231890: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f206a026b00 of size 16384 next 65
+2021-02-23 13:14:02.231902: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f206a02ab00 of size 23040 next 24
+2021-02-23 13:14:02.231914: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f206a030500 of size 256 next 25
+2021-02-23 13:14:02.231925: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f206a030600 of size 256 next 26
+2021-02-23 13:14:02.231950: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f206a030700 of size 278784 next 54
+2021-02-23 13:14:02.231962: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f206a074800 of size 131072 next 49
+2021-02-23 13:14:02.231973: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f206a094800 of size 81920 next 60
+2021-02-23 13:14:02.231989: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f206a0a8800 of size 16384 next 74
+2021-02-23 13:14:02.232010: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f206a0ac800 of size 81920 next 75
+2021-02-23 13:14:02.232031: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f206a0c0800 of size 16384 next 77
+2021-02-23 13:14:02.232049: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f206a0c4800 of size 32768 next 78
+2021-02-23 13:14:02.232062: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f206a0cc800 of size 145920 next 64
+2021-02-23 13:14:02.232073: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f206a0f0200 of size 589824 next 23
+2021-02-23 13:14:02.232084: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f206a180200 of size 524288 next 79
+2021-02-23 13:14:02.232095: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f206a200200 of size 8125952 next 15
+2021-02-23 13:14:02.232106: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f206a9c0000 of size 6553600 next 18446744073709551615
+2021-02-23 13:14:02.232118: I tensorflow/core/common_runtime/bfc_allocator.cc:1008] Next region of size 1048576
+2021-02-23 13:14:02.232129: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f20a0400000 of size 1280 next 1
+2021-02-23 13:14:02.232139: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f20a0400500 of size 256 next 2
+2021-02-23 13:14:02.232150: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f20a0400600 of size 256 next 6
+2021-02-23 13:14:02.232160: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f20a0400700 of size 256 next 9
+2021-02-23 13:14:02.232170: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f20a0400800 of size 256 next 3
+2021-02-23 13:14:02.232181: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f20a0400900 of size 256 next 4
+2021-02-23 13:14:02.232192: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f20a0400a00 of size 256 next 5
+2021-02-23 13:14:02.232202: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f20a0400b00 of size 256 next 11
+2021-02-23 13:14:02.232212: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f20a0400c00 of size 256 next 17
+2021-02-23 13:14:02.232224: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f20a0400d00 of size 256 next 18
+2021-02-23 13:14:02.232234: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f20a0400e00 of size 256 next 7
+2021-02-23 13:14:02.232245: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f20a0400f00 of size 9984 next 16
+2021-02-23 13:14:02.232263: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f20a0403600 of size 1034752 next 18446744073709551615
+2021-02-23 13:14:02.232283: I tensorflow/core/common_runtime/bfc_allocator.cc:1008] Next region of size 16777216
+2021-02-23 13:14:02.232304: I tensorflow/core/common_runtime/bfc_allocator.cc:1028] InUse at 7f20a0600000 of size 16777216 next 18446744073709551615
+2021-02-23 13:14:02.232323: I tensorflow/core/common_runtime/bfc_allocator.cc:1033]      Summary of in-use Chunks by size: 
+2021-02-23 13:14:02.232349: I tensorflow/core/common_runtime/bfc_allocator.cc:1036] 74 Chunks of size 256 totalling 18.5KiB
+2021-02-23 13:14:02.232365: I tensorflow/core/common_runtime/bfc_allocator.cc:1036] 12 Chunks of size 768 totalling 9.0KiB
+2021-02-23 13:14:02.232378: I tensorflow/core/common_runtime/bfc_allocator.cc:1036] 11 Chunks of size 1024 totalling 11.0KiB
+2021-02-23 13:14:02.232392: I tensorflow/core/common_runtime/bfc_allocator.cc:1036] 7 Chunks of size 1280 totalling 8.8KiB
+2021-02-23 13:14:02.232404: I tensorflow/core/common_runtime/bfc_allocator.cc:1036] 3 Chunks of size 1536 totalling 4.5KiB
+2021-02-23 13:14:02.232417: I tensorflow/core/common_runtime/bfc_allocator.cc:1036] 2 Chunks of size 1792 totalling 3.5KiB
+2021-02-23 13:14:02.232429: I tensorflow/core/common_runtime/bfc_allocator.cc:1036] 8 Chunks of size 3072 totalling 24.0KiB
+2021-02-23 13:14:02.232442: I tensorflow/core/common_runtime/bfc_allocator.cc:1036] 1 Chunks of size 4096 totalling 4.0KiB
+2021-02-23 13:14:02.232454: I tensorflow/core/common_runtime/bfc_allocator.cc:1036] 1 Chunks of size 4608 totalling 4.5KiB
+2021-02-23 13:14:02.232467: I tensorflow/core/common_runtime/bfc_allocator.cc:1036] 1 Chunks of size 4864 totalling 4.8KiB
+2021-02-23 13:14:02.232480: I tensorflow/core/common_runtime/bfc_allocator.cc:1036] 10 Chunks of size 6144 totalling 60.0KiB
+2021-02-23 13:14:02.232492: I tensorflow/core/common_runtime/bfc_allocator.cc:1036] 1 Chunks of size 9984 totalling 9.8KiB
+2021-02-23 13:14:02.232505: I tensorflow/core/common_runtime/bfc_allocator.cc:1036] 7 Chunks of size 16384 totalling 112.0KiB
+2021-02-23 13:14:02.232518: I tensorflow/core/common_runtime/bfc_allocator.cc:1036] 1 Chunks of size 23040 totalling 22.5KiB
+2021-02-23 13:14:02.232531: I tensorflow/core/common_runtime/bfc_allocator.cc:1036] 1 Chunks of size 26624 totalling 26.0KiB
+2021-02-23 13:14:02.232543: I tensorflow/core/common_runtime/bfc_allocator.cc:1036] 3 Chunks of size 32768 totalling 96.0KiB
+2021-02-23 13:14:02.232556: I tensorflow/core/common_runtime/bfc_allocator.cc:1036] 3 Chunks of size 81920 totalling 240.0KiB
+2021-02-23 13:14:02.232569: I tensorflow/core/common_runtime/bfc_allocator.cc:1036] 2 Chunks of size 131072 totalling 256.0KiB
+2021-02-23 13:14:02.232582: I tensorflow/core/common_runtime/bfc_allocator.cc:1036] 1 Chunks of size 145920 totalling 142.5KiB
+2021-02-23 13:14:02.232596: I tensorflow/core/common_runtime/bfc_allocator.cc:1036] 2 Chunks of size 196608 totalling 384.0KiB
+2021-02-23 13:14:02.232619: I tensorflow/core/common_runtime/bfc_allocator.cc:1036] 1 Chunks of size 278784 totalling 272.2KiB
+2021-02-23 13:14:02.232642: I tensorflow/core/common_runtime/bfc_allocator.cc:1036] 2 Chunks of size 524288 totalling 1.00MiB
+2021-02-23 13:14:02.232660: I tensorflow/core/common_runtime/bfc_allocator.cc:1036] 1 Chunks of size 589824 totalling 576.0KiB
+2021-02-23 13:14:02.232680: I tensorflow/core/common_runtime/bfc_allocator.cc:1036] 2 Chunks of size 786432 totalling 1.50MiB
+2021-02-23 13:14:02.232707: I tensorflow/core/common_runtime/bfc_allocator.cc:1036] 1 Chunks of size 1034752 totalling 1010.5KiB
+2021-02-23 13:14:02.232731: I tensorflow/core/common_runtime/bfc_allocator.cc:1036] 1 Chunks of size 4718592 totalling 4.50MiB
+2021-02-23 13:14:02.232754: I tensorflow/core/common_runtime/bfc_allocator.cc:1036] 1 Chunks of size 6553600 totalling 6.25MiB
+2021-02-23 13:14:02.232779: I tensorflow/core/common_runtime/bfc_allocator.cc:1036] 1 Chunks of size 8125952 totalling 7.75MiB
+2021-02-23 13:14:02.232805: I tensorflow/core/common_runtime/bfc_allocator.cc:1036] 2 Chunks of size 9437184 totalling 18.00MiB
+2021-02-23 13:14:02.232830: I tensorflow/core/common_runtime/bfc_allocator.cc:1036] 1 Chunks of size 12962816 totalling 12.36MiB
+2021-02-23 13:14:02.232859: I tensorflow/core/common_runtime/bfc_allocator.cc:1036] 1 Chunks of size 16407040 totalling 15.65MiB
+2021-02-23 13:14:02.232885: I tensorflow/core/common_runtime/bfc_allocator.cc:1036] 1 Chunks of size 16777216 totalling 16.00MiB
+2021-02-23 13:14:02.232910: I tensorflow/core/common_runtime/bfc_allocator.cc:1036] 2 Chunks of size 165922560 totalling 316.47MiB
+2021-02-23 13:14:02.232935: I tensorflow/core/common_runtime/bfc_allocator.cc:1036] 1 Chunks of size 170341376 totalling 162.45MiB
+2021-02-23 13:14:02.232960: I tensorflow/core/common_runtime/bfc_allocator.cc:1036] 1 Chunks of size 268435456 totalling 256.00MiB
+2021-02-23 13:14:02.232984: I tensorflow/core/common_runtime/bfc_allocator.cc:1040] Sum Total of in-use chunks: 821.15MiB
+2021-02-23 13:14:02.233006: I tensorflow/core/common_runtime/bfc_allocator.cc:1042] total_region_allocated_bytes_: 2148532224 memory_limit_: 2227568640 available bytes: 79036416 curr_region_allocation_bytes_: 2147483648
+2021-02-23 13:14:02.233033: I tensorflow/core/common_runtime/bfc_allocator.cc:1048] Stats: 
+Limit:                      2227568640
+InUse:                       861042176
+MaxInUse:                   1811617024
+NumAllocs:                        4401
+MaxAllocSize:                916244992
+Reserved:                            0
+PeakReserved:                        0
+LargestFreeBlock:                    0
+
+2021-02-23 13:14:02.233076: W tensorflow/core/common_runtime/bfc_allocator.cc:441] _______*********_________________________________*********__*______****************xxxxx_____*_*****
+2021-02-23 13:14:02.233135: W tensorflow/core/framework/op_kernel.cc:1763] OP_REQUIRES failed at batch_matmul_op_impl.h:685 : Resource exhausted: OOM when allocating tensor with shape[648135,5,64] and type float on /job:localhost/replica:0/task:0/device:GPU:0 by allocator GPU_0_bfc
+Traceback (most recent call last):
+  File "train_classification.py", line 232, in <module>
+    out              = train_step(inputs, targets)
+  File "/home/johannbs/anaconda3/lib/python3.8/site-packages/tensorflow/python/eager/def_function.py", line 828, in __call__
+    result = self._call(*args, **kwds)
+  File "/home/johannbs/anaconda3/lib/python3.8/site-packages/tensorflow/python/eager/def_function.py", line 855, in _call
+    return self._stateless_fn(*args, **kwds)  # pylint: disable=not-callable
+  File "/home/johannbs/anaconda3/lib/python3.8/site-packages/tensorflow/python/eager/function.py", line 2942, in __call__
+    return graph_function._call_flat(
+  File "/home/johannbs/anaconda3/lib/python3.8/site-packages/tensorflow/python/eager/function.py", line 1918, in _call_flat
+    return self._build_call_outputs(self._inference_function.call(
+  File "/home/johannbs/anaconda3/lib/python3.8/site-packages/tensorflow/python/eager/function.py", line 555, in call
+    outputs = execute.execute(
+  File "/home/johannbs/anaconda3/lib/python3.8/site-packages/tensorflow/python/eager/execute.py", line 59, in quick_execute
+    tensors = pywrap_tfe.TFE_Py_Execute(ctx._handle, device_name, op_name,
+tensorflow.python.framework.errors_impl.ResourceExhaustedError:  OOM when allocating tensor with shape[648135,5,64] and type float on /job:localhost/replica:0/task:0/device:GPU:0 by allocator GPU_0_bfc
+	 [[{{node PartitionedCall/gradients/StatefulPartitionedCall_grad/PartitionedCall/gradients/ecc_conv/MatMul_grad/MatMul_1}}]]
+Hint: If you want to see a list of allocated tensors when OOM happens, add report_tensor_allocations_upon_oom to RunOptions for current allocation info.
+ [Op:__inference_train_step_5706]
+
+Function call stack:
+train_step
+

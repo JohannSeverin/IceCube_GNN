@@ -9,13 +9,11 @@ import tensorflow as tf
 
 from spektral.layers import ECCConv
 from spektral.layers.pooling.global_pool import GlobalMaxPool, GlobalAvgPool, GlobalSumPool
-from spektral.utils import gcn_filter
 
 from tensorflow.keras import Model, Input
 from tensorflow.keras.layers import Dense, LeakyReLU, BatchNormalization, Dropout
 from tensorflow.keras.activations import tanh
 from tensorflow.sparse import SparseTensor
-
 
 
 hidden_states = 64
@@ -32,27 +30,24 @@ class model(Model):
         self.GCN1    = GCNConv(hidden_states, activation = "relu")
         self.GCN2    = GCNConv(hidden_states * 2, activation = "relu")
         self.GCN3    = GCNConv(hidden_states * 4, activation = "relu")
-        # self.GCN4    = GCNConv(hidden_states * 8, activation = "relu")
+        self.GCN4    = GCNConv(hidden_states * 8, activation = "relu")
         self.Pool1   = GlobalMaxPool()
         self.Pool2   = GlobalAvgPool()
         self.Pool3   = GlobalSumPool()
-        self.decode  = [Dense(size * hidden_states) for size in [12, 12, 8]]
+        self.decode  = [Dense(size * hidden_states) for size in [24, 12, 4, 3]]
         self.drop_layers  = [Dropout(dropout) for i in range(len(self.decode))]
         self.norm_layers  = [BatchNormalization() for i in range(len(self.decode))]
-
-        self.small_layers = [Dense(hidden_states // 4) for i in range(n_out)]
-        self.out          = [Dense(1) for i in range(n_out)]
+        self.d2      = Dense(n_out)
 
 
     def call(self, inputs, training = False):
         x, a, i = inputs
         a, e    = self.generate_edge_features(x, a)
         x = self.ECC1([x, a, e])
-        # a = gcn_filter(a)
         x = self.GCN1([x, a])
         x = self.GCN2([x, a])
         x = self.GCN3([x, a])
-        # x = self.GCN4([x, a])
+        x = self.GCN4([x, a])
         x1 = self.Pool1([x, i])
         x2 = self.Pool2([x, i])
         x3 = self.Pool3([x, i])
@@ -61,13 +56,7 @@ class model(Model):
           x = drop_layer(x, training = training)
           x = activation(decode_layer(x))
           x = norm_layer(x, training = training)
-        outs = []
-        for s, o in zip(self.small_layers, self.out):
-          outs.append(o(s(x)))
-        return tf.concat(outs, axis = 1)
-
-
-
+        x = self.d2(x)
         return x
 
     def generate_edge_features(self, x, a):

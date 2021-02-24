@@ -1,0 +1,13 @@
+GPU detected
+WARNING:tensorflow:No training configuration found in save file, so the model was *not* compiled. Compile it manually.
+Loading data to memory
+  0%|                                                   | 0/391 [00:00<?, ?it/s][0;31m---------------------------------------------------------------------------[0m
+[0;31mTypeError[0m                                 Traceback (most recent call last)
+[0;32m~/Desktop/IceCube_GNN/train_classification.py[0m in [0;36m<module>[0;34m[0m
+[1;32m    280[0m [0;34m[0m[0m
+[1;32m    281[0m [0;34m[0m[0m
+[0;32m--> 282[0;31m [0mfig[0m[0;34m,[0m [0max[0m [0;34m=[0m [0mtest[0m[0;34m([0m[0mloader_test[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    283[0m [0mfig[0m[0;34m.[0m[0msavefig[0m[0;34m([0m[0;34mf"model_tests/{model_name}_test.pdf"[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+
+[0;31mTypeError[0m: cannot unpack non-iterable NoneType object
+

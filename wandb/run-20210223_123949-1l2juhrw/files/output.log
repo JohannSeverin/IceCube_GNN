@@ -1,0 +1,20 @@
+GPU detected
+WARNING:tensorflow:No training configuration found in save file, so the model was *not* compiled. Compile it manually.
+Loading data to memory
+  0%|                                                   | 0/391 [00:00<?, ?it/s][0;31m---------------------------------------------------------------------------[0m
+[0;31mFileNotFoundError[0m                         Traceback (most recent call last)
+[0;32m~/Desktop/IceCube_GNN/train_classification.py[0m in [0;36m<module>[0;34m[0m
+[1;32m    280[0m [0;34m[0m[0m
+[1;32m    281[0m [0;34m[0m[0m
+[0;32m--> 282[0;31m [0mfig[0m[0;34m,[0m [0max[0m [0;34m=[0m [0mtest[0m[0;34m([0m[0mloader_test[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    283[0m [0mfig[0m[0;34m.[0m[0msavefig[0m[0;34m([0m[0;34mf"model_tests/{model_name}_test.pdf"[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m~/Desktop/IceCube_GNN/train_classification.py[0m in [0;36mtest[0;34m(loader)[0m
+[1;32m    202[0m     [0my_true[0m  [0;34m=[0m [0mtf[0m[0;34m.[0m[0mconcat[0m[0;34m([0m[0mtarget_list[0m[0;34m,[0m [0maxis[0m [0;34m=[0m [0;36m0[0m[0;34m)[0m[0;34m.[0m[0mnumpy[0m[0;34m([0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    203[0m [0;34m[0m[0m
+[0;32m--> 204[0;31m     [0mpickle[0m[0;34m.[0m[0mdump[0m[0;34m([0m[0mopen[0m[0;34m([0m[0mosp[0m[0;34m.[0m[0mjoin[0m[0;34m([0m[0;34m"model_tests"[0m[0;34m,[0m [0;34m"classification_params"[0m[0;34m)[0m[0;34m)[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    205[0m [0;34m[0m[0m
+[1;32m    206[0m [0;34m[0m[0m
+
+[0;31mFileNotFoundError[0m: [Errno 2] No such file or directory: 'model_tests/classification_params'
+

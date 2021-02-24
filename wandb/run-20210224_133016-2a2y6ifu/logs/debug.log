@@ -1,0 +1,32 @@
+2021-02-24 13:30:16,005 INFO    MainThread:15725 [wandb_setup.py:_flush():70] setting env: {}
+2021-02-24 13:30:16,005 INFO    MainThread:15725 [wandb_setup.py:_flush():70] multiprocessing start_methods=fork,spawn,forkserver, using: spawn
+2021-02-24 13:30:16,005 INFO    MainThread:15725 [wandb_setup.py:_flush():70] setting login settings: {}
+2021-02-24 13:30:16,005 INFO    MainThread:15725 [wandb_setup.py:_flush():70] configuring jupyter hooks <wandb.sdk.wandb_init._WandbInit object at 0x7f1247d03730>
+2021-02-24 13:30:16,005 INFO    MainThread:15725 [wandb_init.py:_log_setup():319] Logging user logs to /home/johannbs/Desktop/IceCube_GNN/wandb/run-20210224_133016-2a2y6ifu/logs/debug.log
+2021-02-24 13:30:16,005 INFO    MainThread:15725 [wandb_init.py:_log_setup():320] Logging internal logs to /home/johannbs/Desktop/IceCube_GNN/wandb/run-20210224_133016-2a2y6ifu/logs/debug-internal.log
+2021-02-24 13:30:16,005 INFO    MainThread:15725 [wandb_init.py:init():351] calling init triggers
+2021-02-24 13:30:16,005 INFO    MainThread:15725 [wandb_init.py:init():356] wandb.init called with sweep_config: {}
+config: {}
+2021-02-24 13:30:16,006 INFO    MainThread:15725 [wandb_init.py:init():404] starting backend
+2021-02-24 13:30:16,008 INFO    MainThread:15725 [backend.py:ensure_launched():81] starting backend process...
+2021-02-24 13:30:16,157 ERROR   MainThread:15725 [wandb_init.py:init():745] error
+Traceback (most recent call last):
+  File "/home/johannbs/anaconda3/lib/python3.8/site-packages/wandb/sdk/wandb_init.py", line 719, in init
+    run = wi.init()
+  File "/home/johannbs/anaconda3/lib/python3.8/site-packages/wandb/sdk/wandb_init.py", line 406, in init
+    backend.ensure_launched(
+  File "/home/johannbs/anaconda3/lib/python3.8/site-packages/wandb/sdk/backend/backend.py", line 83, in ensure_launched
+    self.wandb_process.start()
+  File "/home/johannbs/anaconda3/lib/python3.8/multiprocessing/process.py", line 121, in start
+    self._popen = self._Popen(self)
+  File "/home/johannbs/anaconda3/lib/python3.8/multiprocessing/context.py", line 284, in _Popen
+    return Popen(process_obj)
+  File "/home/johannbs/anaconda3/lib/python3.8/multiprocessing/popen_spawn_posix.py", line 32, in __init__
+    super().__init__(process_obj)
+  File "/home/johannbs/anaconda3/lib/python3.8/multiprocessing/popen_fork.py", line 19, in __init__
+    self._launch(process_obj)
+  File "/home/johannbs/anaconda3/lib/python3.8/multiprocessing/popen_spawn_posix.py", line 42, in _launch
+    prep_data = spawn.get_preparation_data(process_obj._name)
+  File "/home/johannbs/anaconda3/lib/python3.8/multiprocessing/spawn.py", line 183, in get_preparation_data
+    main_mod_name = getattr(main_module.__spec__, "name", None)
+AttributeError: module '__main__' has no attribute '__spec__'

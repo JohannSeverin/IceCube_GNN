@@ -1,0 +1,13 @@
+GPU detected
+WARNING:tensorflow:No training configuration found in save file, so the model was *not* compiled. Compile it manually.
+Loading data to memory
+  0%|                                                   | 0/391 [00:00<?, ?it/s]
+[0;36m  File [0;32m"<ipython-input-2-ba6c65dc902f>"[0;36m, line [0;32m1[0m
+[0;31m    jupyter notebook[0m
+[0m            ^[0m
+[0;31mSyntaxError[0m[0;31m:[0m invalid syntax
+
+
+2
+
+[23;0t

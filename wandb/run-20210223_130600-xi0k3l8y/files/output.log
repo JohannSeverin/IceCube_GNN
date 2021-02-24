@@ -1,0 +1,190 @@
+GPU detected
+[0;31m---------------------------------------------------------------------------[0m
+[0;31mResourceExhaustedError[0m                    Traceback (most recent call last)
+[0;32m~/Desktop/IceCube_GNN/train_classification.py[0m in [0;36m<module>[0;34m[0m
+[1;32m     70[0m [0;31m# from models.GCN_stopped_muons import model[0m[0;34m[0m[0;34m[0m[0;34m[0m[0m
+[1;32m     71[0m [0;31m# model = model(hidden_states=hidden_states, forward=forward, dropout = dropout)[0m[0;34m[0m[0;34m[0m[0;34m[0m[0m
+[0;32m---> 72[0;31m [0mmodel[0m [0;34m=[0m [0mload_model[0m[0;34m([0m[0mosp[0m[0;34m.[0m[0mjoin[0m[0;34m([0m[0mfile_path[0m[0;34m,[0m [0;34m"models"[0m[0;34m,[0m [0;34m"saved_models"[0m[0;34m,[0m [0;34m"GCN_classification0"[0m[0;34m)[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m     73[0m [0;34m[0m[0m
+[1;32m     74[0m [0;34m[0m[0m
+
+[0;32m~/anaconda3/lib/python3.8/site-packages/tensorflow/python/keras/saving/save.py[0m in [0;36mload_model[0;34m(filepath, custom_objects, compile, options)[0m
+[1;32m    210[0m       [0;32mif[0m [0misinstance[0m[0;34m([0m[0mfilepath[0m[0;34m,[0m [0msix[0m[0;34m.[0m[0mstring_types[0m[0;34m)[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    211[0m         [0mloader_impl[0m[0;34m.[0m[0mparse_saved_model[0m[0;34m([0m[0mfilepath[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0;32m--> 212[0;31m         [0;32mreturn[0m [0msaved_model_load[0m[0;34m.[0m[0mload[0m[0;34m([0m[0mfilepath[0m[0;34m,[0m [0mcompile[0m[0;34m,[0m [0moptions[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    213[0m [0;34m[0m[0m
+[1;32m    214[0m   raise IOError(
+
+[0;32m~/anaconda3/lib/python3.8/site-packages/tensorflow/python/keras/saving/saved_model/load.py[0m in [0;36mload[0;34m(path, compile, options)[0m
+[1;32m    136[0m   [0;31m# Recreate layers and metrics using the info stored in the metadata.[0m[0;34m[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    137[0m   [0mkeras_loader[0m [0;34m=[0m [0mKerasObjectLoader[0m[0;34m([0m[0mmetadata[0m[0;34m,[0m [0mobject_graph_def[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0;32m--> 138[0;31m   [0mkeras_loader[0m[0;34m.[0m[0mload_layers[0m[0;34m([0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    139[0m [0;34m[0m[0m
+[1;32m    140[0m   [0;31m# Generate a dictionary of all loaded nodes.[0m[0;34m[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m~/anaconda3/lib/python3.8/site-packages/tensorflow/python/keras/saving/saved_model/load.py[0m in [0;36mload_layers[0;34m(self)[0m
+[1;32m    372[0m         [0;32mcontinue[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    373[0m [0;34m[0m[0m
+[0;32m--> 374[0;31m       self.loaded_nodes[node_metadata.node_id] = self._load_layer(
+[0m[1;32m    375[0m           [0mnode_metadata[0m[0;34m.[0m[0mnode_id[0m[0;34m,[0m [0mnode_metadata[0m[0;34m.[0m[0midentifier[0m[0;34m,[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    376[0m           node_metadata.metadata)
+
+[0;32m~/anaconda3/lib/python3.8/site-packages/tensorflow/python/keras/saving/saved_model/load.py[0m in [0;36m_load_layer[0;34m(self, node_id, identifier, metadata)[0m
+[1;32m    403[0m     [0;31m# Detect whether this object can be revived from the config. If not, then[0m[0;34m[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    404[0m     [0;31m# revive from the SavedModel instead.[0m[0;34m[0m[0;34m[0m[0;34m[0m[0m
+[0;32m--> 405[0;31m     [0mobj[0m[0;34m,[0m [0msetter[0m [0;34m=[0m [0mself[0m[0;34m.[0m[0m_revive_from_config[0m[0;34m([0m[0midentifier[0m[0;34m,[0m [0mmetadata[0m[0;34m,[0m [0mnode_id[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    406[0m     [0;32mif[0m [0mobj[0m [0;32mis[0m [0;32mNone[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    407[0m       [0mobj[0m[0;34m,[0m [0msetter[0m [0;34m=[0m [0mrevive_custom_object[0m[0;34m([0m[0midentifier[0m[0;34m,[0m [0mmetadata[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m~/anaconda3/lib/python3.8/site-packages/tensorflow/python/keras/saving/saved_model/load.py[0m in [0;36m_revive_from_config[0;34m(self, identifier, metadata, node_id)[0m
+[1;32m    421[0m       obj = (
+[1;32m    422[0m           [0mself[0m[0;34m.[0m[0m_revive_graph_network[0m[0;34m([0m[0mmetadata[0m[0;34m,[0m [0mnode_id[0m[0;34m)[0m [0;32mor[0m[0;34m[0m[0;34m[0m[0m
+[0;32m--> 423[0;31m           self._revive_layer_from_config(metadata, node_id))
+[0m[1;32m    424[0m [0;34m[0m[0m
+[1;32m    425[0m     [0;32mif[0m [0mobj[0m [0;32mis[0m [0;32mNone[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m~/anaconda3/lib/python3.8/site-packages/tensorflow/python/keras/saving/saved_model/load.py[0m in [0;36m_revive_layer_from_config[0;34m(self, metadata, node_id)[0m
+[1;32m    509[0m [0;34m[0m[0m
+[1;32m    510[0m     [0mbuild_input_shape[0m [0;34m=[0m [0mmetadata[0m[0;34m.[0m[0mget[0m[0;34m([0m[0;34m'build_input_shape'[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0;32m--> 511[0;31m     [0mbuilt[0m [0;34m=[0m [0mself[0m[0;34m.[0m[0m_try_build_layer[0m[0;34m([0m[0mobj[0m[0;34m,[0m [0mnode_id[0m[0;34m,[0m [0mbuild_input_shape[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    512[0m [0;34m[0m[0m
+[1;32m    513[0m     [0;32mif[0m [0;32mnot[0m [0mbuilt[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m~/anaconda3/lib/python3.8/site-packages/tensorflow/python/keras/saving/saved_model/load.py[0m in [0;36m_try_build_layer[0;34m(self, obj, node_id, build_input_shape)[0m
+[1;32m    547[0m [0;34m[0m[0m
+[1;32m    548[0m     [0;32mif[0m [0mbuild_input_shape[0m [0;32mis[0m [0;32mnot[0m [0;32mNone[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[0;32m--> 549[0;31m       [0mobj[0m[0;34m.[0m[0mbuild[0m[0;34m([0m[0mbuild_input_shape[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    550[0m       [0mbase_layer[0m[0;34m.[0m[0mLayer[0m[0;34m.[0m[0mbuild[0m[0;34m([0m[0mobj[0m[0;34m,[0m [0mbuild_input_shape[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    551[0m       [0;32mreturn[0m [0;32mTrue[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m~/anaconda3/lib/python3.8/site-packages/tensorflow/python/keras/layers/core.py[0m in [0;36mbuild[0;34m(self, input_shape)[0m
+[1;32m   1183[0m                        'should be defined. Found `None`.')
+[1;32m   1184[0m     [0mself[0m[0;34m.[0m[0minput_spec[0m [0;34m=[0m [0mInputSpec[0m[0;34m([0m[0mmin_ndim[0m[0;34m=[0m[0;36m2[0m[0;34m,[0m [0maxes[0m[0;34m=[0m[0;34m{[0m[0;34m-[0m[0;36m1[0m[0;34m:[0m [0mlast_dim[0m[0;34m}[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0;32m-> 1185[0;31m     self.kernel = self.add_weight(
+[0m[1;32m   1186[0m         [0;34m'kernel'[0m[0;34m,[0m[0;34m[0m[0;34m[0m[0m
+[1;32m   1187[0m         [0mshape[0m[0;34m=[0m[0;34m[[0m[0mlast_dim[0m[0;34m,[0m [0mself[0m[0;34m.[0m[0munits[0m[0;34m][0m[0;34m,[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m~/anaconda3/lib/python3.8/site-packages/tensorflow/python/keras/engine/base_layer.py[0m in [0;36madd_weight[0;34m(self, name, shape, dtype, initializer, regularizer, trainable, constraint, use_resource, synchronization, aggregation, **kwargs)[0m
+[1;32m    621[0m         [0mcaching_device[0m [0;34m=[0m [0;32mNone[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    622[0m [0;34m[0m[0m
+[0;32m--> 623[0;31m     variable = self._add_variable_with_custom_getter(
+[0m[1;32m    624[0m         [0mname[0m[0;34m=[0m[0mname[0m[0;34m,[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    625[0m         [0mshape[0m[0;34m=[0m[0mshape[0m[0;34m,[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m~/anaconda3/lib/python3.8/site-packages/tensorflow/python/training/tracking/base.py[0m in [0;36m_add_variable_with_custom_getter[0;34m(self, name, shape, dtype, initializer, getter, overwrite, **kwargs_for_getter)[0m
+[1;32m    803[0m         [0;31m# "best effort" to set the initializer with the highest restore UID.[0m[0;34m[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    804[0m         [0minitializer[0m [0;34m=[0m [0mcheckpoint_initializer[0m[0;34m[0m[0;34m[0m[0m
+[0;32m--> 805[0;31m     new_variable = getter(
+[0m[1;32m    806[0m         [0mname[0m[0;34m=[0m[0mname[0m[0;34m,[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    807[0m         [0mshape[0m[0;34m=[0m[0mshape[0m[0;34m,[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m~/anaconda3/lib/python3.8/site-packages/tensorflow/python/keras/engine/base_layer_utils.py[0m in [0;36mmake_variable[0;34m(name, shape, dtype, initializer, trainable, caching_device, validate_shape, constraint, use_resource, collections, synchronization, aggregation, partitioner)[0m
+[1;32m    128[0m   [0;31m# can remove the V1.[0m[0;34m[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    129[0m   [0mvariable_shape[0m [0;34m=[0m [0mtensor_shape[0m[0;34m.[0m[0mTensorShape[0m[0;34m([0m[0mshape[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0;32m--> 130[0;31m   return tf_variables.VariableV1(
+[0m[1;32m    131[0m       [0minitial_value[0m[0;34m=[0m[0minit_val[0m[0;34m,[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    132[0m       [0mname[0m[0;34m=[0m[0mname[0m[0;34m,[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m~/anaconda3/lib/python3.8/site-packages/tensorflow/python/ops/variables.py[0m in [0;36m__call__[0;34m(cls, *args, **kwargs)[0m
+[1;32m    258[0m   [0;32mdef[0m [0m__call__[0m[0;34m([0m[0mcls[0m[0;34m,[0m [0;34m*[0m[0margs[0m[0;34m,[0m [0;34m**[0m[0mkwargs[0m[0;34m)[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    259[0m     [0;32mif[0m [0mcls[0m [0;32mis[0m [0mVariableV1[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[0;32m--> 260[0;31m       [0;32mreturn[0m [0mcls[0m[0;34m.[0m[0m_variable_v1_call[0m[0;34m([0m[0;34m*[0m[0margs[0m[0;34m,[0m [0;34m**[0m[0mkwargs[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    261[0m     [0;32melif[0m [0mcls[0m [0;32mis[0m [0mVariable[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    262[0m       [0;32mreturn[0m [0mcls[0m[0;34m.[0m[0m_variable_v2_call[0m[0;34m([0m[0;34m*[0m[0margs[0m[0;34m,[0m [0;34m**[0m[0mkwargs[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m~/anaconda3/lib/python3.8/site-packages/tensorflow/python/ops/variables.py[0m in [0;36m_variable_v1_call[0;34m(cls, initial_value, trainable, collections, validate_shape, caching_device, name, variable_def, dtype, expected_shape, import_scope, constraint, use_resource, synchronization, aggregation, shape)[0m
+[1;32m    204[0m     [0;32mif[0m [0maggregation[0m [0;32mis[0m [0;32mNone[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    205[0m       [0maggregation[0m [0;34m=[0m [0mVariableAggregation[0m[0;34m.[0m[0mNONE[0m[0;34m[0m[0;34m[0m[0m
+[0;32m--> 206[0;31m     return previous_getter(
+[0m[1;32m    207[0m         [0minitial_value[0m[0;34m=[0m[0minitial_value[0m[0;34m,[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    208[0m         [0mtrainable[0m[0;34m=[0m[0mtrainable[0m[0;34m,[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m~/anaconda3/lib/python3.8/site-packages/tensorflow/python/ops/variables.py[0m in [0;36m<lambda>[0;34m(**kwargs)[0m
+[1;32m    197[0m                         shape=None):
+[1;32m    198[0m     [0;34m"""Call on Variable class. Useful to force the signature."""[0m[0;34m[0m[0;34m[0m[0m
+[0;32m--> 199[0;31m     [0mprevious_getter[0m [0;34m=[0m [0;32mlambda[0m [0;34m**[0m[0mkwargs[0m[0;34m:[0m [0mdefault_variable_creator[0m[0;34m([0m[0;32mNone[0m[0;34m,[0m [0;34m**[0m[0mkwargs[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    200[0m     [0;32mfor[0m [0m_[0m[0;34m,[0m [0mgetter[0m [0;32min[0m [0mops[0m[0;34m.[0m[0mget_default_graph[0m[0;34m([0m[0;34m)[0m[0;34m.[0m[0m_variable_creator_stack[0m[0;34m:[0m  [0;31m# pylint: disable=protected-access[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    201[0m       [0mprevious_getter[0m [0;34m=[0m [0m_make_getter[0m[0;34m([0m[0mgetter[0m[0;34m,[0m [0mprevious_getter[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m~/anaconda3/lib/python3.8/site-packages/tensorflow/python/ops/variable_scope.py[0m in [0;36mdefault_variable_creator[0;34m(next_creator, **kwargs)[0m
+[1;32m   2602[0m   [0;32mif[0m [0muse_resource[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[1;32m   2603[0m     [0mdistribute_strategy[0m [0;34m=[0m [0mkwargs[0m[0;34m.[0m[0mget[0m[0;34m([0m[0;34m"distribute_strategy"[0m[0;34m,[0m [0;32mNone[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0;32m-> 2604[0;31m     return resource_variable_ops.ResourceVariable(
+[0m[1;32m   2605[0m         [0minitial_value[0m[0;34m=[0m[0minitial_value[0m[0;34m,[0m[0;34m[0m[0;34m[0m[0m
+[1;32m   2606[0m         [0mtrainable[0m[0;34m=[0m[0mtrainable[0m[0;34m,[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m~/anaconda3/lib/python3.8/site-packages/tensorflow/python/ops/variables.py[0m in [0;36m__call__[0;34m(cls, *args, **kwargs)[0m
+[1;32m    262[0m       [0;32mreturn[0m [0mcls[0m[0;34m.[0m[0m_variable_v2_call[0m[0;34m([0m[0;34m*[0m[0margs[0m[0;34m,[0m [0;34m**[0m[0mkwargs[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    263[0m     [0;32melse[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[0;32m--> 264[0;31m       [0;32mreturn[0m [0msuper[0m[0;34m([0m[0mVariableMetaclass[0m[0;34m,[0m [0mcls[0m[0;34m)[0m[0;34m.[0m[0m__call__[0m[0;34m([0m[0;34m*[0m[0margs[0m[0;34m,[0m [0;34m**[0m[0mkwargs[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    265[0m [0;34m[0m[0m
+[1;32m    266[0m [0;34m[0m[0m
+
+[0;32m~/anaconda3/lib/python3.8/site-packages/tensorflow/python/ops/resource_variable_ops.py[0m in [0;36m__init__[0;34m(self, initial_value, trainable, collections, validate_shape, caching_device, name, dtype, variable_def, import_scope, constraint, distribute_strategy, synchronization, aggregation, shape)[0m
+[1;32m   1572[0m       [0mself[0m[0;34m.[0m[0m_init_from_proto[0m[0;34m([0m[0mvariable_def[0m[0;34m,[0m [0mimport_scope[0m[0;34m=[0m[0mimport_scope[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[1;32m   1573[0m     [0;32melse[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[0;32m-> 1574[0;31m       self._init_from_args(
+[0m[1;32m   1575[0m           [0minitial_value[0m[0;34m=[0m[0minitial_value[0m[0;34m,[0m[0;34m[0m[0;34m[0m[0m
+[1;32m   1576[0m           [0mtrainable[0m[0;34m=[0m[0mtrainable[0m[0;34m,[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m~/anaconda3/lib/python3.8/site-packages/tensorflow/python/ops/resource_variable_ops.py[0m in [0;36m_init_from_args[0;34m(self, initial_value, trainable, collections, caching_device, name, dtype, constraint, synchronization, aggregation, distribute_strategy, shape)[0m
+[1;32m   1710[0m           [0;32mwith[0m [0mops[0m[0;34m.[0m[0mname_scope[0m[0;34m([0m[0;34m"Initializer"[0m[0;34m)[0m[0;34m,[0m [0mdevice_context_manager[0m[0;34m([0m[0;32mNone[0m[0;34m)[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[1;32m   1711[0m             [0;32mif[0m [0minit_from_fn[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[0;32m-> 1712[0;31m               [0minitial_value[0m [0;34m=[0m [0minitial_value[0m[0;34m([0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m   1713[0m             [0;32mif[0m [0misinstance[0m[0;34m([0m[0minitial_value[0m[0;34m,[0m [0mtrackable[0m[0;34m.[0m[0mCheckpointInitialValue[0m[0;34m)[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[1;32m   1714[0m               [0mself[0m[0;34m.[0m[0m_maybe_initialize_trackable[0m[0;34m([0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m~/anaconda3/lib/python3.8/site-packages/tensorflow/python/keras/initializers/initializers_v2.py[0m in [0;36m__call__[0;34m(self, shape, dtype, **kwargs)[0m
+[1;32m    407[0m       [0;34m**[0m[0mkwargs[0m[0;34m:[0m [0mAdditional[0m [0mkeyword[0m [0marguments[0m[0;34m.[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    408[0m     """
+[0;32m--> 409[0;31m     return super(VarianceScaling, self).__call__(
+[0m[1;32m    410[0m         shape, dtype=_get_dtype(dtype), **kwargs)
+[1;32m    411[0m [0;34m[0m[0m
+
+[0;32m~/anaconda3/lib/python3.8/site-packages/tensorflow/python/ops/init_ops_v2.py[0m in [0;36m__call__[0;34m(self, shape, dtype, **kwargs)[0m
+[1;32m    598[0m     [0;32melse[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    599[0m       [0mlimit[0m [0;34m=[0m [0mmath[0m[0;34m.[0m[0msqrt[0m[0;34m([0m[0;36m3.0[0m [0;34m*[0m [0mscale[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0;32m--> 600[0;31m       [0;32mreturn[0m [0mself[0m[0;34m.[0m[0m_random_generator[0m[0;34m.[0m[0mrandom_uniform[0m[0;34m([0m[0mshape[0m[0;34m,[0m [0;34m-[0m[0mlimit[0m[0;34m,[0m [0mlimit[0m[0;34m,[0m [0mdtype[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    601[0m [0;34m[0m[0m
+[1;32m    602[0m   [0;32mdef[0m [0mget_config[0m[0;34m([0m[0mself[0m[0;34m)[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m~/anaconda3/lib/python3.8/site-packages/tensorflow/python/ops/init_ops_v2.py[0m in [0;36mrandom_uniform[0;34m(self, shape, minval, maxval, dtype)[0m
+[1;32m   1079[0m     [0;32melse[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[1;32m   1080[0m       [0mop[0m [0;34m=[0m [0mrandom_ops[0m[0;34m.[0m[0mrandom_uniform[0m[0;34m[0m[0;34m[0m[0m
+[0;32m-> 1081[0;31m     return op(
+[0m[1;32m   1082[0m         shape=shape, minval=minval, maxval=maxval, dtype=dtype, seed=self.seed)
+[1;32m   1083[0m [0;34m[0m[0m
+
+[0;32m~/anaconda3/lib/python3.8/site-packages/tensorflow/python/util/dispatch.py[0m in [0;36mwrapper[0;34m(*args, **kwargs)[0m
+[1;32m    199[0m     [0;34m"""Call target, and fall back on dispatchers if there is a TypeError."""[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    200[0m     [0;32mtry[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[0;32m--> 201[0;31m       [0;32mreturn[0m [0mtarget[0m[0;34m([0m[0;34m*[0m[0margs[0m[0;34m,[0m [0;34m**[0m[0mkwargs[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    202[0m     [0;32mexcept[0m [0;34m([0m[0mTypeError[0m[0;34m,[0m [0mValueError[0m[0;34m)[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    203[0m       [0;31m# Note: convert_to_eager_tensor currently raises a ValueError, not a[0m[0;34m[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m~/anaconda3/lib/python3.8/site-packages/tensorflow/python/ops/random_ops.py[0m in [0;36mrandom_uniform[0;34m(shape, minval, maxval, dtype, seed, name)[0m
+[1;32m    306[0m           [0mresult[0m [0;34m=[0m [0mmath_ops[0m[0;34m.[0m[0mmultiply[0m[0;34m([0m[0mresult[0m[0;34m,[0m [0mmaxval[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    307[0m       [0;32melse[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[0;32m--> 308[0;31m         [0mresult[0m [0;34m=[0m [0mmath_ops[0m[0;34m.[0m[0madd[0m[0;34m([0m[0mresult[0m [0;34m*[0m [0;34m([0m[0mmaxval[0m [0;34m-[0m [0mminval[0m[0;34m)[0m[0;34m,[0m [0mminval[0m[0;34m,[0m [0mname[0m[0;34m=[0m[0mname[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    309[0m     [0;31m# TODO(b/132092188): C++ shape inference inside functional ops does not[0m[0;34m[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    310[0m     [0;31m# cross FuncGraph boundaries since that information is only available in[0m[0;34m[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m~/anaconda3/lib/python3.8/site-packages/tensorflow/python/ops/gen_math_ops.py[0m in [0;36madd[0;34m(x, y, name)[0m
+[1;32m    325[0m       [0;32mreturn[0m [0m_result[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    326[0m     [0;32mexcept[0m [0m_core[0m[0;34m.[0m[0m_NotOkStatusException[0m [0;32mas[0m [0me[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[0;32m--> 327[0;31m       [0m_ops[0m[0;34m.[0m[0mraise_from_not_ok_status[0m[0;34m([0m[0me[0m[0;34m,[0m [0mname[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    328[0m     [0;32mexcept[0m [0m_core[0m[0;34m.[0m[0m_FallbackException[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    329[0m       [0;32mpass[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m~/anaconda3/lib/python3.8/site-packages/tensorflow/python/framework/ops.py[0m in [0;36mraise_from_not_ok_status[0;34m(e, name)[0m
+[1;32m   6860[0m   [0mmessage[0m [0;34m=[0m [0me[0m[0;34m.[0m[0mmessage[0m [0;34m+[0m [0;34m([0m[0;34m" name: "[0m [0;34m+[0m [0mname[0m [0;32mif[0m [0mname[0m [0;32mis[0m [0;32mnot[0m [0;32mNone[0m [0;32melse[0m [0;34m""[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[1;32m   6861[0m   [0;31m# pylint: disable=protected-access[0m[0;34m[0m[0;34m[0m[0;34m[0m[0m
+[0;32m-> 6862[0;31m   [0msix[0m[0;34m.[0m[0mraise_from[0m[0;34m([0m[0mcore[0m[0;34m.[0m[0m_status_to_exception[0m[0;34m([0m[0me[0m[0;34m.[0m[0mcode[0m[0;34m,[0m [0mmessage[0m[0;34m)[0m[0;34m,[0m [0;32mNone[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m   6863[0m   [0;31m# pylint: enable=protected-access[0m[0;34m[0m[0;34m[0m[0;34m[0m[0m
+[1;32m   6864[0m [0;34m[0m[0m
+
+[0;32m~/anaconda3/lib/python3.8/site-packages/six.py[0m in [0;36mraise_from[0;34m(value, from_value)[0m
+
+[0;31mResourceExhaustedError[0m: OOM when allocating tensor with shape[1536,1536] and type float on /job:localhost/replica:0/task:0/device:GPU:0 by allocator GPU_0_bfc [Op:Add]
+
+[23;0t

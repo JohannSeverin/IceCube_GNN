@@ -1,4 +1,4 @@
-import os, sys, argparse, importlib, time
+import os, sys, argparse, importlib, time, pickle
 import numpy as np
 import matplotlib.pyplot as plt
 import os.path as osp
@@ -35,7 +35,7 @@ file_path = osp.dirname(osp.realpath(__file__))
 # Setup Deafult Variabls                       # 
 ################################################
 learning_rate = 2.5e-4
-batch_size    = 512
+batch_size    = 1024
 epochs        = 100
 early_stop    = True
 patience      = 3
@@ -45,9 +45,9 @@ model_name    = "GCN_classification0"
 ################################################
 # Setup Hyperparameters                        # 
 ################################################
-hidden_states = 64
+hidden_states = 128
 forward       = False
-dropout       = 0.3
+dropout       = 0.5
 # loss_method   = "loss_func_linear_angle"
 n_neighbors   = 9 # SKRIV SELV IND
 
@@ -67,9 +67,9 @@ wandb.config.n_neighbors = n_neighbors
 ################################################
 # Get model and data                           # 
 ################################################
-from models.GCN_stopped_muons import model
-model = model(hidden_states=hidden_states, forward=forward, dropout = dropout)
-# model = load_model(osp.join(file_path, "models", "saved_models", "MessPass1"))
+# from models.GCN_stopped_muons import model
+# model = model(hidden_states=hidden_states, forward=forward, dropout = dropout)
+model = load_model(osp.join(file_path, "models", "saved_models", "GCN_classification0"))
 
 
 
@@ -183,6 +183,7 @@ def validation(loader):
 def test(loader):
     loss = 0
     prediction_list, target_list = [], []
+    N_nodes = []
     for batch in loader:
         inputs, targets = batch
         inputs[0][:, :3] = inputs[0][:, :3] / 1000
@@ -190,11 +191,20 @@ def test(loader):
         predictions, targets, out = test_step(inputs, targets)
         loss           += out
         
+        y, idx, count = tf.unique_with_counts(batch[0][2])
+
+        N_nodes.append(count)
         prediction_list.append(predictions)
         target_list.append(targets)
 
+        
+
     y_reco  = tf.concat(prediction_list, axis = 0).numpy()
     y_true  = tf.concat(target_list, axis = 0).numpy()
+    N_nodes = tf.concat(N_nodes, axis = 0).numpy()
+
+    pickle.dump({'true': y_true, 'y_reco': y_reco, 'N': N_nodes}, open(osp.join("model_tests", "classification_params"), 'wb'))
+
 
 
 
@@ -271,5 +281,5 @@ for batch in loader_train:
         current_batch   = 0
 
         
-fig, ax = test(loader_test)
-fig.savefig(f"model_tests/{model_name}_test.pdf")
+test(loader_test)
+# fig.savefig(f"model_tests/{model_name}_test.pdf")

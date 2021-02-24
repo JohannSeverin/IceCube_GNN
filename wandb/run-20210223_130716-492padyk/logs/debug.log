@@ -1,0 +1,77 @@
+2021-02-23 13:07:16,922 INFO    MainThread:5599 [wandb_setup.py:_flush():70] setting env: {}
+2021-02-23 13:07:16,922 INFO    MainThread:5599 [wandb_setup.py:_flush():70] multiprocessing start_methods=fork,spawn,forkserver, using: spawn
+2021-02-23 13:07:16,922 INFO    MainThread:5599 [wandb_setup.py:_flush():70] setting login settings: {}
+2021-02-23 13:07:16,923 INFO    MainThread:5599 [wandb_init.py:_log_setup():319] Logging user logs to /home/johannbs/Desktop/IceCube_GNN/wandb/run-20210223_130716-492padyk/logs/debug.log
+2021-02-23 13:07:16,923 INFO    MainThread:5599 [wandb_init.py:_log_setup():320] Logging internal logs to /home/johannbs/Desktop/IceCube_GNN/wandb/run-20210223_130716-492padyk/logs/debug-internal.log
+2021-02-23 13:07:16,923 INFO    MainThread:5599 [wandb_init.py:init():351] calling init triggers
+2021-02-23 13:07:16,923 INFO    MainThread:5599 [wandb_init.py:init():356] wandb.init called with sweep_config: {}
+config: {}
+2021-02-23 13:07:16,923 INFO    MainThread:5599 [wandb_init.py:init():404] starting backend
+2021-02-23 13:07:16,933 INFO    MainThread:5599 [backend.py:ensure_launched():81] starting backend process...
+2021-02-23 13:07:16,939 INFO    MainThread:5599 [backend.py:ensure_launched():85] started backend process with pid: 5621
+2021-02-23 13:07:16,940 INFO    MainThread:5599 [wandb_init.py:init():413] backend started and connected
+2021-02-23 13:07:16,941 INFO    MainThread:5599 [wandb_init.py:init():436] updated telemetry
+2021-02-23 13:07:16,942 INFO    MainThread:5599 [wandb_init.py:init():459] communicating current version
+2021-02-23 13:07:17,651 INFO    MainThread:5599 [wandb_init.py:init():464] got version response upgrade_message: "wandb version 0.10.20 is available!  To upgrade, please run:\n $ pip install wandb --upgrade"
+
+2021-02-23 13:07:17,651 INFO    MainThread:5599 [wandb_init.py:init():472] communicating run to backend with 30 second timeout
+2021-02-23 13:07:17,875 INFO    MainThread:5599 [wandb_init.py:init():495] starting run threads in backend
+2021-02-23 13:07:19,299 INFO    MainThread:5599 [wandb_run.py:_console_start():1411] atexit reg
+2021-02-23 13:07:19,299 INFO    MainThread:5599 [wandb_run.py:_redirect():1274] redirect: SettingsConsole.REDIRECT
+2021-02-23 13:07:19,299 INFO    MainThread:5599 [wandb_run.py:_redirect():1279] Redirecting console.
+2021-02-23 13:07:19,299 INFO    MainThread:5599 [redirect.py:install():213] install start
+2021-02-23 13:07:19,300 INFO    MainThread:5599 [redirect.py:install():228] install stop
+2021-02-23 13:07:19,300 INFO    MainThread:5599 [redirect.py:install():213] install start
+2021-02-23 13:07:19,300 INFO    MainThread:5599 [redirect.py:install():228] install stop
+2021-02-23 13:07:19,300 INFO    MainThread:5599 [wandb_run.py:_redirect():1325] Redirects installed.
+2021-02-23 13:07:19,300 INFO    MainThread:5599 [wandb_init.py:init():518] run started, returning control to user process
+2021-02-23 13:07:21,254 INFO    MainThread:5599 [wandb_config.py:__setitem__():142] config set hidden_states = 64 - <bound method Run._config_callback of <wandb.sdk.wandb_run.Run object at 0x7f3b63d41ee0>>
+2021-02-23 13:07:21,254 INFO    MainThread:5599 [wandb_run.py:_config_callback():663] config_cb hidden_states 64 None
+2021-02-23 13:07:21,255 INFO    MainThread:5599 [wandb_config.py:__setitem__():142] config set forward = False - <bound method Run._config_callback of <wandb.sdk.wandb_run.Run object at 0x7f3b63d41ee0>>
+2021-02-23 13:07:21,255 INFO    MainThread:5599 [wandb_run.py:_config_callback():663] config_cb forward False None
+2021-02-23 13:07:21,255 INFO    MainThread:5599 [wandb_config.py:__setitem__():142] config set dropout = 0.3 - <bound method Run._config_callback of <wandb.sdk.wandb_run.Run object at 0x7f3b63d41ee0>>
+2021-02-23 13:07:21,255 INFO    MainThread:5599 [wandb_run.py:_config_callback():663] config_cb dropout 0.3 None
+2021-02-23 13:07:21,255 INFO    MainThread:5599 [wandb_config.py:__setitem__():142] config set learning_rate = 0.00025 - <bound method Run._config_callback of <wandb.sdk.wandb_run.Run object at 0x7f3b63d41ee0>>
+2021-02-23 13:07:21,255 INFO    MainThread:5599 [wandb_run.py:_config_callback():663] config_cb learning_rate 0.00025 None
+2021-02-23 13:07:21,255 INFO    MainThread:5599 [wandb_config.py:__setitem__():142] config set batch_size = 512 - <bound method Run._config_callback of <wandb.sdk.wandb_run.Run object at 0x7f3b63d41ee0>>
+2021-02-23 13:07:21,256 INFO    MainThread:5599 [wandb_run.py:_config_callback():663] config_cb batch_size 512 None
+2021-02-23 13:07:21,256 INFO    MainThread:5599 [wandb_config.py:__setitem__():142] config set n_neighbors = 9 - <bound method Run._config_callback of <wandb.sdk.wandb_run.Run object at 0x7f3b63d41ee0>>
+2021-02-23 13:07:21,256 INFO    MainThread:5599 [wandb_run.py:_config_callback():663] config_cb n_neighbors 9 None
+2021-02-23 13:08:09,304 INFO    MainThread:5599 [wandb_run.py:_atexit_cleanup():1381] got exitcode: 0
+2021-02-23 13:08:09,304 INFO    MainThread:5599 [wandb_run.py:_restore():1353] restore
+2021-02-23 13:08:09,304 INFO    MainThread:5599 [redirect.py:uninstall():232] uninstall start
+2021-02-23 13:08:09,304 INFO    MainThread:5599 [redirect.py:_stop():287] _stop: stdout
+2021-02-23 13:08:09,304 INFO    MainThread:5599 [redirect.py:_stop():293] _stop closed: stdout
+2021-02-23 13:08:09,305 INFO    stdout    :5599 [redirect.py:_pipe_relay():129] relay done saw last write: stdout
+2021-02-23 13:08:09,305 INFO    stdout    :5599 [redirect.py:_pipe_relay():145] relay done done: stdout
+2021-02-23 13:08:09,305 INFO    MainThread:5599 [redirect.py:_stop():299] _stop joined: stdout
+2021-02-23 13:08:09,305 INFO    MainThread:5599 [redirect.py:_stop():301] _stop rd closed: stdout
+2021-02-23 13:08:09,305 INFO    MainThread:5599 [redirect.py:uninstall():236] uninstall done
+2021-02-23 13:08:09,305 INFO    MainThread:5599 [redirect.py:uninstall():232] uninstall start
+2021-02-23 13:08:09,305 INFO    MainThread:5599 [redirect.py:_stop():287] _stop: stderr
+2021-02-23 13:08:09,305 INFO    MainThread:5599 [redirect.py:_stop():293] _stop closed: stderr
+2021-02-23 13:08:09,305 INFO    stderr    :5599 [redirect.py:_pipe_relay():129] relay done saw last write: stderr
+2021-02-23 13:08:09,305 INFO    stderr    :5599 [redirect.py:_pipe_relay():145] relay done done: stderr
+2021-02-23 13:08:09,306 INFO    MainThread:5599 [redirect.py:_stop():299] _stop joined: stderr
+2021-02-23 13:08:09,306 INFO    MainThread:5599 [redirect.py:_stop():301] _stop rd closed: stderr
+2021-02-23 13:08:09,306 INFO    MainThread:5599 [redirect.py:uninstall():236] uninstall done
+2021-02-23 13:08:09,506 INFO    MainThread:5599 [wandb_run.py:_wait_for_finish():1504] got exit ret: file_counts {
+  wandb_count: 1
+}
+pusher_stats {
+  uploaded_bytes: 777
+  total_bytes: 777
+}
+
+2021-02-23 13:08:11,512 INFO    MainThread:5599 [wandb_run.py:_wait_for_finish():1504] got exit ret: done: true
+exit_result {
+}
+file_counts {
+  wandb_count: 5
+}
+pusher_stats {
+  uploaded_bytes: 13712
+  total_bytes: 13712
+}
+
+2021-02-23 13:08:12,799 INFO    MainThread:5599 [wandb_run.py:_show_files():1726] logging synced files

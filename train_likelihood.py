@@ -6,10 +6,15 @@ from tensorflow.python.ops.math_ops import reduce_euclidean_norm
 from sklearn.preprocessing import normalize
 from sklearn.metrics import roc_auc_score
 
+
+
 from tqdm import tqdm
 
-import wandb 
-wandb.init(project="likelihood_angle", entity="johannbs")
+log = True
+
+if log: 
+    import wandb 
+    run = wandb.init(project="likelihood_angle", entity="johannbs")
 
 
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2' 
@@ -35,45 +40,45 @@ file_path = osp.dirname(osp.realpath(__file__))
 # Setup Deafult Variabls                       # 
 ################################################
 learning_rate = 1e-4
-batch_size    = 512
+batch_size    = 1024
 epochs        = 100
 early_stop    = True
-patience      = 10
-model_name    = "GCN_likelihood"
+patience      = 20
+model_name    = "GCN_likelihood3"
 
 
 ################################################
 # Setup Hyperparameters                        # 
 ################################################
-hidden_states = 64
+hidden_states = 32
 forward       = False
-dropout       = 0.0
-loss_method   = "likelihood_angle_difference"
+dropout       = 0.25
+loss_method   = "likelihood_covariant_unitvectors"
 n_neighbors   = 6 # SKRIV SELV IND
 
 
-
-# Declare for log
-wandb.config.hidden_states = hidden_states
-wandb.config.forward = forward
-wandb.config.dropout = dropout
-wandb.config.learning_rate = learning_rate
-wandb.config.batch_size = batch_size
-wandb.config.loss_func = loss_method
-wandb.config.n_neighbors = n_neighbors
+if log:
+    # Declare for log
+    wandb.config.hidden_states = hidden_states
+    wandb.config.forward = forward
+    wandb.config.dropout = dropout
+    wandb.config.learning_rate = learning_rate
+    wandb.config.batch_size = batch_size
+    wandb.config.loss_func = loss_method
+    wandb.config.n_neighbors = n_neighbors
 
 
 
 ################################################
 # Get model and data                           # 
 ################################################
-from models.GCN import model
-model = model(n_out = 4, hidden_states=hidden_states, forward=forward, dropout = dropout)
+from models.GCN_likelihood import model
+model = model(n_out = 6, hidden_states=hidden_states, forward=forward, dropout = dropout)
 # model = load_model(osp.join(file_path, "models", "saved_models", "MessPass1"))
 
 
 
-from data.graph_w_edge2 import graph_w_edge2
+from data.graph_w_edge2_vects import graph_w_edge2
 dataset = graph_w_edge2()
 idx_lists = dataset.index_lists
 
@@ -123,7 +128,7 @@ def lr_schedule(epochs = epochs, initial = learning_rate, decay = 0.9):
     n = 1
     lr = initial
     yield lr
-    while n < 3:
+    while n < 4:
         lr *= 2
         n  += 1
         yield lr
@@ -241,10 +246,10 @@ for batch in loader_train:
 
         print(f"Avg loss of validation: {val_loss:.6f}, Angle_metric: {val_metric:.6f}")
 
-
-        wandb.log({"Train Loss":      loss / loader_train.steps_per_epoch,
-                   "Validation Loss": val_loss, 
-                   "Angle Metric":    val_metric})
+        if log:
+            wandb.log({"Train Loss":      loss / loader_train.steps_per_epoch,
+                    "Validation Loss": val_loss, 
+                    "Angle Metric":    val_metric})
 
 
         if val_loss < lowest_loss:
@@ -259,7 +264,9 @@ for batch in loader_train:
             break
 
         if current_epoch != epochs:
-            pbar          = tqdm(total = loader_train.steps_per_epoch, position = 0, leave = True)
+            pbar.n            = 0
+            pbar.last_print_n = 0
+            pbar.refresh()
 
         learning_rate = next(lr_gen)
         opt.learning_rate.assign(learning_rate)
@@ -273,6 +280,8 @@ for batch in loader_train:
         current_epoch  += 1
         current_batch   = 0
 
-        
+
+if log:
+    run.finish()        
 fig, ax = test(loader_test)
 fig.savefig(f"model_tests/{model_name}_test.pdf")

@@ -5,7 +5,7 @@ import tensorflow_probability as tfp
 
 from numpy import pi
 
-eps = epsilon()
+eps = 1e-5
 
 def negative_cos(pred, true):
     return 1 - tf.math.divide_no_nan(tf.reduce_sum(pred * true, axis = 1),
@@ -76,7 +76,7 @@ def loss_func_linear_angle(y_reco, y_true, return_from = False):
             )
         )
     )
-    loss       += loss_dist
+    # loss       += loss_dist
 
     cos_angle = tf.math.divide_no_nan(tf.reduce_sum(y_reco[:, 4:] * y_true[:, 4:], axis = 1),
             tf.math.reduce_euclidean_norm(y_reco[:, 4:], axis = 1) * tf.math.reduce_euclidean_norm(y_true[:, 4:],  axis = 1))
@@ -93,8 +93,17 @@ def loss_func_linear_angle(y_reco, y_true, return_from = False):
         return loss
 
 
-# def likelihood_covariant_unitvectors(y_true, y_reco):
-    
+def likelihood_covariant_unitvectors(y_true, y_reco):
+    vects = y_reco[:, :3]
+    sigs  = y_reco[:, 3:6]
+    # rhos  = y_reco[:, 6:]
+
+    COV   = tf.linalg.diag(sigs)
+
+    log_likelihood = tf.squeeze(tf.expand_dims(vects - y_true, axis = 1) @ COV @ tf.expand_dims(vects - y_true, axis = -1)) / 2 - tf.math.log(tf.linalg.det(COV)) / 2
+
+    return tf.reduce_mean(log_likelihood)
+
 
 
 
